@@ -11,6 +11,7 @@ import numpy as np
 from PIL import Image, ImageCms
 
 EXIT_PASS, EXIT_DELTAS, EXIT_FATAL = 0, 1, 12
+SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
 SRGB = ImageCms.createProfile("sRGB")
 
 
@@ -73,11 +74,15 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
     ref, test = load(design), load(shot)
     test = match_size(ref, test)
     dx, dy, conf = global_shift(ref, test)
+    shifted = conf >= SHIFT_CONF and max(abs(dx), abs(dy)) >= 0.5
+    if shifted:  # undo whole-page translation so regions show only what moved relative to the layout
+        m = np.float32([[1, 0, -round(dx)], [0, 1, -round(dy)]])
+        test = cv2.warpAffine(test, m, test.shape[1::-1], borderMode=cv2.BORDER_REPLICATE)
     regs = regions(ref, test, tol, min_area)
     return {
-        "status": "deltas" if regs else "pass",
+        "status": "deltas" if regs or shifted else "pass",
         "size": list(ref.shape[1::-1]),
-        "global": {"dx": dx, "dy": dy, "confidence": conf},
+        "global": {"dx": dx, "dy": dy, "confidence": conf, "compensated": shifted},
         "regions": regs,
     }
 

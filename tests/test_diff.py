@@ -39,3 +39,25 @@ def test_retina_2x_screenshot_normalized(tmp_path):
 
 def test_deterministic():
     assert diff(DESIGN, SHOT) == diff(DESIGN, SHOT)
+
+
+WEB = Path(__file__).parent / "fixtures" / "web"
+
+
+def web(variant):
+    return diff(str(WEB / "base.png"), str(WEB / f"{variant}.png"))
+
+
+def test_web_rerender_is_noise_free():
+    assert web("rerender")["status"] == "pass"
+
+
+def test_web_single_element_changes_give_one_region():
+    assert len(web("color")["regions"]) == 1
+    assert len(web("text")["regions"]) == 1
+
+
+def test_web_whole_page_shift_is_compensated():
+    d = web("shift")
+    assert d["global"]["compensated"] and d["global"]["dx"] == 6.0
+    assert d["status"] == "deltas" and d["regions"] == []

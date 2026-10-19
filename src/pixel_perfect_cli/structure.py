@@ -25,6 +25,7 @@ APPEARANCE_MIN = 0.005  # 1 - similarity below this is identical
 APPEARANCE_SURE = 0.05  # above this an appearance change is confident; between -> "review" (escalate to VLM)
 HOT_MIN = 4  # a node's pixels "differ" when at least this many differ by more than tol (aligned on its own bbox)
 COLOR_PROPS = ("color", "background-color")
+LAYOUT_STYLES = {"padding", "gap", "border-width"}  # parent styles that move their children
 
 
 @dataclass
@@ -382,6 +383,10 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
         return out
 
     deltas, cover = causes(ref, test, rt, tt, match, look, lambda n: n.id, "map")
+    # a parent's own padding/gap/border-width change already explains its children moving: report it once
+    layout = {d["id"] for d in deltas if d["type"] == "appearance" and LAYOUT_STYLES & d.get("style", {}).keys()}
+    moved = {k.id for n in _walk(rt) if n.id in layout for k in n.children}
+    deltas = [d for d in deltas if not (d["type"] in ("align", "padding", "gap") and d["id"] in moved)]
     matched = {id(n) for n in match.values()}
     # reported once, at the highest unmatched shot node
     for p in [tt, *_walk(tt)]:

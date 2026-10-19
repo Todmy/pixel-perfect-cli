@@ -52,7 +52,25 @@ def test_missing_ghost_button_once():
 def test_font_size_is_one_heading_cause():
     [d] = causes("font_size")
     assert d["selector"] == CARD + ">h2" and d["type"] in ("size", "appearance")
-    assert d["style"] == {"font-size": ["20px", "22px"]}
+    assert d["style"] == {"font-size": ["20px", "22px"], "line-height": ["28px", "30.8px"]}  # 1.4 follows the size
+
+
+def test_font_family_is_a_confident_style_appearance():
+    [d] = causes("font_family")
+    assert (d["type"], d["selector"], d["confidence"]) == ("appearance", CARD + ">h2", "high")
+    assert list(d["style"]) == ["font-family"] and d["style"]["font-family"][1] == "Georgia, serif"
+
+
+def test_shadow_is_a_confident_style_appearance():
+    [d] = causes("shadow")
+    assert (d["type"], d["selector"], d["confidence"]) == ("appearance", CARD, "high")
+    assert d["style"] == {"box-shadow": ["none", "rgba(16, 24, 40, 0.25) 0px 8px 24px 0px"]}
+
+
+def test_parent_padding_explains_shifted_children():
+    [d] = causes("shift")  # not also an align per child
+    assert (d["type"], d["selector"], d["confidence"]) == ("appearance", "body", "high")
+    assert d["style"] == {"padding": ["32px", "32px 32px 32px 38px"]}
 
 
 @pytest.mark.parametrize("variant", ["rerender", "noise_webkit", "noise_firefox", "noise_chromium2x"])

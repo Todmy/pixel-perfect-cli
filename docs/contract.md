@@ -19,7 +19,9 @@ Exit codes: `0` pass, `1` deltas, `2` review only, `12` fatal. stdout is one JSO
             "selector": "same as id", "tag": "div", "parent": "<parent id or null>",
             "bbox": [x, y, w, h], "text": "own trimmed text or null",
             "style": {"color": "#101828", "background-color": "#F2F4F7", "font-size": "15px",
-                      "font-weight": "600", "border-radius": "8px", "padding": "24px", "margin": "0px", "gap": "12px"}}]}
+                      "font-weight": "600", "border-radius": "8px", "padding": "24px", "margin": "0px", "gap": "12px",
+                      "font-family": "...", "box-shadow": "none", "border-color": "...", "border-width": "0px",
+                      "line-height": "21px", "letter-spacing": "normal"}}]}
 ```
 
 - `bbox` is in CSS pixels of the page, top-left of the captured image is (0, 0). `diff` scales by `dpr` itself.

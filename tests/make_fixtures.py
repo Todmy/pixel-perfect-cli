@@ -44,6 +44,8 @@ VARIANTS = {
     "color": (".btn { background: #3360F0; }", {}),                 # #3366FF -> #3360F0
     "radius": (".btn { border-radius: 12px; }", {}),                # radius 8 -> 12px
     "font_size": (".card h2 { font-size: 22px; }", {}),             # 20 -> 22px
+    "font_family": (".card h2 { font-family: Georgia, serif; }", {}),  # h2 sans -> serif
+    "shadow": (".card { box-shadow: 0 8px 24px rgba(16,24,40,.25); }", {}),  # card gets a shadow
     "text": ("", {"2.1 GB": "2.4 GB"}),                             # text change
     "missing": (".btn.ghost { display: none; }", {}),               # element missing
     "shift": ("body { padding-left: 38px; }", {}),                  # whole layout +6px x

@@ -198,8 +198,8 @@ def main() -> None:
             sys.exit(EXIT_PASS)
         result = diff(a.design, a.shot, a.tol, a.min_area, design_map=a.design_map, shot_map=a.shot_map,
                       crop=a.crop_to_design)
-    except (OSError, ValueError) as e:  # playwright's Error is not a ValueError, but capture fails loudly anyway
-        print(json.dumps({"status": "fatal", "error": str(e)}))
+    except Exception as e:  # capture can fail in Playwright (navigation, timeout); always report as fatal JSON
+        print(json.dumps({"status": "fatal", "error": str(e).splitlines()[0] if str(e) else type(e).__name__}))
         sys.exit(EXIT_FATAL)
     print(json.dumps(result, indent=2))
     sys.exit({"pass": EXIT_PASS, "review": EXIT_REVIEW}.get(result["status"], EXIT_DELTAS))

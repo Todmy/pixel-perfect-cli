@@ -84,3 +84,8 @@ def test_cli_subcommands(tmp_path):
     r = cli("diff", out, out)
     assert r.returncode == 0 and json.loads(r.stdout)["status"] == "pass"
     assert cli(out, out).returncode == 2  # bare form dropped (argparse usage error)
+
+
+def test_cli_capture_failure_is_fatal_json(tmp_path):
+    r = cli("capture", "http://127.0.0.1:1/", "--out", str(tmp_path / "x.png"))
+    assert r.returncode == 12 and json.loads(r.stdout)["status"] == "fatal" and "Traceback" not in r.stderr

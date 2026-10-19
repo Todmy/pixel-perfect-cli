@@ -2,7 +2,8 @@
 
 from pathlib import Path
 
-STYLES = ["color", "background-color", "font-size", "font-weight", "border-radius", "padding", "margin", "gap"]
+STYLES = ["color", "background-color", "font-size", "font-weight", "border-radius", "padding", "margin", "gap",
+          "font-family", "box-shadow", "border-color", "border-width", "line-height", "letter-spacing"]
 COLOR_PROPS = {"color", "background-color"}
 FREEZE_CSS = (
     "*,*::before,*::after{animation:none!important;transition:none!important;caret-color:transparent!important}"
@@ -32,7 +33,7 @@ MAP_JS = """([styles, colorProps, masks]) => {
     if (cs.display === 'none') return;
     if (r.width > 0 && r.height > 0 && cs.visibility !== 'hidden') {
       const text = [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(' ').replace(/\\s+/g, ' ').trim();
-      const style = {}; for (const p of styles) style[p] = colorProps.includes(p) ? hex(cs.getPropertyValue(p)) : cs.getPropertyValue(p);
+      const style = {}; for (const p of styles) style[p] = colorProps.includes(p) ? hex(cs.getPropertyValue(p)) : cs.getPropertyValue(p).replace(/["']/g, '');
       const n = {id, selector: id, tag: el.tagName.toLowerCase(), parent: parent,
         bbox: [r.x + scrollX, r.y + scrollY, r.width, r.height].map((v) => Math.round(v * 100) / 100),
         text: text || null, style};

@@ -16,8 +16,8 @@ JS = r"""
     const h = p.slice(0, 3).map(v => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase();
     return '#' + h + (p.length > 3 && p[3] < 1 ? Math.round(p[3] * 255).toString(16).padStart(2, '0').toUpperCase() : '');
   };
-  const box4 = (s, names) => {
-    const [t, r, b, l] = names.map(n => s.getPropertyValue(n));
+  const box4 = (s, names, f = (v) => v) => {
+    const [t, r, b, l] = names.map(n => f(s.getPropertyValue(n)));
     if (t === r && r === b && b === l) return t;
     if (t === b && r === l) return `${t} ${r}`;
     if (r === l) return `${t} ${r} ${b}`;
@@ -60,7 +60,11 @@ JS = r"""
           'border-radius': box4(s, ['border-top-left-radius', 'border-top-right-radius', 'border-bottom-right-radius', 'border-bottom-left-radius']),
           padding: box4(s, ['padding-top', 'padding-right', 'padding-bottom', 'padding-left']),
           margin: box4(s, ['margin-top', 'margin-right', 'margin-bottom', 'margin-left']),
-          gap: s.rowGap === s.columnGap ? s.rowGap : `${s.rowGap} ${s.columnGap}`}});
+          gap: s.rowGap === s.columnGap ? s.rowGap : `${s.rowGap} ${s.columnGap}`,
+          'font-family': s.fontFamily, 'box-shadow': s.boxShadow,
+          'border-color': box4(s, ['border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color'], hex),
+          'border-width': box4(s, ['border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width']),
+          'line-height': s.lineHeight, 'letter-spacing': s.letterSpacing}});
     }
     if (el.tagName.toLowerCase() === 'svg') return;  // shapes inside an icon are not elements an agent edits
     for (const c of el.children) walk(c, id);

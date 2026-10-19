@@ -29,6 +29,7 @@ MAP_FLAGS = "--design-map {design_map} --shot-map {shot_map}"
 IOU_MIN = 0.3
 SPACING = {"gap", "padding", "margin"}
 LONG_PAGE = 4000  # px: the runtime gate applies to pages at least this tall
+TIMING = re.compile(rb'"timing_ms"\s*:\s*\{[^{}]*\}')
 ARGPARSE = re.compile(r"usage:|unrecognized arguments|invalid choice|the following arguments are required")
 
 
@@ -79,6 +80,11 @@ def judge(out: dict, truth: dict, dmap: dict) -> dict:
             "dup_deltas": dup, "dynamic_deltas": dyn, "review_items": len(out.get("review") or [])}
 
 
+def stable_sha(stdout: bytes) -> str:
+    """sha256 of stdout with the wall-clock `timing_ms` object blanked (Contract v1.1); every other byte counts."""
+    return hashlib.sha256(TIMING.sub(b'"timing_ms": {}', stdout)).hexdigest()
+
+
 def png_height(path: Path) -> int:
     with open(path, "rb") as f:
         return int.from_bytes(f.read(24)[20:24], "big")  # IHDR height
@@ -122,8 +128,8 @@ def score_mode(template: str, mode: str, split: str, timeout: float) -> dict:
                "elements": len(dmap["nodes"]), "page_height": png_height(d / truth["design"]),
                "exit": a["exit"], "status": (out or {}).get("status"),
                "error": None if out and out.get("status") != "fatal" else (out or {}).get("error") or a["stderr"][-300:] or "no JSON on stdout",
-               "deterministic": a["exit"] is not None and a["stdout"] == b["stdout"],
-               "stdout_sha256": hashlib.sha256(a["stdout"]).hexdigest(), "wall_s": [a["wall_s"], b["wall_s"]]}
+               "deterministic": a["exit"] is not None and stable_sha(a["stdout"]) == stable_sha(b["stdout"]),
+               "stdout_sha256": stable_sha(a["stdout"]), "wall_s": [a["wall_s"], b["wall_s"]]}
         rec.update(judge(out or {}, truth, dmap))
         recs.append(rec)
     return {"status": "OK", "command": template, "pairs": recs}

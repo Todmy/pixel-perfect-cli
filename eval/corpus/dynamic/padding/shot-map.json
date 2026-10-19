@@ -27,7 +27,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -50,7 +56,13 @@
     "border-radius": "0px",
     "padding": "0px 64px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -73,7 +85,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "8px"
+    "gap": "8px",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -96,7 +114,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -119,7 +143,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -142,7 +172,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "32px"
+    "gap": "32px",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -165,7 +201,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -188,7 +230,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -211,7 +259,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -234,7 +288,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -257,7 +317,13 @@
     "border-radius": "8px",
     "padding": "10px 18px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -280,7 +346,13 @@
     "border-radius": "0px",
     "padding": "40px 64px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -303,7 +375,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -326,7 +404,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -349,7 +433,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "45px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -372,7 +462,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "4px 0px 0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -395,7 +491,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "12px"
+    "gap": "12px",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -418,7 +520,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -441,7 +549,13 @@
     "border-radius": "50%",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -464,7 +578,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "32px 0px 0px",
-    "gap": "24px"
+    "gap": "24px",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -487,7 +607,13 @@
     "border-radius": "12px",
     "padding": "24px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#EAECF0",
+    "border-width": "1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -510,7 +636,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "24px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -533,7 +665,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "12px 0px 0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -556,7 +694,13 @@
     "border-radius": "0px",
     "padding": "12px 0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -579,7 +723,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -602,7 +752,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -625,7 +781,13 @@
     "border-radius": "0px",
     "padding": "12px 0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -648,7 +810,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -671,7 +839,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -694,7 +868,13 @@
     "border-radius": "0px",
     "padding": "12px 0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -717,7 +897,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -740,7 +926,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -763,7 +955,13 @@
     "border-radius": "0px",
     "padding": "12px 0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -786,7 +984,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -809,7 +1013,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -832,7 +1042,13 @@
     "border-radius": "12px",
     "padding": "40px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#EAECF0",
+    "border-width": "1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -855,7 +1071,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "24px",
+    "letter-spacing": "normal"
    }
   },
   {
@@ -878,7 +1100,13 @@
     "border-radius": "0px",
     "padding": "0px",
     "margin": "8px 0px 0px",
-    "gap": "normal"
+    "gap": "normal",
+    "font-family": "-apple-system, Helvetica Neue, Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "60px",
+    "letter-spacing": "normal"
    }
   }
  ]

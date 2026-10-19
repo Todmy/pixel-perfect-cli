@@ -295,12 +295,12 @@ dependencies = [
     { name = "numpy" },
     { name = "opencv-python-headless" },
     { name = "pillow" },
+    { name = "playwright" },
     { name = "scipy" },
 ]
 
 [package.dev-dependencies]
 dev = [
-    { name = "playwright" },
     { name = "pytest" },
 ]
 
@@ -310,14 +310,12 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.5.4" },
     { name = "opencv-python-headless", specifier = ">=5.0.0.93" },
     { name = "pillow", specifier = ">=13.0.0" },
+    { name = "playwright", specifier = ">=1.64.0" },
     { name = "scipy", specifier = ">=1.18.1" },
 ]
 
 [package.metadata.requires-dev]
-dev = [
-    { name = "playwright", specifier = ">=1.64.0" },
-    { name = "pytest", specifier = ">=9.1.1" },
-]
+dev = [{ name = "pytest", specifier = ">=9.1.1" }]
 
 [[package]]
 name = "playwright"

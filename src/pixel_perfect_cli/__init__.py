@@ -15,6 +15,7 @@ from pixel_perfect_cli.structure import explain
 
 EXIT_PASS, EXIT_DELTAS, EXIT_REVIEW, EXIT_FATAL = 0, 1, 2, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
+MASK_GRAY = 128  # #808080
 SRGB = ImageCms.createProfile("sRGB")
 
 
@@ -36,7 +37,7 @@ def load(path: str) -> np.ndarray:
         im = ImageCms.profileToProfile(im.convert(mode), src, SRGB, outputMode=mode)
     im = im.convert("RGBA")
     bg = Image.new("RGBA", im.size, (255, 255, 255, 255))
-    return np.asarray(Image.alpha_composite(bg, im).convert("RGB"))
+    return np.array(Image.alpha_composite(bg, im).convert("RGB"))
 
 
 def match_size(ref: np.ndarray, test: np.ndarray) -> np.ndarray:
@@ -47,6 +48,38 @@ def match_size(ref: np.ndarray, test: np.ndarray) -> np.ndarray:
     if abs(rw / rh - tw / th) > 0.01:
         raise ValueError(f"aspect mismatch: design {rw}x{rh}, shot {tw}x{th}")
     return cv2.resize(test, (rw, rh), interpolation=cv2.INTER_AREA)
+
+
+def crop_to_design(ref: np.ndarray, test: np.ndarray) -> np.ndarray:
+    """Scale test to the design width, then crop or pad (white) its height to the design height."""
+    (rh, rw), (th, tw) = ref.shape[:2], test.shape[:2]
+    test = cv2.resize(test, (rw, max(1, round(th * rw / tw))), interpolation=cv2.INTER_AREA)
+    if test.shape[0] >= rh:
+        return test[:rh]
+    return np.vstack([test, np.full((rh - test.shape[0], rw, 3), 255, np.uint8)])
+
+
+def load_map(path: str) -> dict:
+    """Read and validate a Contract v1 structure map."""
+    m = json.load(open(path))
+    if not isinstance(m, dict) or m.get("version") != 1 or not isinstance(m.get("nodes"), list):
+        raise ValueError(f"{path}: not a structure map v1")
+    for n in m["nodes"]:
+        if not isinstance(n.get("id"), str) or not isinstance(n.get("bbox"), list) or len(n["bbox"]) != 4:
+            raise ValueError(f"{path}: bad node {n.get('id')!r}")
+    return m
+
+
+def mask_rects(smap: dict | None, scale: float) -> list[tuple[int, int, int, int]]:
+    """Pixel rects (x0, y0, x1, y1) of masked nodes: CSS px * dpr * scale to the design's pixel grid."""
+    k = smap.get("dpr", 1) * scale if smap else 0
+    return [(round(x * k), round(y * k), round((x + w) * k), round((y + h) * k))
+            for n in (smap["nodes"] if smap else []) if n.get("masked") for x, y, w, h in [n["bbox"]]]
+
+
+def paint(img: np.ndarray, rects: list[tuple[int, int, int, int]]) -> None:
+    for x0, y0, x1, y1 in rects:
+        img[max(y0, 0):y1, max(x0, 0):x1] = MASK_GRAY
 
 
 def global_shift(ref: np.ndarray, test: np.ndarray) -> tuple[float, float, float]:
@@ -82,7 +115,8 @@ def regions(ref: np.ndarray, test: np.ndarray, tol: float, min_area: int, ref_la
     return sorted(out, key=lambda r: (-r["severity"], r["bbox"]))
 
 
-def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
+def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_map: str | None = None,
+         shot_map: str | None = None, crop: bool = False) -> dict:
     timing = Timing()
     t0 = time.perf_counter()
 
@@ -93,13 +127,25 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
         t0 = t1
 
     ref, test = load(design), load(shot)
-    test = match_size(ref, test)
+    dmap, smap = (load_map(m) if m else None for m in (design_map, shot_map))
+    native_w, native_h = test.shape[1], test.shape[0]
+    extra = {}
+    if crop and abs(ref.shape[1] / ref.shape[0] - native_w / native_h) > 0.01:
+        test = crop_to_design(ref, test)
+        extra["cropped"] = {"from": [native_w, native_h], "to": list(ref.shape[1::-1])}
+    else:
+        test = match_size(ref, test)
+    # masked nodes from either map are painted on both images, in the design's pixel grid
+    rects = mask_rects(dmap, 1) + mask_rects(smap, ref.shape[1] / native_w)
+    paint(ref, rects)
+    paint(test, rects)
     lap("load")
     dx, dy, conf = global_shift(ref, test)
     shifted = conf >= SHIFT_CONF and max(abs(dx), abs(dy)) >= 0.5
     if shifted:  # undo whole-page translation so regions show only what moved relative to the layout
         m = np.float32([[1, 0, -round(dx)], [0, 1, -round(dy)]])
         test = cv2.warpAffine(test, m, test.shape[1::-1], borderMode=cv2.BORDER_REPLICATE)
+        paint(test, rects)
     lap("shift")
     ref_lab, test_lab = lab(ref), lab(test)
     lap("lab")
@@ -112,7 +158,7 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
     return {
         "status": "deltas" if deltas or shifted else "review" if review else "pass",
         "size": list(ref.shape[1::-1]),
-        "global": {"dx": dx, "dy": dy, "confidence": conf, "compensated": shifted},
+        "global": {"dx": dx, "dy": dy, "confidence": conf, "compensated": shifted, **extra},
         "deltas": deltas,
         "review": review,  # low-confidence appearance changes: escalate crops to a VLM, don't auto-fix
         "regions": regs,
@@ -122,15 +168,38 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
 
 def main() -> None:
     p = argparse.ArgumentParser(prog="pixel-perfect", description=__doc__)
-    p.add_argument("design")
-    p.add_argument("shot")
-    p.add_argument("--tol", type=float, default=2.0, help="color tolerance, Lab ΔE76; ~2.3 is just noticeable (default 2.0)")
-    p.add_argument("--min-area", type=int, default=4, help="drop regions smaller than N px (default 4)")
+    sub = p.add_subparsers(dest="cmd", required=True)
+    d = sub.add_parser("diff", help="compare a design image with a screenshot")
+    d.add_argument("design")
+    d.add_argument("shot")
+    d.add_argument("--design-map", help="structure map JSON of the design (masks only, for now)")
+    d.add_argument("--shot-map", help="structure map JSON of the screenshot (masks only, for now)")
+    d.add_argument("--crop-to-design", action="store_true", help="scale shot to design width, crop/pad height, instead of exit 12")
+    d.add_argument("--tol", type=float, default=2.0, help="color tolerance, Lab ΔE76; ~2.3 is just noticeable (default 2.0)")
+    d.add_argument("--min-area", type=int, default=4, help="drop regions smaller than N px (default 4)")
+    c = sub.add_parser("capture", help="screenshot a URL or HTML file, optionally with a structure map")
+    c.add_argument("target", metavar="URL_OR_HTML_FILE")
+    c.add_argument("--out", required=True, metavar="SHOT.png")
+    c.add_argument("--map", metavar="S.json")
+    c.add_argument("--width", type=int, default=1440)
+    g = c.add_mutually_exclusive_group()
+    g.add_argument("--height", type=int, default=900)
+    g.add_argument("--full-page", action="store_true")
+    c.add_argument("--dpr", type=float, default=1)
+    c.add_argument("--mask", action="append", default=[], metavar="SELECTOR", help="paint matching elements #808080 (repeatable)")
+    c.add_argument("--browser", choices=["chromium", "webkit", "firefox"], default="chromium")
     a = p.parse_args()
     try:
-        result = diff(a.design, a.shot, a.tol, a.min_area)
-    except (OSError, ValueError) as e:
-        print(json.dumps({"status": "fatal", "error": str(e)}))
+        if a.cmd == "capture":
+            from pixel_perfect_cli.capture import capture
+            m = capture(a.target, a.out, map_path=a.map, width=a.width, height=a.height, full_page=a.full_page,
+                        dpr=a.dpr, masks=a.mask, browser=a.browser)
+            print(json.dumps({"status": "ok", "out": a.out, "map": a.map, "nodes": len(m["nodes"])}))
+            sys.exit(EXIT_PASS)
+        result = diff(a.design, a.shot, a.tol, a.min_area, design_map=a.design_map, shot_map=a.shot_map,
+                      crop=a.crop_to_design)
+    except Exception as e:  # capture can fail in Playwright (navigation, timeout); always report as fatal JSON
+        print(json.dumps({"status": "fatal", "error": str(e).splitlines()[0] if str(e) else type(e).__name__}))
         sys.exit(EXIT_FATAL)
     print(json.dumps(result, indent=2))
     sys.exit({"pass": EXIT_PASS, "review": EXIT_REVIEW}.get(result["status"], EXIT_DELTAS))

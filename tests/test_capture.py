@@ -67,6 +67,11 @@ def test_crop_to_design(tmp_path, name, rows, expect):
     Image.fromarray(img[:rows]).save(tmp_path / "s.png")
     r = diff(str(tmp_path / "d.png"), str(tmp_path / "s.png"), crop=True)
     assert r["global"]["cropped"] == {"from": expect, "to": [100, 200]} and r["status"] == "pass"
+    # without the flag a height-only change (same width) is one page size cause on the shared height
+    r = diff(str(tmp_path / "d.png"), str(tmp_path / "s.png"))
+    assert [(d["type"], d["id"], d["expected"], d["actual"]) for d in r["deltas"]] == [("size", "root", [100, 200], expect)]
+    assert r["global"]["height"] == {"design": 200, "shot": rows, "compared": min(200, rows)}
+    Image.fromarray(img[:rows, :70]).save(tmp_path / "s.png")  # other width: still fatal
     with pytest.raises(ValueError, match="aspect mismatch"):
         diff(str(tmp_path / "d.png"), str(tmp_path / "s.png"))
 

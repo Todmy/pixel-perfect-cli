@@ -16,6 +16,7 @@ from pixel_perfect_cli.structure import Node, _iou, _walk, explain, explain_maps
 EXIT_PASS, EXIT_DELTAS, EXIT_REVIEW, EXIT_FATAL = 0, 1, 2, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
 MASK_GRAY = 128  # #808080
+DPRS = (1, 1.5, 2, 3, 4, 1 / 1.5, 1 / 2, 1 / 3, 1 / 4)  # design/shot px ratios accepted as DPR when no map says so
 SRGB = ImageCms.createProfile("sRGB")
 
 
@@ -40,14 +41,25 @@ def load(path: str) -> np.ndarray:
     return np.array(Image.alpha_composite(bg, im).convert("RGB"))
 
 
-def match_size(ref: np.ndarray, test: np.ndarray) -> np.ndarray:
-    """Resize test to ref when they differ only by scale (DPR 2x/3x). Different aspect = fatal."""
+def match_size(ref: np.ndarray, test: np.ndarray, scale: float | None = None) -> tuple[np.ndarray, np.ndarray]:
+    """Bring test onto ref's pixel grid (DPR 2x/3x). scale = ref px per test px, from the maps' dpr when known.
+
+    Same width after scaling, other height (the layout grew or shrank): both are cut to the shared height and the
+    caller reports the difference. Other width = fatal.
+    """
     (rh, rw), (th, tw) = ref.shape[:2], test.shape[:2]
     if (rh, rw) == (th, tw):
-        return test
-    if abs(rw / rh - tw / th) > 0.01:
+        return ref, test
+    k = scale or rw / tw
+    same_aspect = abs(rw / rh - tw / th) <= 0.01
+    if abs(tw * k - rw) > 1 or not (scale or same_aspect or any(abs(k - d) <= 0.01 * d for d in DPRS)):
         raise ValueError(f"aspect mismatch: design {rw}x{rh}, shot {tw}x{th}")
-    return cv2.resize(test, (rw, rh), interpolation=cv2.INTER_AREA)
+    if same_aspect:
+        return ref, cv2.resize(test, (rw, rh), interpolation=cv2.INTER_AREA)
+    if k != 1:
+        test = cv2.resize(test, (rw, max(1, round(th * k))), interpolation=cv2.INTER_AREA)
+    h = min(rh, test.shape[0])
+    return ref[:h], test[:h]
 
 
 def crop_to_design(ref: np.ndarray, test: np.ndarray) -> np.ndarray:
@@ -151,12 +163,17 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
     ref, test = load(design), load(shot)
     dmap, smap = (load_map(m) if m else None for m in (design_map, shot_map))
     native_w, native_h = test.shape[1], test.shape[0]
+    design_h = ref.shape[0]
     extra = {}
     if crop and abs(ref.shape[1] / ref.shape[0] - native_w / native_h) > 0.01:
         test = crop_to_design(ref, test)
         extra["cropped"] = {"from": [native_w, native_h], "to": list(ref.shape[1::-1])}
     else:
-        test = match_size(ref, test)
+        scale = dmap.get("dpr", 1) / smap.get("dpr", 1) if dmap and smap else None
+        ref, test = match_size(ref, test, scale)
+        shot_h = round(native_h * ref.shape[1] / native_w)
+        if shot_h != design_h:  # only the shared height is compared; the rest is one page-size cause
+            extra["height"] = {"design": design_h, "shot": shot_h, "compared": ref.shape[0]}
     # masked nodes from either map are painted on both images, in the design's pixel grid
     rects = mask_rects(dmap, 1) + mask_rects(smap, ref.shape[1] / native_w)
     paint(ref, rects)
@@ -188,6 +205,13 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
     found += unexplained(regs, found, cover)
     lap("explain")
     deltas = [d for d in found if d.get("confidence") != "low" and d["type"] != "unexplained"]
+    if (hh := extra.get("height")) and not deltas:  # like any container: a size change nothing inside explains
+        top = next((n for n in (dmap or {}).get("nodes", []) if n.get("parent") is None), None)
+        w = ref.shape[1]
+        deltas.append({"type": "size", "id": top["id"] if top else "root"}
+                      | ({"selector": top.get("selector", top["id"]), "text": top.get("text")} if top else {})
+                      | {"bbox": [0, 0, w, hh["design"]], "shot_bbox": [0, 0, w, hh["shot"]],
+                         "expected": [w, hh["design"]], "actual": [w, hh["shot"]], "source": "pixels"})
     review = [d for d in found if d.get("confidence") == "low" or d["type"] == "unexplained"]
     return {
         "status": "deltas" if deltas or shifted else "review" if review else "pass",

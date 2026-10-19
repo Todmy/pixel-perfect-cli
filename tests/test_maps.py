@@ -107,3 +107,54 @@ def test_uncovered_hot_region_is_unexplained(tmp_path):
              design_map=str(WEB / "base.json"), shot_map=str(WEB / "base.json"))
     assert r["status"] == "review" and r["deltas"] == []
     assert [(x["type"], x["bbox"]) for x in r["review"]] == [("unexplained", [400, 420, 20, 20])]
+
+
+# review fixes (T12)
+
+VARIANTS = sorted(p.stem for p in WEB.glob("*.png") if p.stem != "base")
+
+
+@pytest.mark.parametrize("variant", VARIANTS)
+@pytest.mark.parametrize("maps", [False, True])
+def test_every_delta_and_review_item_carries_the_contract_fields(variant, maps):
+    kw = {"design_map": str(WEB / "base.json"), "shot_map": str(WEB / f"{variant}.json")} if maps else {}
+    r = diff(str(WEB / "base.png"), str(WEB / f"{variant}.png"), **kw)
+    for d in r["deltas"] + r["review"]:
+        assert {"type", "id", "bbox", "confidence", "source"} <= d.keys(), d
+        assert d["confidence"] in ("high", "low") and d["source"] in ("map", "pixels")
+
+
+def _run(dm, sm=None):
+    from unittest.mock import patch
+    import pixel_perfect_cli as p
+    a = np.full((100, 100, 3), 255, np.uint8)
+    b = a.copy()
+    b[10:20, 10:20] = (255, 0, 0)
+    with patch.object(p, "load", side_effect=[a, b]), patch.object(p, "load_map", side_effect=[dm] + ([sm] if sm else [])):
+        return p.diff("d.png", "s.png", design_map="d.json", shot_map="s.json" if sm else None)
+
+
+def _m(ident, box, masked=False):
+    return {"version": 1, "dpr": 1, "nodes": [{"id": ident, "selector": ident, "bbox": box, "masked": masked}]}
+
+
+def test_mask_partly_off_image_does_not_wrap_around():
+    r = _run(_m("off", [-30, -30, 10, 10], True))
+    assert r["status"] == "deltas" and r["regions"][0]["bbox"] == [10, 10, 10, 10]
+
+
+def test_mask_hides_nodes_of_the_other_side_with_another_id():
+    r = _run(_m("figma-clock", [10, 10, 10, 10], True), _m("body>.clock", [10, 10, 10, 10]))
+    assert r["deltas"] == [] and r["status"] == "pass"
+
+
+def test_pair_maps_pairs_differently_named_ids_fast():
+    import time
+    import pixel_perfect_cli.structure as s
+    n = 600
+    tree = lambda pre: s.Node(0, 0, 1440, 4000, children=[s.Node(i % 20 * 60, i // 20 * 30, 40, 20, id=pre + str(i)) for i in range(n)])
+    rt, tt = tree("figma"), tree("dom")
+    t = time.time()
+    match = s.pair_maps(rt, tt)
+    assert time.time() - t < 0.5
+    assert all(match[id(a)].id == "dom" + a.id[5:] for a in rt.children)

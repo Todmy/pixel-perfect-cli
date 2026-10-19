@@ -1,0 +1,47 @@
+{
+ "page": "borderless",
+ "split": "train",
+ "page_kind": "borderless",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "borderless/gap",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split",
+   "css": ".split",
+   "property": "gap",
+   "from": "64px",
+   "to": "120px",
+   "bbox": [
+    160,
+    351,
+    1120,
+    111
+   ],
+   "shot_bbox": [
+    160,
+    351,
+    1120,
+    111
+   ],
+   "parent": "body>section.alt.how:nth-of-type(2)",
+   "parent_bbox": [
+    0,
+    295,
+    1440,
+    223
+   ]
+  }
+ ]
+}

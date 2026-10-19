@@ -1,0 +1,42 @@
+{
+ "page": "table",
+ "split": "train",
+ "page_kind": "table",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "table/added",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>div.wrap>div.bar>span.new",
+   "css": ".bar > .new",
+   "property": null,
+   "from": null,
+   "to": "<span class='new'>22 services</span>",
+   "bbox": null,
+   "shot_bbox": [
+    531.5,
+    172,
+    75.84,
+    22.5
+   ],
+   "parent": "body>div.wrap>div.bar",
+   "parent_bbox": [
+    64,
+    162,
+    1312,
+    42.5
+   ]
+  }
+ ]
+}

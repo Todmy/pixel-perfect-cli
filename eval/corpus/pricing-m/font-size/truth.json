@@ -1,0 +1,47 @@
+{
+ "page": "pricing-m",
+ "split": "heldout",
+ "page_kind": "pricing-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "pricing-m/font-size",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "font-size",
+   "selector": "body>section.plans:nth-of-type(2)>div.plan.pro:nth-of-type(2)>div.price",
+   "css": ".plan.pro .price",
+   "property": "font-size",
+   "from": "48px",
+   "to": "42px",
+   "bbox": [
+    46,
+    639.5,
+    298,
+    72
+   ],
+   "shot_bbox": [
+    46,
+    639.5,
+    298,
+    63
+   ],
+   "parent": "body>section.plans:nth-of-type(2)>div.plan.pro:nth-of-type(2)",
+   "parent_bbox": [
+    20,
+    574.5,
+    350,
+    385.5
+   ]
+  }
+ ]
+}

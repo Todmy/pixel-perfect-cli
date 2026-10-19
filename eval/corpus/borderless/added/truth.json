@@ -1,0 +1,42 @@
+{
+ "page": "borderless",
+ "split": "train",
+ "page_kind": "borderless",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "borderless/added",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>section.alt.cta:nth-of-type(4)>a.btn.primary.new",
+   "css": ".cta > .new",
+   "property": null,
+   "from": null,
+   "to": "<a class='btn primary new'>Get started</a>",
+   "bbox": null,
+   "shot_bbox": [
+    160,
+    843.59,
+    117.13,
+    42.5
+   ],
+   "parent": "body>section.alt.cta:nth-of-type(4)",
+   "parent_bbox": [
+    0,
+    702.09,
+    1440,
+    240
+   ]
+  }
+ ]
+}

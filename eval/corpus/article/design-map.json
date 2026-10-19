@@ -1,0 +1,1229 @@
+{
+ "version": 1,
+ "source": "dom",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "dpr": 1,
+ "nodes": [
+  {
+   "id": "body",
+   "selector": "body",
+   "tag": "body",
+   "parent": null,
+   "bbox": [
+    0,
+    0,
+    1440,
+    4356.09
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav",
+   "selector": "body>header.nav",
+   "tag": "header",
+   "parent": "body",
+   "bbox": [
+    0,
+    0,
+    1440,
+    72
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px 64px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo",
+   "selector": "body>header.nav>div.logo",
+   "tag": "div",
+   "parent": "body>header.nav",
+   "bbox": [
+    64,
+    20.5,
+    131.25,
+    30
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "8px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>svg",
+   "selector": "body>header.nav>div.logo>svg",
+   "tag": "svg",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    64,
+    23.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>span",
+   "selector": "body>header.nav>div.logo>span",
+   "tag": "span",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    96,
+    20.5,
+    99.25,
+    30
+   ],
+   "text": "Northwind",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links",
+   "selector": "body>header.nav>nav.links",
+   "tag": "nav",
+   "parent": "body>header.nav",
+   "bbox": [
+    612.81,
+    24.25,
+    261.03,
+    22.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "32px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    612.81,
+    24.25,
+    53.08,
+    22.5
+   ],
+   "text": "Product",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    697.89,
+    24.25,
+    46.39,
+    22.5
+   ],
+   "text": "Pricing",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    776.28,
+    24.25,
+    34.73,
+    22.5
+   ],
+   "text": "Docs",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    843.02,
+    24.25,
+    30.83,
+    22.5
+   ],
+   "text": "Blog",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>a.btn.primary.signin",
+   "selector": "body>header.nav>a.btn.primary.signin",
+   "tag": "a",
+   "parent": "body>header.nav",
+   "bbox": [
+    1291.39,
+    14.25,
+    84.61,
+    42.5
+   ],
+   "text": "Sign in",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "#3366FF",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "8px",
+    "padding": "10px 18px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art",
+   "selector": "body>article.art",
+   "tag": "article",
+   "parent": "body",
+   "bbox": [
+    360,
+    72,
+    720,
+    4284.09
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "64px 0px 120px",
+    "margin": "0px 360px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>h1",
+   "selector": "body>article.art>h1",
+   "tag": "h1",
+   "parent": "body>article.art",
+   "bbox": [
+    360,
+    136,
+    720,
+    50.59
+   ],
+   "text": "What a pixel diff cannot tell you",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "44px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "50.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>p.by",
+   "selector": "body>article.art>p.by",
+   "tag": "p",
+   "parent": "body>article.art",
+   "bbox": [
+    360,
+    202.59,
+    720,
+    30.59
+   ],
+   "text": "By the platform team \u00b7 14 min read",
+   "style": {
+    "color": "#667085",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "16px 0px 40px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)",
+   "selector": "body>article.art>section.s1:nth-of-type(1)",
+   "tag": "section",
+   "parent": "body>article.art",
+   "bbox": [
+    360,
+    281.19,
+    720,
+    1158.47
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)>h2",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>h2",
+   "tag": "h2",
+   "parent": "body>article.art>section.s1:nth-of-type(1)",
+   "bbox": [
+    360,
+    281.19,
+    720,
+    39
+   ],
+   "text": "Part 1: Component and review",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "26px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "48px 0px 16px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "39px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)>p:nth-of-type(1)",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>p:nth-of-type(1)",
+   "tag": "p",
+   "parent": "body>article.art>section.s1:nth-of-type(1)",
+   "bbox": [
+    360,
+    336.19,
+    720,
+    214.16
+   ],
+   "text": "Component noise baseline browser element design design design layout structure render element pixel pixel baseline glyph engine margin pixel render capture margin pixel noise contract layout noise margin component render noise component delta element element render render contract padding margin noise design capture capture screen margin browser agent engine agent padding agent contract element render review capture pixel element padding component margin baseline capture pixel layout margin padding review design noise delta delta glyph padding structure.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)>p:nth-of-type(2)",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>p:nth-of-type(2)",
+   "tag": "p",
+   "parent": "body>article.art>section.s1:nth-of-type(1)",
+   "bbox": [
+    360,
+    570.34,
+    720,
+    244.75
+   ],
+   "text": "Element component element noise review layout delta element design layout browser baseline capture capture capture component element baseline contract layout margin layout baseline noise noise element element capture layout review capture token agent layout contract screen pixel screen glyph engine structure capture capture delta token token screen capture review structure noise component component browser render capture render contract capture baseline contract render glyph layout element glyph contract noise token structure capture design margin delta agent structure render render delta.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)>p:nth-of-type(3)",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>p:nth-of-type(3)",
+   "tag": "p",
+   "parent": "body>article.art>section.s1:nth-of-type(1)",
+   "bbox": [
+    360,
+    835.09,
+    720,
+    183.56
+   ],
+   "text": "Noise layout engine agent capture noise component padding browser review screen element screen margin engine pixel layout token component review engine structure contract padding engine engine layout render design delta pixel review padding margin pixel delta design render review agent component browser review screen engine baseline element element margin glyph glyph contract capture design delta render element baseline browser delta delta agent.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)>figure",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>figure",
+   "tag": "figure",
+   "parent": "body>article.art>section.s1:nth-of-type(1)",
+   "bbox": [
+    360,
+    1050.66,
+    720,
+    389
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "32px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)>figure>img",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>figure>img",
+   "tag": "img",
+   "parent": "body>article.art>section.s1:nth-of-type(1)>figure",
+   "bbox": [
+    360,
+    1050.66,
+    720,
+    360
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "12px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s1:nth-of-type(1)>figure>figcaption",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>figure>figcaption",
+   "tag": "figcaption",
+   "parent": "body>article.art>section.s1:nth-of-type(1)>figure",
+   "bbox": [
+    360,
+    1418.66,
+    720,
+    21
+   ],
+   "text": "Figure 1. Render of section 1.",
+   "style": {
+    "color": "#667085",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "8px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "21px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s2:nth-of-type(2)",
+   "selector": "body>article.art>section.s2:nth-of-type(2)",
+   "tag": "section",
+   "parent": "body>article.art",
+   "bbox": [
+    360,
+    1487.66,
+    720,
+    746.28
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s2:nth-of-type(2)>h2",
+   "selector": "body>article.art>section.s2:nth-of-type(2)>h2",
+   "tag": "h2",
+   "parent": "body>article.art>section.s2:nth-of-type(2)",
+   "bbox": [
+    360,
+    1487.66,
+    720,
+    39
+   ],
+   "text": "Part 2: Layout and baseline",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "26px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "48px 0px 16px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "39px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s2:nth-of-type(2)>p:nth-of-type(1)",
+   "selector": "body>article.art>section.s2:nth-of-type(2)>p:nth-of-type(1)",
+   "tag": "p",
+   "parent": "body>article.art>section.s2:nth-of-type(2)",
+   "bbox": [
+    360,
+    1542.66,
+    720,
+    183.56
+   ],
+   "text": "Element engine design structure render structure design review capture structure contract padding review capture noise capture padding browser padding padding noise contract element design structure structure baseline browser noise screen token browser capture token glyph noise component element element structure structure token design baseline render baseline component component padding render engine render agent noise browser baseline contract screen review pixel capture pixel element pixel margin.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s2:nth-of-type(2)>p:nth-of-type(2)",
+   "selector": "body>article.art>section.s2:nth-of-type(2)>p:nth-of-type(2)",
+   "tag": "p",
+   "parent": "body>article.art>section.s2:nth-of-type(2)",
+   "bbox": [
+    360,
+    1746.22,
+    720,
+    214.16
+   ],
+   "text": "Component review component delta component render screen engine pixel token delta padding noise engine component margin engine glyph delta delta layout baseline baseline margin screen structure token layout agent review token element baseline margin render capture structure engine render render margin element component token margin token baseline noise structure noise browser structure pixel review layout component margin component element structure contract baseline browser screen component component structure element screen component delta element margin.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s2:nth-of-type(2)>p:nth-of-type(3)",
+   "selector": "body>article.art>section.s2:nth-of-type(2)>p:nth-of-type(3)",
+   "tag": "p",
+   "parent": "body>article.art>section.s2:nth-of-type(2)",
+   "bbox": [
+    360,
+    1980.38,
+    720,
+    183.56
+   ],
+   "text": "Render token component component design screen padding element design engine token pixel padding baseline capture element design review padding element screen browser margin layout design contract agent layout capture element glyph glyph element screen screen agent component glyph browser token noise design baseline contract engine engine engine capture agent structure baseline browser review token delta element margin layout browser padding screen design margin element element delta.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s2:nth-of-type(2)>blockquote",
+   "selector": "body>article.art>section.s2:nth-of-type(2)>blockquote",
+   "tag": "blockquote",
+   "parent": "body>article.art>section.s2:nth-of-type(2)",
+   "bbox": [
+    360,
+    2195.94,
+    720,
+    38
+   ],
+   "text": "Structure tells you what to change, pixels only that something did.",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "4px 0px 4px 20px",
+    "margin": "32px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #101828 #3366FF",
+    "border-width": "0px 0px 0px 4px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)",
+   "selector": "body>article.art>section.s3:nth-of-type(3)",
+   "tag": "section",
+   "parent": "body>article.art",
+   "bbox": [
+    360,
+    2281.94,
+    720,
+    1127.88
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)>h2",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>h2",
+   "tag": "h2",
+   "parent": "body>article.art>section.s3:nth-of-type(3)",
+   "bbox": [
+    360,
+    2281.94,
+    720,
+    39
+   ],
+   "text": "Part 3: Margin and margin",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "26px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "48px 0px 16px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "39px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)>p:nth-of-type(1)",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>p:nth-of-type(1)",
+   "tag": "p",
+   "parent": "body>article.art>section.s3:nth-of-type(3)",
+   "bbox": [
+    360,
+    2336.94,
+    720,
+    214.16
+   ],
+   "text": "Baseline layout noise pixel component token padding glyph browser noise contract render contract browser review screen render margin browser noise padding render glyph pixel element review element baseline browser browser browser element padding design component delta padding element browser pixel review token engine engine review pixel design structure pixel noise capture render browser baseline layout element agent token render contract pixel glyph screen baseline screen browser capture element structure padding capture review token pixel capture noise glyph delta.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)>p:nth-of-type(2)",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>p:nth-of-type(2)",
+   "tag": "p",
+   "parent": "body>article.art>section.s3:nth-of-type(3)",
+   "bbox": [
+    360,
+    2571.09,
+    720,
+    183.56
+   ],
+   "text": "Render glyph glyph delta render baseline render delta padding screen delta component agent screen component glyph design screen padding design noise structure design engine pixel agent review layout element padding margin review screen capture engine capture design token padding noise noise noise design margin render baseline engine element noise glyph noise baseline token browser design review token review capture delta browser layout noise browser render glyph token glyph structure.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)>p:nth-of-type(3)",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>p:nth-of-type(3)",
+   "tag": "p",
+   "parent": "body>article.art>section.s3:nth-of-type(3)",
+   "bbox": [
+    360,
+    2774.66,
+    720,
+    214.16
+   ],
+   "text": "Design token engine component review design element design agent delta design layout browser capture noise noise token review agent noise margin review design capture review review capture contract agent design margin contract element pixel glyph padding component padding delta pixel structure token contract element structure token component token engine component structure capture pixel token contract noise delta render render agent browser baseline glyph pixel browser noise glyph browser engine baseline glyph render margin token noise delta component.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)>figure",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>figure",
+   "tag": "figure",
+   "parent": "body>article.art>section.s3:nth-of-type(3)",
+   "bbox": [
+    360,
+    3020.81,
+    720,
+    389
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "32px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)>figure>img",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>figure>img",
+   "tag": "img",
+   "parent": "body>article.art>section.s3:nth-of-type(3)>figure",
+   "bbox": [
+    360,
+    3020.81,
+    720,
+    360
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "12px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s3:nth-of-type(3)>figure>figcaption",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>figure>figcaption",
+   "tag": "figcaption",
+   "parent": "body>article.art>section.s3:nth-of-type(3)>figure",
+   "bbox": [
+    360,
+    3388.81,
+    720,
+    21
+   ],
+   "text": "Figure 3. Render of section 3.",
+   "style": {
+    "color": "#667085",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "8px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "21px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s4:nth-of-type(4)",
+   "selector": "body>article.art>section.s4:nth-of-type(4)",
+   "tag": "section",
+   "parent": "body>article.art",
+   "bbox": [
+    360,
+    3457.81,
+    720,
+    746.28
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s4:nth-of-type(4)>h2",
+   "selector": "body>article.art>section.s4:nth-of-type(4)>h2",
+   "tag": "h2",
+   "parent": "body>article.art>section.s4:nth-of-type(4)",
+   "bbox": [
+    360,
+    3457.81,
+    720,
+    39
+   ],
+   "text": "Part 4: Engine and component",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "26px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "48px 0px 16px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "39px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s4:nth-of-type(4)>p:nth-of-type(1)",
+   "selector": "body>article.art>section.s4:nth-of-type(4)>p:nth-of-type(1)",
+   "tag": "p",
+   "parent": "body>article.art>section.s4:nth-of-type(4)",
+   "bbox": [
+    360,
+    3512.81,
+    720,
+    214.16
+   ],
+   "text": "Pixel browser review margin margin delta engine render capture baseline glyph structure padding layout glyph noise padding component pixel noise baseline design pixel element pixel browser screen design padding noise glyph margin padding baseline baseline padding noise pixel padding noise padding review margin token padding baseline noise element pixel element token contract element element delta render token token noise delta padding design layout contract contract contract review margin token token review layout render design.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s4:nth-of-type(4)>p:nth-of-type(2)",
+   "selector": "body>article.art>section.s4:nth-of-type(4)>p:nth-of-type(2)",
+   "tag": "p",
+   "parent": "body>article.art>section.s4:nth-of-type(4)",
+   "bbox": [
+    360,
+    3746.97,
+    720,
+    183.56
+   ],
+   "text": "Contract baseline padding design pixel component design browser padding noise element component baseline review agent design design structure layout element delta delta design design noise baseline engine design pixel browser pixel pixel engine render render browser delta delta browser element noise agent render margin capture review layout screen design pixel delta token element structure glyph glyph contract render layout padding structure delta element.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s4:nth-of-type(4)>p:nth-of-type(3)",
+   "selector": "body>article.art>section.s4:nth-of-type(4)>p:nth-of-type(3)",
+   "tag": "p",
+   "parent": "body>article.art>section.s4:nth-of-type(4)",
+   "bbox": [
+    360,
+    3950.53,
+    720,
+    183.56
+   ],
+   "text": "Glyph element padding pixel padding noise token render review noise element noise engine noise padding padding glyph screen browser element layout contract padding contract agent browser contract token element agent screen browser render noise noise token design contract token browser design baseline delta render engine layout browser component pixel layout browser margin engine padding element render design review render pixel contract layout element engine.",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "30.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>article.art>section.s4:nth-of-type(4)>blockquote",
+   "selector": "body>article.art>section.s4:nth-of-type(4)>blockquote",
+   "tag": "blockquote",
+   "parent": "body>article.art>section.s4:nth-of-type(4)",
+   "bbox": [
+    360,
+    4166.09,
+    720,
+    38
+   ],
+   "text": "Structure tells you what to change, pixels only that something did.",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "4px 0px 4px 20px",
+    "margin": "32px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #101828 #3366FF",
+    "border-width": "0px 0px 0px 4px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  }
+ ]
+}

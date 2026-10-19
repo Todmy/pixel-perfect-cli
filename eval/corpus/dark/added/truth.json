@@ -1,0 +1,42 @@
+{
+ "page": "dark",
+ "split": "heldout",
+ "page_kind": "dark",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "dark/added",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>div.wrap>div.kpis:nth-of-type(1)>div.kpi:nth-of-type(3)>div.d.new:nth-of-type(4)",
+   "css": ".kpi:nth-child(3) > .new",
+   "property": null,
+   "from": null,
+   "to": "<div class='d new'>target 90%</div>",
+   "bbox": null,
+   "shot_bbox": [
+    757,
+    363,
+    260,
+    19.5
+   ],
+   "parent": "body>div.wrap>div.kpis:nth-of-type(1)>div.kpi:nth-of-type(3)",
+   "parent_bbox": [
+    732,
+    233.5,
+    310,
+    174
+   ]
+  }
+ ]
+}

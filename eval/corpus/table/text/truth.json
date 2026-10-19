@@ -1,0 +1,47 @@
+{
+ "page": "table",
+ "split": "train",
+ "page_kind": "table",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "table/text",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "text",
+   "selector": "body>div.wrap>table>tbody>tr:nth-of-type(12)>td.num:nth-of-type(6)",
+   "css": "tbody tr:nth-child(12) td:nth-child(6)",
+   "property": "text",
+   "from": "$9,812",
+   "to": "$12,345",
+   "bbox": [
+    1196.77,
+    717,
+    179.23,
+    41
+   ],
+   "shot_bbox": [
+    1180.84,
+    717,
+    195.16,
+    41
+   ],
+   "parent": "body>div.wrap>table>tbody>tr:nth-of-type(12)",
+   "parent_bbox": [
+    64,
+    717,
+    1312,
+    41
+   ]
+  }
+ ]
+}

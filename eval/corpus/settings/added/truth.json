@@ -1,0 +1,42 @@
+{
+ "page": "settings",
+ "split": "train",
+ "page_kind": "settings",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "settings/added",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>div.layout>aside.side>a.new:nth-of-type(6)",
+   "css": ".side > .new",
+   "property": null,
+   "from": null,
+   "to": "<a class='new'>Integrations</a>",
+   "bbox": null,
+   "shot_bbox": [
+    16,
+    308.5,
+    215,
+    38.5
+   ],
+   "parent": "body>div.layout>aside.side",
+   "parent_bbox": [
+    0,
+    72,
+    248,
+    760
+   ]
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "page": "grid",
+ "split": "train",
+ "page_kind": "grid",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "grid/removed",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "removed",
+   "selector": "body>div.wrap>div.cards>div.card:nth-of-type(4)>div.body:nth-of-type(2)>div.meta>b",
+   "css": ".card:nth-child(4) .meta b",
+   "property": "display",
+   "from": "visible",
+   "to": "none",
+   "bbox": [
+    1337.31,
+    402,
+    21.69,
+    19.5
+   ],
+   "shot_bbox": null,
+   "parent": "body>div.wrap>div.cards>div.card:nth-of-type(4)>div.body:nth-of-type(2)>div.meta",
+   "parent_bbox": [
+    1083,
+    402,
+    276,
+    19.5
+   ]
+  }
+ ]
+}

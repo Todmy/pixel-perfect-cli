@@ -1,0 +1,47 @@
+{
+ "page": "form",
+ "split": "train",
+ "page_kind": "form",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "form/font-size",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "font-size",
+   "selector": "body>div.wrap>form.panel>h1",
+   "css": ".panel h1",
+   "property": "font-size",
+   "from": "30px",
+   "to": "26px",
+   "bbox": [
+    480,
+    128,
+    480,
+    45
+   ],
+   "shot_bbox": [
+    480,
+    128,
+    480,
+    39
+   ],
+   "parent": "body>div.wrap>form.panel",
+   "parent_bbox": [
+    480,
+    128,
+    480,
+    611
+   ]
+  }
+ ]
+}

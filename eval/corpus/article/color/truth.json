@@ -1,0 +1,47 @@
+{
+ "page": "article",
+ "split": "heldout",
+ "page_kind": "article",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "article/color",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "color",
+   "selector": "body>article.art>section.s4:nth-of-type(4)>blockquote",
+   "css": ".s4 blockquote",
+   "property": "border-left-color",
+   "from": "rgb(51, 102, 255)",
+   "to": "#F04438",
+   "bbox": [
+    360,
+    4166.09,
+    720,
+    38
+   ],
+   "shot_bbox": [
+    360,
+    4166.09,
+    720,
+    38
+   ],
+   "parent": "body>article.art>section.s4:nth-of-type(4)",
+   "parent_bbox": [
+    360,
+    3457.81,
+    720,
+    746.28
+   ]
+  }
+ ]
+}

@@ -1,0 +1,51 @@
+{
+ "page": "dynamic",
+ "split": "heldout",
+ "page_kind": "dynamic",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [
+  "body>div.wrap>div.top:nth-of-type(1)>div:nth-of-type(1)>p.date",
+  "body>div.wrap>div.top:nth-of-type(1)>div.who:nth-of-type(2)>div.avatar",
+  "body>div.wrap>div.panels:nth-of-type(2)>div.box.live:nth-of-type(2)>div.big.counter"
+ ],
+ "pair": "dynamic/padding",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "padding",
+   "selector": "body>div.wrap>div.panels:nth-of-type(2)>div.box.live:nth-of-type(2)",
+   "css": ".box.live",
+   "property": "padding",
+   "from": "24px",
+   "to": "40px",
+   "bbox": [
+    946.66,
+    215.5,
+    429.34,
+    276
+   ],
+   "shot_bbox": [
+    946.66,
+    215.5,
+    429.33,
+    276
+   ],
+   "parent": "body>div.wrap>div.panels:nth-of-type(2)",
+   "parent_bbox": [
+    64,
+    215.5,
+    1312,
+    276
+   ]
+  }
+ ]
+}

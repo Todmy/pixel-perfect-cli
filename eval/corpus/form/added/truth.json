@@ -1,0 +1,42 @@
+{
+ "page": "form",
+ "split": "train",
+ "page_kind": "form",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "form/added",
+ "kind": "mutation",
+ "shot_engine": "firefox",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>div.wrap>form.panel>p.new:nth-of-type(2)",
+   "css": ".panel > .new",
+   "property": null,
+   "from": null,
+   "to": "<p class='new'>Or email sales@example.com</p>",
+   "bbox": null,
+   "shot_bbox": [
+    480,
+    739,
+    480,
+    22.5
+   ],
+   "parent": "body>div.wrap>form.panel",
+   "parent_bbox": [
+    480,
+    128,
+    480,
+    633.5
+   ]
+  }
+ ]
+}

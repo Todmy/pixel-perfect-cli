@@ -1,0 +1,47 @@
+{
+ "page": "settings",
+ "split": "train",
+ "page_kind": "settings",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "settings/gap",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>div.layout>aside.side",
+   "css": ".side",
+   "property": "gap",
+   "from": "4px",
+   "to": "14px",
+   "bbox": [
+    0,
+    72,
+    248,
+    760
+   ],
+   "shot_bbox": [
+    0,
+    72,
+    248,
+    760
+   ],
+   "parent": "body>div.layout",
+   "parent_bbox": [
+    0,
+    72,
+    1440,
+    760
+   ]
+  }
+ ]
+}

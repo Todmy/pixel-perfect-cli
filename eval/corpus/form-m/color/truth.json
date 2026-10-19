@@ -1,0 +1,47 @@
+{
+ "page": "form-m",
+ "split": "train",
+ "page_kind": "form-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "form-m/color",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "color",
+   "selector": "body>div.wrap>form.panel>a.btn.primary.submit",
+   "css": ".submit",
+   "property": "background-color",
+   "from": "#3366FF",
+   "to": "#12B76A",
+   "bbox": [
+    24,
+    680.5,
+    342,
+    46.5
+   ],
+   "shot_bbox": [
+    24,
+    680.5,
+    342,
+    46.5
+   ],
+   "parent": "body>div.wrap>form.panel",
+   "parent_bbox": [
+    24,
+    116,
+    342,
+    611
+   ]
+  }
+ ]
+}

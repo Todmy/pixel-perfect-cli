@@ -1,0 +1,47 @@
+{
+ "page": "landing",
+ "split": "train",
+ "page_kind": "landing",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "landing/gap",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>div.actions",
+   "css": ".hero .actions",
+   "property": "gap",
+   "from": "12px",
+   "to": "20px",
+   "bbox": [
+    64,
+    443.84,
+    704,
+    44.5
+   ],
+   "shot_bbox": [
+    64,
+    443.84,
+    704,
+    44.5
+   ],
+   "parent": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)",
+   "parent_bbox": [
+    64,
+    215.66,
+    704,
+    272.69
+   ]
+  }
+ ]
+}

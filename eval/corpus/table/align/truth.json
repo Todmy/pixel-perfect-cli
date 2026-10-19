@@ -1,0 +1,47 @@
+{
+ "page": "table",
+ "split": "train",
+ "page_kind": "table",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "table/align",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "align",
+   "selector": "body>div.wrap>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)",
+   "css": "tbody tr:nth-child(3) td:nth-child(2)",
+   "property": "text-align",
+   "from": "start",
+   "to": "right",
+   "bbox": [
+    270.47,
+    348,
+    243.16,
+    41
+   ],
+   "shot_bbox": [
+    270.47,
+    348,
+    243.16,
+    41
+   ],
+   "parent": "body>div.wrap>table>tbody>tr:nth-of-type(3)",
+   "parent_bbox": [
+    64,
+    348,
+    1312,
+    41
+   ]
+  }
+ ]
+}

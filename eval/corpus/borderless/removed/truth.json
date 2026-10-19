@@ -1,0 +1,42 @@
+{
+ "page": "borderless",
+ "split": "train",
+ "page_kind": "borderless",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "borderless/removed",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "removed",
+   "selector": "body>section.testimonial:nth-of-type(3)>p.who:nth-of-type(2)",
+   "css": ".who",
+   "property": "display",
+   "from": "visible",
+   "to": "none",
+   "bbox": [
+    160,
+    623.59,
+    760,
+    22.5
+   ],
+   "shot_bbox": null,
+   "parent": "body>section.testimonial:nth-of-type(3)",
+   "parent_bbox": [
+    0,
+    518,
+    1440,
+    184.09
+   ]
+  }
+ ]
+}

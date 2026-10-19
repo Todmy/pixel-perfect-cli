@@ -1,0 +1,27 @@
+{
+ "label": "probe-legacy",
+ "split": "all",
+ "corpus_sha256": "7dee141652f3bf94d41865f9037760e3e7a31e69183b22e96713b77989af028a",
+ "synthetic_proxy": true,
+ "modes": {
+  "pixels": {
+   "status": "UNSUPPORTED",
+   "command": "pixel-perfect {design} {shot}",
+   "reason": "usage: pixel-perfect [-h] {diff,capture} ...\npixel-perfect: error: argument cmd: invalid choice: 'eval/corpus/article/design.png' (choose from diff, capture)",
+   "pairs": [],
+   "loadavg": [
+    12.5,
+    12.5
+   ],
+   "gates": {
+    "false_deltas_median_heldout<=1": "UNKNOWN",
+    "recall_heldout>0_and>=baseline": "UNKNOWN",
+    "review_rate_noise<10%": "UNKNOWN",
+    "rerender_confident_deltas==0": "UNKNOWN",
+    "determinism_every_pair": "UNKNOWN",
+    "runtime_long_page<5s": "UNKNOWN",
+    "no_errors_or_fatal": "UNKNOWN"
+   }
+  }
+ }
+}

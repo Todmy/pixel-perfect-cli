@@ -1,0 +1,823 @@
+{
+ "version": 1,
+ "source": "dom",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "dpr": 1,
+ "nodes": [
+  {
+   "id": "body",
+   "selector": "body",
+   "tag": "body",
+   "parent": null,
+   "bbox": [
+    0,
+    0,
+    1440,
+    899.59
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav",
+   "selector": "body>header.nav",
+   "tag": "header",
+   "parent": "body",
+   "bbox": [
+    0,
+    0,
+    1440,
+    72
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px 64px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo",
+   "selector": "body>header.nav>div.logo",
+   "tag": "div",
+   "parent": "body>header.nav",
+   "bbox": [
+    64,
+    20.5,
+    131.25,
+    30
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "8px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>svg",
+   "selector": "body>header.nav>div.logo>svg",
+   "tag": "svg",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    64,
+    23.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>span",
+   "selector": "body>header.nav>div.logo>span",
+   "tag": "span",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    96,
+    20.5,
+    99.25,
+    30
+   ],
+   "text": "Northwind",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links",
+   "selector": "body>header.nav>nav.links",
+   "tag": "nav",
+   "parent": "body>header.nav",
+   "bbox": [
+    612.81,
+    24.25,
+    261.03,
+    22.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "32px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    612.81,
+    24.25,
+    53.08,
+    22.5
+   ],
+   "text": "Product",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    697.89,
+    24.25,
+    46.39,
+    22.5
+   ],
+   "text": "Pricing",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    776.28,
+    24.25,
+    34.73,
+    22.5
+   ],
+   "text": "Docs",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    843.02,
+    24.25,
+    30.83,
+    22.5
+   ],
+   "text": "Blog",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>a.btn.primary.signin",
+   "selector": "body>header.nav>a.btn.primary.signin",
+   "tag": "a",
+   "parent": "body>header.nav",
+   "bbox": [
+    1291.39,
+    14.25,
+    84.61,
+    42.5
+   ],
+   "text": "Sign in",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "#3366FF",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "8px",
+    "padding": "10px 18px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.intro:nth-of-type(1)",
+   "selector": "body>section.intro:nth-of-type(1)",
+   "tag": "section",
+   "parent": "body",
+   "bbox": [
+    0,
+    72,
+    1440,
+    223
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "56px 160px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.intro:nth-of-type(1)>h2",
+   "selector": "body>section.intro:nth-of-type(1)>h2",
+   "tag": "h2",
+   "parent": "body>section.intro:nth-of-type(1)",
+   "bbox": [
+    160,
+    128,
+    1120,
+    48
+   ],
+   "text": "Why structure beats raw pixels",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "32px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 12px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "48px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.intro:nth-of-type(1)>p",
+   "selector": "body>section.intro:nth-of-type(1)>p",
+   "tag": "p",
+   "parent": "body>section.intro:nth-of-type(1)",
+   "bbox": [
+    160,
+    188,
+    760,
+    51
+   ],
+   "text": "Pixel diffs tell you that something changed. Structure tells you what to change: the element, the property and the value.",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "17px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "25.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)",
+   "selector": "body>section.alt.how:nth-of-type(2)",
+   "tag": "section",
+   "parent": "body",
+   "bbox": [
+    0,
+    295,
+    1440,
+    223
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#F9FAFB",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "56px 160px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)>div.split",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split",
+   "tag": "div",
+   "parent": "body>section.alt.how:nth-of-type(2)",
+   "bbox": [
+    160,
+    351,
+    1120,
+    111
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "64px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)",
+   "tag": "div",
+   "parent": "body>section.alt.how:nth-of-type(2)>div.split",
+   "bbox": [
+    160,
+    351,
+    528,
+    111
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)>h2",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)>h2",
+   "tag": "h2",
+   "parent": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)",
+   "bbox": [
+    160,
+    351,
+    528,
+    48
+   ],
+   "text": "Capture",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "32px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 12px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "48px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)>p",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)>p",
+   "tag": "p",
+   "parent": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(1)",
+   "bbox": [
+    160,
+    411,
+    528,
+    25.5
+   ],
+   "text": "Render the page at the design width and record every element box.",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "17px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "25.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)",
+   "tag": "div",
+   "parent": "body>section.alt.how:nth-of-type(2)>div.split",
+   "bbox": [
+    752,
+    351,
+    528,
+    111
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)>h2",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)>h2",
+   "tag": "h2",
+   "parent": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)",
+   "bbox": [
+    752,
+    351,
+    528,
+    48
+   ],
+   "text": "Compare",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "32px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 12px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "48px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)>p",
+   "selector": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)>p",
+   "tag": "p",
+   "parent": "body>section.alt.how:nth-of-type(2)>div.split>div:nth-of-type(2)",
+   "bbox": [
+    752,
+    411,
+    528,
+    51
+   ],
+   "text": "Pair elements by identity, then report gaps, padding and colors that differ.",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "17px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "25.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.testimonial:nth-of-type(3)",
+   "selector": "body>section.testimonial:nth-of-type(3)",
+   "tag": "section",
+   "parent": "body",
+   "bbox": [
+    0,
+    518,
+    1440,
+    184.09
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "56px 160px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.testimonial:nth-of-type(3)>p.quote:nth-of-type(1)",
+   "selector": "body>section.testimonial:nth-of-type(3)>p.quote:nth-of-type(1)",
+   "tag": "p",
+   "parent": "body>section.testimonial:nth-of-type(3)",
+   "bbox": [
+    160,
+    574,
+    760,
+    33.59
+   ],
+   "text": "\"We cut design review from two days to an hour.\"",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "24px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "0px",
+    "line-height": "33.6px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.testimonial:nth-of-type(3)>p.who:nth-of-type(2)",
+   "selector": "body>section.testimonial:nth-of-type(3)>p.who:nth-of-type(2)",
+   "tag": "p",
+   "parent": "body>section.testimonial:nth-of-type(3)",
+   "bbox": [
+    160,
+    623.59,
+    760,
+    22.5
+   ],
+   "text": "Grace Hopper, Head of Design",
+   "style": {
+    "color": "#667085",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "16px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.cta:nth-of-type(4)",
+   "selector": "body>section.alt.cta:nth-of-type(4)",
+   "tag": "section",
+   "parent": "body",
+   "bbox": [
+    0,
+    702.09,
+    1440,
+    197.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#F9FAFB",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "56px 160px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.cta:nth-of-type(4)>h2",
+   "selector": "body>section.alt.cta:nth-of-type(4)>h2",
+   "tag": "h2",
+   "parent": "body>section.alt.cta:nth-of-type(4)",
+   "bbox": [
+    160,
+    758.09,
+    1120,
+    48
+   ],
+   "text": "Try it on your next screen",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "32px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 12px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "48px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.alt.cta:nth-of-type(4)>p",
+   "selector": "body>section.alt.cta:nth-of-type(4)>p",
+   "tag": "p",
+   "parent": "body>section.alt.cta:nth-of-type(4)",
+   "bbox": [
+    160,
+    818.09,
+    760,
+    25.5
+   ],
+   "text": "One command, one JSON document, no account needed.",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "17px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "25.5px",
+    "letter-spacing": "normal"
+   }
+  }
+ ]
+}

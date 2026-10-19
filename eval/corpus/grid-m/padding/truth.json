@@ -1,0 +1,47 @@
+{
+ "page": "grid-m",
+ "split": "train",
+ "page_kind": "grid-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "grid-m/padding",
+ "kind": "mutation",
+ "shot_engine": "firefox",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "padding",
+   "selector": "body>div.wrap>div.cards>div.card:nth-of-type(3)>div.body:nth-of-type(2)",
+   "css": ".card:nth-child(3) .body",
+   "property": "padding",
+   "from": "16px",
+   "to": "28px",
+   "bbox": [
+    21,
+    838,
+    348,
+    112.5
+   ],
+   "shot_bbox": [
+    21,
+    838,
+    348,
+    136.5
+   ],
+   "parent": "body>div.wrap>div.cards>div.card:nth-of-type(3)",
+   "parent_bbox": [
+    20,
+    697,
+    350,
+    254.5
+   ]
+  }
+ ]
+}

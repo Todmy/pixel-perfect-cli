@@ -1,0 +1,42 @@
+{
+ "page": "table",
+ "split": "train",
+ "page_kind": "table",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "table/removed",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "removed",
+   "selector": "body>div.wrap>div.bar>a.btn.primary",
+   "css": ".bar .btn",
+   "property": "display",
+   "from": "visible",
+   "to": "none",
+   "bbox": [
+    396,
+    162,
+    123.5,
+    42.5
+   ],
+   "shot_bbox": null,
+   "parent": "body>div.wrap>div.bar",
+   "parent_bbox": [
+    64,
+    162,
+    1312,
+    42.5
+   ]
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "page": "pricing",
+ "split": "heldout",
+ "page_kind": "pricing",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "pricing/added",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>section.plans:nth-of-type(2)>div.plan:nth-of-type(3)>ul>li.new:nth-of-type(4)",
+   "css": ".plan:nth-child(3) ul > .new",
+   "property": null,
+   "from": null,
+   "to": "<li class='new'><span>Dedicated manager</span></li>",
+   "bbox": null,
+   "shot_bbox": [
+    957,
+    557,
+    294,
+    22.5
+   ],
+   "parent": "body>section.plans:nth-of-type(2)>div.plan:nth-of-type(3)>ul",
+   "parent_bbox": [
+    957,
+    449,
+    294,
+    130.5
+   ]
+  }
+ ]
+}

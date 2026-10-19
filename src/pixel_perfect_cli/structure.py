@@ -4,6 +4,7 @@ Pure translations are never reported per element: every move is decomposed into 
 change of its parent, so one changed margin yields one delta instead of a cascade of shifted regions.
 """
 
+import time
 from dataclasses import dataclass, field
 
 import cv2
@@ -12,6 +13,7 @@ from scipy.optimize import linear_sum_assignment
 
 MIN_GAP_X = 8  # vertical cuts need a blank column band this wide, so letters/words stay one element
 MAX_DEPTH = 8
+TOP_K = 32  # pairing candidates per element that get a content comparison
 # Noise floor, calibrated on the same page rendered by Chromium/WebKit/Firefox/Chromium@2x (tests/fixtures/web/noise_*):
 # ponytail: one global floor; per-element tolerances (text vs boxes) if real Figma pairs need tighter checks
 PX_TOL = 2          # gap/padding/align/size changes below this are rasterizer noise (font metrics shift 1px)
@@ -67,23 +69,24 @@ def segment(lab: np.ndarray, tol: float) -> Node:
     return root
 
 
-def _cut(lab, x, y, w, h, bg, tol, depth, parent) -> list[Node]:
-    fg = np.linalg.norm(lab[y:y + h, x:x + w] - bg, axis=2) > tol
+def _cut(lab, x, y, w, h, bg, tol, depth, parent, fg=None) -> list[Node]:
+    # fg (ink mask of this region vs bg) is passed down as a slice when the background is unchanged
+    if fg is None:
+        fg = np.linalg.norm(lab[y:y + h, x:x + w] - bg, axis=2) > tol
     rows, cols = _bands(fg.any(axis=1), 1), _bands(fg.any(axis=0), MIN_GAP_X)
     if not rows:
         return []
     if len(rows) > 1:
         parent.axis = "y"
-        return [n for a, b in rows for n in _sub(lab, x, y + a, w, b - a, bg, tol, depth)]
+        return [n for a, b in rows for n in _sub(lab, x, y + a, w, b - a, bg, tol, depth, fg[a:b])]
     if len(cols) > 1:
         parent.axis = "x"
-        return [n for a, b in cols for n in _sub(lab, x + a, y, b - a, h, bg, tol, depth)]
-    return _sub(lab, x, y, w, h, bg, tol, depth)
+        return [n for a, b in cols for n in _sub(lab, x + a, y, b - a, h, bg, tol, depth, fg[:, a:b])]
+    return _sub(lab, x, y, w, h, bg, tol, depth, fg)
 
 
-def _sub(lab, x, y, w, h, bg, tol, depth) -> list[Node]:
+def _sub(lab, x, y, w, h, bg, tol, depth, fg) -> list[Node]:
     """Trim a band to its ink bbox; if it has its own background (card, button) recurse inside it."""
-    fg = np.linalg.norm(lab[y:y + h, x:x + w] - bg, axis=2) > tol
     ys, xs = np.flatnonzero(fg.any(axis=1)), np.flatnonzero(fg.any(axis=0))
     if ys.size == 0:
         return []
@@ -93,7 +96,8 @@ def _sub(lab, x, y, w, h, bg, tol, depth) -> list[Node]:
             and _uniform_border(lab, node.x, node.y, node.w, node.h, own_bg, tol)):
         node.children = _cut(lab, node.x + 1, node.y + 1, node.w - 2, node.h - 2, own_bg, tol, depth + 1, node)
     elif depth < MAX_DEPTH:  # same background: may still hold several bands (e.g. words split by a wide gap)
-        kids = _cut(lab, node.x, node.y, node.w, node.h, bg, tol, depth + 1, node)
+        kids = _cut(lab, node.x, node.y, node.w, node.h, bg, tol, depth + 1, node,
+                    fg[ys[0]:ys[-1] + 1, xs[0]:xs[-1] + 1])
         if len(kids) > 1:
             node.children = kids
     return [node]
@@ -117,7 +121,7 @@ def _crop(img, n: Node, size=None):
 
 
 def _similarity(ref, test, a: Node, b: Node) -> float:
-    ca, cb = _crop(ref, a), _crop(test, b, (a.w, a.h))
+    ca, cb = _crop(ref, a), _crop(test, b, (a.w, a.h) if (a.w, a.h) != (b.w, b.h) else None)
     return 1.0 - float(np.abs(ca.astype(np.int16) - cb).mean()) / 255.0
 
 
@@ -127,14 +131,27 @@ def pair(ref, test, rt: Node, tt: Node) -> dict[int, Node]:
     if not rn or not tn:
         return {}
     diag = float(np.hypot(*ref.shape[:2]))
-    cost = np.full((len(rn), len(tn)), 1e6)
-    for i, a in enumerate(rn):
-        for j, b in enumerate(tn):
-            size = abs(a.w - b.w) / max(a.w, b.w) + abs(a.h - b.h) / max(a.h, b.h)
-            if size > 0.5:
-                continue
-            dist = np.hypot(a.x + a.w / 2 - b.x - b.w / 2, a.y + a.h / 2 - b.y - b.h / 2) / diag
-            cost[i, j] = 4 * (1 - _similarity(ref, test, a, b)) + size + dist
+    ra, ta = (np.array([[n.x, n.y, n.w, n.h] for n in ns], np.float64) for ns in (rn, tn))
+    size = (np.abs(ra[:, None, 2] - ta[None, :, 2]) / np.maximum(ra[:, None, 2], ta[None, :, 2])
+            + np.abs(ra[:, None, 3] - ta[None, :, 3]) / np.maximum(ra[:, None, 3], ta[None, :, 3]))
+    dist = np.hypot(ra[:, None, 0] + ra[:, None, 2] / 2 - ta[None, :, 0] - ta[None, :, 2] / 2,
+                    ra[:, None, 1] + ra[:, None, 3] / 2 - ta[None, :, 1] - ta[None, :, 3] / 2) / diag
+    cheap = np.where(size > 0.5, np.inf, size + dist)  # lower bound of the full cost
+    # ponytail: only the TOP_K cheapest candidates per row and per column get the (resize-heavy) content term;
+    # a true match ranked below TOP_K by size+distance (very repetitive pages) is dropped; raise TOP_K then
+    keep = np.zeros(cheap.shape, bool)
+    for m, axis in ((cheap, 1), (cheap.T, 0)):
+        k = min(TOP_K, m.shape[1])
+        near = np.argpartition(m, k - 1, axis=1)[:, :k]
+        rows = np.arange(m.shape[0])[:, None]
+        if axis:
+            keep[rows, near] = True
+        else:
+            keep[near, rows] = True
+    keep &= np.isfinite(cheap) & (cheap < 1.0)  # cost >= cheap, and cost >= 1.0 is never accepted
+    cost = np.full(cheap.shape, 1e6)
+    for i, j in zip(*np.nonzero(keep)):
+        cost[i, j] = 4 * (1 - _similarity(ref, test, rn[i], tn[j])) + cheap[i, j]
     ri, ti = linear_sum_assignment(cost)
     # ponytail: fixed 1.0 cost cutoff decides "same element"; tune on real Figma pairs
     return {id(rn[i]): tn[j] for i, j in zip(ri, ti) if cost[i, j] < 1.0}
@@ -154,9 +171,14 @@ def _hex_lab(h: str) -> np.ndarray:
     return cv2.cvtColor(rgb, cv2.COLOR_RGB2Lab)[0, 0]
 
 
-def explain(ref, test, ref_lab, test_lab, tol: float) -> list[dict]:
+def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None) -> list[dict]:
+    t0 = time.perf_counter()
     rt, tt = segment(ref_lab, tol), segment(test_lab, tol)
+    t1 = time.perf_counter()
     match = pair(ref, test, rt, tt)
+    if timing is not None:
+        timing["segment"] = round((t1 - t0) * 1000, 1)
+        timing["pair"] = round((time.perf_counter() - t1) * 1000, 1)
     deltas: list[dict] = []
     matched_test = {id(n) for n in match.values()}
 

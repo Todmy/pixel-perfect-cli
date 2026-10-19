@@ -19,7 +19,9 @@ Exit codes: `0` pass, `1` deltas, `2` review only, `12` fatal. stdout is one JSO
             "selector": "same as id", "tag": "div", "parent": "<parent id or null>",
             "bbox": [x, y, w, h], "text": "own trimmed text or null",
             "style": {"color": "#101828", "background-color": "#F2F4F7", "font-size": "15px",
-                      "font-weight": "600", "border-radius": "8px", "padding": "24px", "margin": "0px", "gap": "12px"}}]}
+                      "font-weight": "600", "border-radius": "8px", "padding": "24px", "margin": "0px", "gap": "12px",
+                      "font-family": "...", "box-shadow": "none", "border-color": "...", "border-width": "0px",
+                      "line-height": "21px", "letter-spacing": "normal"}}]}
 ```
 
 - `bbox` is in CSS pixels of the page, top-left of the captured image is (0, 0). `diff` scales by `dpr` itself.
@@ -38,7 +40,7 @@ Delta: `{"type", "id", "selector", "text", "bbox", "shot_bbox", "expected", "act
 - `id`: stable across iterations for the same element. From a map: the map `id`. Pixels only: content-derived, not a tree position.
 - `selector` / `text`: present whenever a map covers the element, so an agent can find the code.
 - `source`: `map` or `pixels`. `confidence`: `high` goes to `deltas`, `low` goes to `review`.
-- Same inputs give byte-identical stdout.
+- Same inputs give byte-identical stdout, except the `timing_ms` object (wall-clock); scorers strip `timing_ms` before hashing. (v1.1)
 
 ## Eval ground truth (`eval/`)
 

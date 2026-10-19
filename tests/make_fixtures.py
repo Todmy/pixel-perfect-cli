@@ -1,11 +1,13 @@
-"""Render a test page and mutated variants to tests/fixtures/web/*.png. Each variant = one known delta.
+"""Render a test page and mutated variants to tests/fixtures/web/*.png + *.json (structure map, via capture).
+Each variant = one known delta.
 
 Run: uv run python tests/make_fixtures.py
 """
 
+import tempfile
 from pathlib import Path
 
-from playwright.sync_api import sync_playwright
+from pixel_perfect_cli.capture import capture
 
 OUT = Path(__file__).parent / "fixtures" / "web"
 
@@ -42,6 +44,8 @@ VARIANTS = {
     "color": (".btn { background: #3360F0; }", {}),                 # #3366FF -> #3360F0
     "radius": (".btn { border-radius: 12px; }", {}),                # radius 8 -> 12px
     "font_size": (".card h2 { font-size: 22px; }", {}),             # 20 -> 22px
+    "font_family": (".card h2 { font-family: Georgia, serif; }", {}),  # h2 sans -> serif
+    "shadow": (".card { box-shadow: 0 8px 24px rgba(16,24,40,.25); }", {}),  # card gets a shadow
     "text": ("", {"2.1 GB": "2.4 GB"}),                             # text change
     "missing": (".btn.ghost { display: none; }", {}),               # element missing
     "shift": ("body { padding-left: 38px; }", {}),                  # whole layout +6px x
@@ -50,26 +54,20 @@ VARIANTS = {
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch()
-        page = browser.new_page(viewport={"width": 440, "height": 480}, device_scale_factor=1)
-        for name, (css, repl) in VARIANTS.items():
+    jobs = [(name, css, repl, "chromium", 1) for name, (css, repl) in VARIANTS.items()]
+    # noise floor: same page, other rasterizers. Must yield no deltas.
+    jobs += [("noise_webkit", "", {}, "webkit", 1), ("noise_firefox", "", {}, "firefox", 1),
+             ("noise_chromium2x", "", {}, "chromium", 2)]
+    with tempfile.TemporaryDirectory() as tmp:
+        for name, css, repl, browser, dpr in jobs:
             html = PAGE % css
             for a, b in repl.items():
                 html = html.replace(a, b)
-            page.set_content(html)
-            page.screenshot(path=OUT / f"{name}.png", animations="disabled", caret="hide")
-        browser.close()
-        # noise floor: same page, other rasterizers. Must yield no deltas.
-        for name, engine, dpr in [("noise_webkit", pw.webkit, 1), ("noise_firefox", pw.firefox, 1),
-                                  ("noise_chromium2x", pw.chromium, 2)]:
-            b = engine.launch()
-            pg = b.new_page(viewport={"width": 440, "height": 480}, device_scale_factor=dpr)
-            pg.set_content(PAGE % "")
-            pg.screenshot(path=OUT / f"{name}.png", animations="disabled", caret="hide")
-            b.close()
-    print(f"wrote {len(VARIANTS) + 3} PNGs to {OUT}")
-
+            src = Path(tmp) / f"{name}.html"
+            src.write_text(html)
+            capture(str(src), str(OUT / f"{name}.png"), map_path=str(OUT / f"{name}.json"),
+                    width=440, height=480, dpr=dpr, browser=browser)
+    print(f"wrote {len(jobs)} PNG + map pairs to {OUT}")
 
 if __name__ == "__main__":
     main()

@@ -12,6 +12,7 @@ dependencies = [
     "numpy>=2.5.4",
     "opencv-python-headless>=5.0.0.93",
     "pillow>=13.0.0",
+    "playwright>=1.64.0",
     "scipy>=1.18.1",
 ]
 
@@ -24,6 +25,5 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
-    "playwright>=1.64.0",
     "pytest>=9.1.1",
 ]

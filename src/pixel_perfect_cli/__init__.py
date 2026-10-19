@@ -11,7 +11,7 @@ import flip_evaluator
 import numpy as np
 from PIL import Image, ImageCms
 
-from pixel_perfect_cli.structure import Node, _iou, _walk, explain, explain_maps, map_tree
+from pixel_perfect_cli.structure import PX_TOL, SIZE_REL_TOL, Node, _iou, _walk, explain, explain_maps, map_tree
 
 EXIT_PASS, EXIT_DELTAS, EXIT_REVIEW, EXIT_FATAL = 0, 1, 2, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
@@ -205,7 +205,9 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
     found += unexplained(regs, found, cover)
     lap("explain")
     deltas = [d for d in found if d.get("confidence") != "low" and d["type"] != "unexplained"]
-    if (hh := extra.get("height")) and not deltas:  # like any container: a size change nothing inside explains
+    dh = abs(hh["shot"] - hh["design"]) if (hh := extra.get("height")) else 0
+    # like any container: a size change nothing inside explains, at least PX_TOL and SIZE_REL_TOL of it
+    if dh >= PX_TOL and dh / hh["design"] >= SIZE_REL_TOL and not deltas:
         top = next((n for n in (dmap or {}).get("nodes", []) if n.get("parent") is None), None)
         w = ref.shape[1]
         deltas.append({"type": "size", "id": top["id"] if top else "root"}

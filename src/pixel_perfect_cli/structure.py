@@ -287,6 +287,14 @@ def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, s
                 end = (lambda n, p: n.y + n.h - p.y) if ax == "y" else (lambda n, p: n.x + n.w - p.x)
                 anchored = i and (abs(start(c, prev) - start(t, tprev)) < PX_TOL
                                   or abs(end(c, prev) - end(t, tprev)) < PX_TOL)
+                # in a row (block width set from outside, unlike a column's height) the children may hang from the
+                # right edge (space-between, flex-end) or be centered as a block: wider/narrower content then moves
+                # them without any spacing change
+                tk = [match.get(id(k)) for k in kids]
+                if ax == "x" and tparent is not None and None not in tk:
+                    tail = lambda n, p: p.x + p.w - n.x - n.w  # noqa: E731
+                    anchored = anchored or abs(tail(c, parent) - tail(t, tparent)) < PX_TOL or not i and abs(
+                        (c.x - parent.x - tail(kids[-1], parent)) - (t.x - tparent.x - tail(tk[-1], tparent))) / 2 < PX_TOL
                 if abs(e - a) >= PX_TOL and not anchored:
                     add("gap" if i else "padding", c, t, after=ident(prev) if prev is not rt else "root",
                         axis=ax, expected=_num(e), actual=_num(a))
@@ -423,8 +431,9 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
                 out.append(("align", {"axis": "x", "expected": m[1], "actual": m[2], "confidence": "high", "ink": True}))
         elif not out and not style and not c.children and not resized \
                 and (score := 1 - _similarity(ref, test, c, t)) >= APPEARANCE_MIN:
-            sure = score >= APPEARANCE_SURE
-            out.append(("appearance", {"score": round(score, 4), "confidence": "high" if sure else "low"}))
+            # same style, other pixels, no text: replaced content (img, svg) or a style the map does not carry;
+            # resampling (DPR, engine) alone reaches ~0.14 on icons, so only a VLM can tell: review
+            out.append(("appearance", {"score": round(score, 4), "confidence": "low"}))
         return out
 
     def metrics(c: Node, t: Node) -> bool:
@@ -438,18 +447,19 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
     # an element's own margin change explains its offset and the gap to the sibling after it
     margin = {d["id"] for d in deltas if d["type"] == "appearance" and "margin" in d.get("style", {})}
     deltas = [d for d in deltas if not (d["type"] in ("padding", "gap") and margin & {d["id"], d.get("after")})]
-    # several children realigned the same way along x: the parent's alignment (text-align, align-items) changed
+    # the parent's alignment (text-align, align-items: the map does not carry them) changed when several children
+    # realigned along x, or any child of a row moved along y (its own margin would show in its style)
     parent = {k.id: n for n in [rt, *_walk(rt)] for k in n.children}
-    groups: dict[str, list] = {}
+    groups: dict[tuple, list] = {}
     for d in deltas:
-        if d["type"] == "align" and d["axis"] == "x" and d["id"] in parent and parent[d["id"]] is not rt:
-            groups.setdefault(parent[d["id"]].id, []).append(d)
-    for pid, ds in groups.items():
-        if len(ds) >= 2:
+        if d["type"] == "align" and d["id"] in parent and parent[d["id"]] is not rt:
+            groups.setdefault((parent[d["id"]].id, d["axis"]), []).append(d)
+    for (pid, axis), ds in groups.items():
+        if len(ds) >= 2 or axis == "y" and parent[ds[0]["id"]].axis == "x":
             p, tp = parent[ds[0]["id"]], match.get(id(parent[ds[0]["id"]]))
             deltas = [d for d in deltas if d not in ds]
             deltas.append({"type": "align", "id": pid, "selector": p.selector, "text": p.text, "bbox": _box(p),
-                           "shot_bbox": _box(tp) if tp else None, "axis": "x", "children": [d["id"] for d in ds],
+                           "shot_bbox": _box(tp) if tp else None, "axis": axis, "children": [d["id"] for d in ds],
                            "source": "map"})
     matched = {id(n) for n in match.values()}
     # reported once, at the highest unmatched shot node
@@ -458,4 +468,22 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
             deltas += [{"type": "extra", "id": n.id, "selector": n.selector, "text": n.text, "bbox": _box(n),
                         "shot_bbox": _box(n), "source": "map"}
                        for n in p.children if id(n) not in matched and n.w * n.h >= MIN_AREA]
+    # sizes that something else explains: anything under a parent whose layout style changed; a box stretched
+    # to the height of a row sibling that changed (grid/flex/table row); a box that gained or lost a child
+    nodes = {n.id: n for n in _walk(rt)}
+    under = {k.id for i in layout if i in nodes for k in _walk(nodes[i])}
+    cause = {d["id"] for d in deltas if d["type"] != "size"}
+    # ponytail: ancestry by id prefix holds for DOM css paths; a Figma adapter needs the tree instead
+    has_cause = lambda i: any(x == i or x.startswith(i + ">") for x in cause)  # noqa: E731
+    sibs = {k.id: n.children for n in [rt, *_walk(rt)] for k in n.children}
+
+    def stretched(d):
+        n = nodes.get(d["id"])
+        return n is not None and abs(d["actual"][0] - d["expected"][0]) < PX_TOL and any(
+            s is not n and abs(s.y - n.y) < PX_TOL and has_cause(s.id) for s in sibs[n.id])
+    deltas = [d for d in deltas if not (d["type"] == "size" and (
+        d["id"] in under or stretched(d) or any(x.startswith(d["id"] + ">") for x in cause)))]
+    # a sibling that appeared or went away moves the rest of its row or column
+    gone = {d["id"].rpartition(">")[0] for d in deltas if d["type"] in ("missing", "extra")}
+    deltas = [d for d in deltas if not (d["type"] in ("padding", "gap", "align") and d["id"].rpartition(">")[0] in gone)]
     return deltas, cover

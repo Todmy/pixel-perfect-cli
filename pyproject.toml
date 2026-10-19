@@ -1,0 +1,27 @@
+[project]
+name = "pixel-perfect-cli"
+version = "0.1.0"
+description = "Deterministic visual diff of two UI images for AI agents"
+readme = "README.md"
+authors = [
+    { name = "Dmytro Tolok", email = "tolok.d@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "flip-evaluator>=1.7",
+    "numpy>=2.5.4",
+    "opencv-python-headless>=5.0.0.93",
+    "pillow>=13.0.0",
+]
+
+[project.scripts]
+pixel-perfect = "pixel_perfect_cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

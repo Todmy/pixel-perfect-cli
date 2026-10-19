@@ -60,7 +60,15 @@ def main() -> None:
             page.set_content(html)
             page.screenshot(path=OUT / f"{name}.png", animations="disabled", caret="hide")
         browser.close()
-    print(f"wrote {len(VARIANTS)} PNGs to {OUT}")
+        # noise floor: same page, other rasterizers. Must yield no deltas.
+        for name, engine, dpr in [("noise_webkit", pw.webkit, 1), ("noise_firefox", pw.firefox, 1),
+                                  ("noise_chromium2x", pw.chromium, 2)]:
+            b = engine.launch()
+            pg = b.new_page(viewport={"width": 440, "height": 480}, device_scale_factor=dpr)
+            pg.set_content(PAGE % "")
+            pg.screenshot(path=OUT / f"{name}.png", animations="disabled", caret="hide")
+            b.close()
+    print(f"wrote {len(VARIANTS) + 3} PNGs to {OUT}")
 
 
 if __name__ == "__main__":

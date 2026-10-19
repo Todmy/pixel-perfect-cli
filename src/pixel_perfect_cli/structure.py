@@ -12,6 +12,13 @@ from scipy.optimize import linear_sum_assignment
 
 MIN_GAP_X = 8  # vertical cuts need a blank column band this wide, so letters/words stay one element
 MAX_DEPTH = 8
+# Noise floor, calibrated on the same page rendered by Chromium/WebKit/Firefox/Chromium@2x (tests/fixtures/web/noise_*):
+# ponytail: one global floor; per-element tolerances (text vs boxes) if real Figma pairs need tighter checks
+PX_TOL = 2          # gap/padding/align/size changes below this are rasterizer noise (font metrics shift 1px)
+SIZE_REL_TOL = 0.05  # text width differs up to ~4% between engines
+MIN_AREA = 50       # smaller leaves are antialiased corner fragments
+APPEARANCE_MIN = 0.005  # 1 - similarity below this is identical
+APPEARANCE_SURE = 0.05  # above this an appearance change is confident; between -> "review" (escalate to VLM)
 
 
 @dataclass
@@ -133,13 +140,18 @@ def pair(ref, test, rt: Node, tt: Node) -> dict[int, Node]:
     return {id(rn[i]): tn[j] for i, j in zip(ri, ti) if cost[i, j] < 1.0}
 
 
-def _hex(img, n: Node) -> str:
-    """Dominant color of a node: mode of 4-bit-quantized pixels, reported at full precision."""
+def _hex(img, n: Node) -> tuple[str, float]:
+    """Dominant color of a node (mode of 4-bit-quantized pixels, full precision) and its share of the area."""
     px = _crop(img, n).reshape(-1, 3)
     keys = (px >> 4).astype(np.int32) @ np.array([256, 16, 1])
     mode = np.bincount(keys).argmax()
     r, g, b = np.median(px[keys == mode], axis=0).astype(int)
-    return f"#{r:02X}{g:02X}{b:02X}"
+    return f"#{r:02X}{g:02X}{b:02X}", float((keys == mode).mean())
+
+
+def _hex_lab(h: str) -> np.ndarray:
+    rgb = np.array([[[int(h[i:i + 2], 16) for i in (1, 3, 5)]]], np.float32) / 255.0
+    return cv2.cvtColor(rgb, cv2.COLOR_RGB2Lab)[0, 0]
 
 
 def explain(ref, test, ref_lab, test_lab, tol: float) -> list[dict]:
@@ -155,17 +167,25 @@ def explain(ref, test, ref_lab, test_lab, tol: float) -> list[dict]:
             if t is None:
                 if any(id(d) in match for d in _walk(c)):  # regrouped, not gone: look inside
                     walk(c, None)
-                else:
+                elif c.w * c.h >= MIN_AREA:
                     deltas.append({"type": "missing", "element": c.id, "bbox": c.box})
                 continue
-            if (c.w, c.h) != (t.w, t.h):
+            if c.w * c.h < MIN_AREA:
+                continue
+            dw, dh = t.w - c.w, t.h - c.h
+            if (abs(dw) >= PX_TOL and abs(dw) / c.w >= SIZE_REL_TOL) or (abs(dh) >= PX_TOL and abs(dh) / c.h >= SIZE_REL_TOL):
                 deltas.append({"type": "size", "element": c.id, "bbox": c.box,
                                "expected": [c.w, c.h], "actual": [t.w, t.h]})
-            elif not c.children and _similarity(ref, test, c, t) < 0.995:
-                e, a = _hex(ref, c), _hex(test, t)
-                kind = "color" if e != a else "appearance"
-                deltas.append({"type": kind, "element": c.id, "bbox": c.box, "expected": e, "actual": a}
-                              if kind == "color" else {"type": kind, "element": c.id, "bbox": c.box})
+            elif not c.children and (score := 1 - _similarity(ref, test, c, t)) >= APPEARANCE_MIN:
+                (e, es), (a, as_) = _hex(ref, c), _hex(test, t)
+                if (dw, dh) != (0, 0):  # glyph metrics differ: pixels aren't comparable, text needs OCR
+                    deltas.append({"type": "appearance", "element": c.id, "bbox": c.box, "score": round(score, 4),
+                                   "confidence": "low"})
+                elif min(es, as_) >= 0.5 and np.linalg.norm(_hex_lab(e) - _hex_lab(a)) >= 2:  # solid fill
+                    deltas.append({"type": "color", "element": c.id, "bbox": c.box, "expected": e, "actual": a})
+                else:
+                    deltas.append({"type": "appearance", "element": c.id, "bbox": c.box, "score": round(score, 4),
+                                   "confidence": "high" if score >= APPEARANCE_SURE else "low"})
             # position relative to previous sibling (gap) or to parent (padding); cross-axis = align
             prev, tprev = (kids[i - 1], match.get(id(kids[i - 1]))) if i else (parent, tparent)
             if tprev is not None:
@@ -174,11 +194,14 @@ def explain(ref, test, ref_lab, test_lab, tol: float) -> list[dict]:
                        (lambda n, p: n.x - (p.x + p.w if i else p.x))
                 cross = (lambda n, p: n.x - p.x) if ax == "y" else (lambda n, p: n.y - p.y)
                 e, a = lead(c, prev), lead(t, tprev)
-                if e != a:
+                # a sibling that only grew (wider text) shifts the gap but not the anchor: require both edges moved
+                start = (lambda n, p: n.y - p.y) if ax == "y" else (lambda n, p: n.x - p.x)
+                anchored = i and abs(start(c, prev) - start(t, tprev)) < PX_TOL
+                if abs(e - a) >= PX_TOL and not anchored:
                     deltas.append({"type": "gap" if i else "padding", "element": c.id, "after": prev.id or "root",
                                    "axis": ax, "expected": e, "actual": a})
                 e, a = cross(c, parent), cross(t, tparent) if tparent is not None else None
-                if a is not None and e != a:
+                if a is not None and abs(e - a) >= PX_TOL:
                     deltas.append({"type": "align", "element": c.id, "axis": "x" if ax == "y" else "y",
                                    "expected": e, "actual": a})
             walk(c, t)
@@ -188,5 +211,5 @@ def explain(ref, test, ref_lab, test_lab, tol: float) -> list[dict]:
     inner = [d["element"] for d in deltas if d["type"] != "size"]
     deltas = [d for d in deltas if not (d["type"] == "size" and any(e.startswith(d["element"] + ".") for e in inner))]
     deltas += [{"type": "extra", "element": n.id, "bbox": n.box}
-               for n in _walk(tt) if id(n) not in matched_test and not n.children]
+               for n in _walk(tt) if id(n) not in matched_test and not n.children and n.w * n.h >= MIN_AREA]
     return deltas

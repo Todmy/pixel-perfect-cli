@@ -84,5 +84,16 @@ def test_web_missing_button():
     assert [x["bbox"] for x in d if x["type"] == "missing"] == [[166, 137, 75, 43]]
 
 
-def test_web_text_change_is_one_appearance_delta():
-    assert [t for t, _, _ in kinds("text")] == ["appearance"]
+def test_web_text_change_goes_to_review():
+    d = web("text")
+    assert d["status"] == "review" and [x["element"] for x in d["review"]] == ["e5.1"]
+
+
+def test_noise_retina_has_no_confident_deltas():
+    assert web("noise_chromium2x")["deltas"] == []
+
+
+def test_noise_other_engines_stay_under_floor():
+    # known residue: "Storage" descender height (WebKit/Firefox), Firefox bold "12"
+    assert len(web("noise_webkit")["deltas"]) <= 1
+    assert len(web("noise_firefox")["deltas"]) <= 2

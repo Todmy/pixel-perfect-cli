@@ -12,7 +12,7 @@ from PIL import Image, ImageCms
 
 from pixel_perfect_cli.structure import explain
 
-EXIT_PASS, EXIT_DELTAS, EXIT_FATAL = 0, 1, 12
+EXIT_PASS, EXIT_DELTAS, EXIT_REVIEW, EXIT_FATAL = 0, 1, 2, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
 SRGB = ImageCms.createProfile("sRGB")
 
@@ -81,12 +81,15 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
         m = np.float32([[1, 0, -round(dx)], [0, 1, -round(dy)]])
         test = cv2.warpAffine(test, m, test.shape[1::-1], borderMode=cv2.BORDER_REPLICATE)
     regs = regions(ref, test, tol, min_area)
-    deltas = explain(ref, test, lab(ref), lab(test), tol) if regs else []
+    found = explain(ref, test, lab(ref), lab(test), tol) if regs else []
+    deltas = [d for d in found if d.get("confidence") != "low"]
+    review = [d for d in found if d.get("confidence") == "low"]
     return {
-        "status": "deltas" if regs or shifted else "pass",
+        "status": "deltas" if deltas or shifted else "review" if review else "pass",
         "size": list(ref.shape[1::-1]),
         "global": {"dx": dx, "dy": dy, "confidence": conf, "compensated": shifted},
         "deltas": deltas,
+        "review": review,  # low-confidence appearance changes: escalate crops to a VLM, don't auto-fix
         "regions": regs,
     }
 
@@ -104,4 +107,4 @@ def main() -> None:
         print(json.dumps({"status": "fatal", "error": str(e)}))
         sys.exit(EXIT_FATAL)
     print(json.dumps(result, indent=2))
-    sys.exit(EXIT_PASS if result["status"] == "pass" else EXIT_DELTAS)
+    sys.exit({"pass": EXIT_PASS, "review": EXIT_REVIEW}.get(result["status"], EXIT_DELTAS))

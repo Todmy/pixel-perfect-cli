@@ -7,7 +7,9 @@ uv tool install --from . pixel-perfect-cli
 pixel-perfect design.png shot.png        # JSON on stdout
 ```
 
-Exit codes: `0` pass, `1` deltas, `12` fatal (missing file, aspect mismatch).
+Exit codes: `0` pass, `1` deltas (fix them), `2` review only (low-confidence appearance: escalate crops to a VLM), `12` fatal.
+
+Noise floor is calibrated on the same page rendered by Chromium, WebKit, Firefox and Chromium@2x (`tests/fixtures/web/noise_*`). Retina: zero false deltas. Other engines: 1-2 residual (glyph descender height, synthetic bold). Text content changes land in `review` until OCR lands.
 
 Pipeline (stages 1-5 done, OCR pending):
 1. Normalize: ICC to sRGB, alpha onto white, DPR resize, global shift via phase correlation.

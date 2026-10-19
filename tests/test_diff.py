@@ -86,7 +86,7 @@ def test_web_missing_button():
 
 def test_web_text_change_goes_to_review():
     d = web("text")
-    assert d["status"] == "review" and [x["element"] for x in d["review"]] == ["e5.1"]
+    assert d["status"] == "review" and [(x["type"], x["source"]) for x in d["review"]] == [("appearance", "pixels")]
 
 
 def test_noise_retina_has_no_confident_deltas():

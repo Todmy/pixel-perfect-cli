@@ -6,6 +6,7 @@ change of its parent, so one changed margin yields one delta instead of a cascad
 """
 
 import hashlib
+import re
 import time
 from dataclasses import dataclass, field
 
@@ -26,6 +27,7 @@ APPEARANCE_SURE = 0.05  # above this an appearance change is confident; between 
 HOT_MIN = 4  # a node's pixels "differ" when at least this many differ by more than tol (aligned on its own bbox)
 COLOR_PROPS = ("color", "background-color")
 LAYOUT_STYLES = {"padding", "gap", "border-width"}  # parent styles that move their children
+NUM = re.compile(r"-?\d+\.\d+")
 
 
 @dataclass
@@ -143,6 +145,30 @@ def _similarity(ref, test, a: Node, b: Node) -> float:
     return 1.0 if c is None else 1.0 - float(np.abs(c[0].astype(np.int16) - c[1]).mean()) / 255.0
 
 
+def _ink_lines(lab, n: Node, tol: float) -> list[tuple[int, int]]:
+    """(left, right) ink edges of each text line inside n's own box: px from its left and from its right edge."""
+    crop = _crop(lab, n)
+    h, w = crop.shape[:2]
+    if h < 3 or w < 3:
+        return []
+    ink = np.linalg.norm(crop - _border_color(crop, 0, 0, w, h), axis=2) > tol
+    lines = [(int(cols[0]), w - 1 - int(cols[-1])) for a, b in _bands(ink.any(axis=1), 1)
+             for cols in [np.flatnonzero(ink[a:b].any(axis=0))]]
+    return [ln for ln in lines if ln != (0, 0)]  # edge to edge is a border or rule, not a text line
+
+
+def _ink_shift(ref_lab, test_lab, a: Node, b: Node, tol: float) -> tuple[float, int, int]:
+    """How far the text inside a box moved: per line the smallest of the left/center/right edge moves (glyph
+    metrics change a line's width, never all three anchors), the largest over lines. -> (shift, left, left')."""
+    la, lb = _ink_lines(ref_lab, a, tol), _ink_lines(test_lab, b, tol)
+    if not la or not lb:
+        return 0.0, 0, 0
+    if len(la) != len(lb):  # other wrapping or merged bands: the text block as a whole
+        la, lb = ([(min(x for x, _ in ls), min(x for _, x in ls))] for ls in (la, lb))
+    moves = [(min(abs(p - q), abs(r - s), abs((p - r) - (q - s)) / 2), p, q) for (p, r), (q, s) in zip(la, lb)]
+    return max(moves)
+
+
 def _hot(ref_lab, test_lab, a: Node, b: Node, tol: float) -> int:
     c = _aligned(ref_lab, test_lab, a, b)
     return 0 if c is None else int((np.linalg.norm(c[0] - c[1], axis=2) > tol).sum())
@@ -203,10 +229,11 @@ def _box(n: Node) -> list:
     return [_num(v) for v in n.box]
 
 
-def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, source: str):
+def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, source: str, metrics=None):
     """Walk the design tree against its matched shot nodes and report causes, not cascades.
 
     look(c, t, resized) -> [(type, fields)] reports content changes of a matched node; ident(n) gives its stable id.
+    metrics(c, t) -> True when a width change is only glyph advances (same text, same style), so not a resize.
     Returns (deltas, cover): cover holds (outer, inner) boxes of matched leaves and of matched nodes that moved or
     resized; hot pixels there are judged or are consequences (inside outer, not wholly inside inner when set).
     """
@@ -239,7 +266,8 @@ def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, s
                 cover.append((outer, None))
             elif max(abs(dw), abs(dh)) >= 1:  # same origin, grew or shrank: only the band between the edges
                 cover.append((outer, [c.x, c.y, min(c.w, t.w), min(c.h, t.h)]))
-            resized = bool((abs(dw) >= PX_TOL and abs(dw) / c.w >= SIZE_REL_TOL)
+            resized = bool((abs(dw) >= PX_TOL and abs(dw) / c.w >= SIZE_REL_TOL
+                            and not (metrics and abs(dh) < PX_TOL and metrics(c, t)))
                            or (abs(dh) >= PX_TOL and abs(dh) / c.h >= SIZE_REL_TOL))
             if resized:
                 add("size", c, t, expected=[_num(c.w), _num(c.h)], actual=[_num(t.w), _num(t.h)])
@@ -255,19 +283,26 @@ def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, s
                 e, a = lead(c, prev), lead(t, tprev)
                 # a sibling that only grew (wider text) shifts the gap but not the anchor: require both edges moved
                 start = (lambda n, p: n.y - p.y) if ax == "y" else (lambda n, p: n.x - p.x)
-                anchored = i and abs(start(c, prev) - start(t, tprev)) < PX_TOL
+                # or the pair's outer span is unchanged (end-aligned row): the gap is what the widths left over
+                end = (lambda n, p: n.y + n.h - p.y) if ax == "y" else (lambda n, p: n.x + n.w - p.x)
+                anchored = i and (abs(start(c, prev) - start(t, tprev)) < PX_TOL
+                                  or abs(end(c, prev) - end(t, tprev)) < PX_TOL)
                 if abs(e - a) >= PX_TOL and not anchored:
                     add("gap" if i else "padding", c, t, after=ident(prev) if prev is not rt else "root",
                         axis=ax, expected=_num(e), actual=_num(a))
                 e, a = cross(c, parent), cross(t, tparent) if tparent is not None else None
+                far = (lambda n, p: n.x + n.w - p.x - p.w) if ax == "y" else (lambda n, p: n.y + n.h - p.y - p.h)
                 if a is not None and abs(e - a) >= PX_TOL:
-                    add("align", c, t, axis="x" if ax == "y" else "y", expected=_num(e), actual=_num(a))
+                    fe, fa = far(c, parent), far(t, tparent)
+                    # a box that only resized keeps its end or center anchor (end/center alignment): no align cause
+                    if abs(fe - fa) >= PX_TOL and abs((e + fe) - (a + fa)) / 2 >= PX_TOL:
+                        add("align", c, t, axis="x" if ax == "y" else "y", expected=_num(e), actual=_num(a))
             walk(c, t)
 
     walk(rt, tt)
-    # a container's size change is a consequence when a content change of its own or anything inside explains it
+    # a container's size change is a consequence when a change of its own or anything inside explains it
     own = {id(n) for n, d in found if d["type"] in ("text", "color", "appearance")}
-    inner = {id(n) for n, d in found if d["type"] != "size"}
+    inner = {id(n) for n, d in found}
     return [d for n, d in found if not (d["type"] == "size" and (
         id(n) in own or any(id(x) in inner for x in _walk(n))))], cover
 
@@ -310,6 +345,12 @@ def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None
     return deltas, cover
 
 
+def _norm_style(style: dict) -> dict:
+    """Engine-neutral computed values: WebKit drops font-name quotes, float32 px prints as 33.599998."""
+    return {p: NUM.sub(lambda m: f"{float(m[0]):.2f}".rstrip("0").rstrip("."), str(v).replace('"', "").replace("'", ""))
+            for p, v in style.items()}
+
+
 def map_tree(smap: dict, k: float, dx: float = 0, dy: float = 0, skip: frozenset = frozenset()) -> Node:
     """Element tree of a structure map in image px (CSS px * k, minus the compensated page shift).
 
@@ -325,7 +366,7 @@ def map_tree(smap: dict, k: float, dx: float = 0, dy: float = 0, skip: frozenset
         # ponytail: a node whose parent is absent from the map (zero-size wrapper) hangs off the root
         x, y, w, h = n["bbox"]
         node = Node(x * k - dx, y * k - dy, w * k, h * k, id=n["id"], selector=n.get("selector", n["id"]),
-                    text=n.get("text"), style=n.get("style") or {})
+                    text=n.get("text"), style=_norm_style(n.get("style") or {}))
         parent.children.append(node)
         by_id[n["id"]] = node
     for n in [root, *_walk(root)]:  # a row: every child starts right of where the previous one ended
@@ -375,18 +416,41 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
                 out.append(("color", {"expected": e, "actual": a, "style": colors, "confidence": "high"}))
             if rest:
                 out.append(("appearance", {"style": rest, "confidence": "high"}))
+        elif not out and not style and not c.children and not resized and c.text:
+            # same text, same style: other pixels are glyph rasterization (engine, hinting), not a code change,
+            # unless the lines moved inside the box (text-align, which the map does not carry)
+            if (m := _ink_shift(ref_lab, test_lab, c, t, tol))[0] >= PX_TOL:
+                out.append(("align", {"axis": "x", "expected": m[1], "actual": m[2], "confidence": "high", "ink": True}))
         elif not out and not style and not c.children and not resized \
                 and (score := 1 - _similarity(ref, test, c, t)) >= APPEARANCE_MIN:
-            # same text, same style, other pixels: glyph rasterization (engine, hinting), not a code change
-            sure = score >= APPEARANCE_SURE and not c.text
+            sure = score >= APPEARANCE_SURE
             out.append(("appearance", {"score": round(score, 4), "confidence": "high" if sure else "low"}))
         return out
 
-    deltas, cover = causes(ref, test, rt, tt, match, look, lambda n: n.id, "map")
+    def metrics(c: Node, t: Node) -> bool:
+        return bool(c.text) and not c.children and c.text == t.text and c.style == t.style
+
+    deltas, cover = causes(ref, test, rt, tt, match, look, lambda n: n.id, "map", metrics)
     # a parent's own padding/gap/border-width change already explains its children moving: report it once
     layout = {d["id"] for d in deltas if d["type"] == "appearance" and LAYOUT_STYLES & d.get("style", {}).keys()}
     moved = {k.id for n in _walk(rt) if n.id in layout for k in n.children}
     deltas = [d for d in deltas if not (d["type"] in ("align", "padding", "gap") and d["id"] in moved)]
+    # an element's own margin change explains its offset and the gap to the sibling after it
+    margin = {d["id"] for d in deltas if d["type"] == "appearance" and "margin" in d.get("style", {})}
+    deltas = [d for d in deltas if not (d["type"] in ("padding", "gap") and margin & {d["id"], d.get("after")})]
+    # several children realigned the same way along x: the parent's alignment (text-align, align-items) changed
+    parent = {k.id: n for n in [rt, *_walk(rt)] for k in n.children}
+    groups: dict[str, list] = {}
+    for d in deltas:
+        if d["type"] == "align" and d["axis"] == "x" and d["id"] in parent and parent[d["id"]] is not rt:
+            groups.setdefault(parent[d["id"]].id, []).append(d)
+    for pid, ds in groups.items():
+        if len(ds) >= 2:
+            p, tp = parent[ds[0]["id"]], match.get(id(parent[ds[0]["id"]]))
+            deltas = [d for d in deltas if d not in ds]
+            deltas.append({"type": "align", "id": pid, "selector": p.selector, "text": p.text, "bbox": _box(p),
+                           "shot_bbox": _box(tp) if tp else None, "axis": "x", "children": [d["id"] for d in ds],
+                           "source": "map"})
     matched = {id(n) for n in match.values()}
     # reported once, at the highest unmatched shot node
     for p in [tt, *_walk(tt)]:

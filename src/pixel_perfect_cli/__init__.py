@@ -11,7 +11,7 @@ import flip_evaluator
 import numpy as np
 from PIL import Image, ImageCms
 
-from pixel_perfect_cli.structure import PX_TOL, SIZE_REL_TOL, Node, _iou, _walk, explain, explain_maps, map_tree
+from pixel_perfect_cli.structure import PX_TOL, SIZE_REL_TOL, Node, _iou, _stable_id, _walk, explain, explain_maps, map_tree
 
 EXIT_PASS, EXIT_DELTAS, EXIT_REVIEW, EXIT_FATAL = 0, 1, 2, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
@@ -90,8 +90,9 @@ def mask_rects(smap: dict | None, scale: float) -> list[tuple[int, int, int, int
 
 
 def paint(img: np.ndarray, rects: list[tuple[int, int, int, int]]) -> None:
-    for x0, y0, x1, y1 in rects:
-        img[max(y0, 0):y1, max(x0, 0):x1] = MASK_GRAY
+    h, w = img.shape[:2]
+    for x0, y0, x1, y1 in rects:  # clip every edge: a negative end would wrap around in a slice
+        img[min(max(y0, 0), h):min(max(y1, 0), h), min(max(x0, 0), w):min(max(x1, 0), w)] = MASK_GRAY
 
 
 def global_shift(ref: np.ndarray, test: np.ndarray) -> tuple[float, float, float]:
@@ -138,14 +139,15 @@ def annotate(deltas: list[dict], tree: Node, key: str) -> None:
             d |= {"id": best.id, "selector": best.selector, "text": best.text}
 
 
-def unexplained(regs: list[dict], found: list[dict], cover: list) -> list[dict]:
+def unexplained(regs: list[dict], found: list[dict], cover: list, ref: np.ndarray) -> list[dict]:
     """Hot regions that no delta's design or shot box touches, and no moved or resized element accounts for."""
     cover = [(d[k], None) for d in found for k in ("bbox", "shot_bbox") if d.get(k)] + cover
 
     def inside(a, b):
         return b[0] <= a[0] and b[1] <= a[1] and a[0] + a[2] <= b[0] + b[2] and a[1] + a[3] <= b[1] + b[3]
 
-    return [{"type": "unexplained", "bbox": r["bbox"], "severity": r["severity"]} for r in regs
+    return [{"type": "unexplained", "id": _stable_id(ref, Node(*r["bbox"])), "bbox": r["bbox"], "severity": r["severity"],
+             "confidence": "low", "source": "pixels"} for r in regs
             if not any(_iou(Node(*r["bbox"]), Node(*o)) > 0 and not (i and inside(r["bbox"], i)) for o, i in cover)]
 
 
@@ -194,15 +196,18 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
     sx, sy = (round(dx), round(dy)) if shifted else (0, 0)
     masked = frozenset(n["id"] for m in (dmap, smap) if m for n in m["nodes"] if n.get("masked"))
     k = ref.shape[1] / native_w
-    rt = map_tree(dmap, dmap.get("dpr", 1), skip=masked) if dmap else None
-    tt = map_tree(smap, smap.get("dpr", 1) * k, sx, sy, masked) if smap else None
+    rt = map_tree(dmap, dmap.get("dpr", 1), skip=masked, rects=rects) if dmap else None
+    tt = map_tree(smap, smap.get("dpr", 1) * k, sx, sy, masked, rects) if smap else None
     if rt and tt:
         found, cover = explain_maps(ref, test, ref_lab, test_lab, tol, rt, tt)
     else:
         found, cover = explain(ref, test, ref_lab, test_lab, tol, timing) if regs else ([], [])
         if rt or tt:
             annotate(found, rt or tt, "bbox" if rt else "shot_bbox")
-    found += unexplained(regs, found, cover)
+    hot = unexplained(regs, found, cover, ref)
+    if rt or tt:
+        annotate(hot, rt or tt, "bbox")
+    found += hot
     lap("explain")
     deltas = [d for d in found if d.get("confidence") != "low" and d["type"] != "unexplained"]
     dh = abs(hh["shot"] - hh["design"]) if (hh := extra.get("height")) else 0
@@ -213,7 +218,7 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
         deltas.append({"type": "size", "id": top["id"] if top else "root"}
                       | ({"selector": top.get("selector", top["id"]), "text": top.get("text")} if top else {})
                       | {"bbox": [0, 0, w, hh["design"]], "shot_bbox": [0, 0, w, hh["shot"]],
-                         "expected": [w, hh["design"]], "actual": [w, hh["shot"]], "source": "pixels"})
+                         "expected": [w, hh["design"]], "actual": [w, hh["shot"]], "confidence": "high", "source": "pixels"})
     review = [d for d in found if d.get("confidence") == "low" or d["type"] == "unexplained"]
     return {
         "status": "deltas" if deltas or shifted else "review" if review else "pass",

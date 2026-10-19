@@ -244,7 +244,7 @@ def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, s
         d = {"type": kind, "id": ident(c)}
         if c.selector is not None:
             d |= {"selector": c.selector, "text": c.text}
-        d |= {"bbox": _box(c), "shot_bbox": _box(t) if t is not None else None}
+        d |= {"bbox": _box(c), "shot_bbox": _box(t) if t is not None else None, "confidence": "high"}
         found.append((c, d | kw | {"source": source}))
 
     def walk(parent: Node, tparent: Node | None):
@@ -350,7 +350,7 @@ def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None
     # an ink leaf (word, line, icon) that only got wider or narrower at the same height: glyph advances
     deltas, cover = causes(ref, test, rt, tt, match, look, ident, "pixels", lambda c, t: not c.children)
     matched_test = {id(n) for n in match.values()}
-    deltas += [{"type": "extra", "id": _stable_id(test, n), "bbox": n.box, "shot_bbox": n.box, "source": "pixels"}
+    deltas += [{"type": "extra", "id": _stable_id(test, n), "bbox": n.box, "shot_bbox": n.box, "confidence": "high", "source": "pixels"}
                for n in _walk(tt) if id(n) not in matched_test and not n.children and n.w * n.h >= MIN_AREA]
     return deltas, cover
 
@@ -361,10 +361,10 @@ def _norm_style(style: dict) -> dict:
             for p, v in style.items()}
 
 
-def map_tree(smap: dict, k: float, dx: float = 0, dy: float = 0, skip: frozenset = frozenset()) -> Node:
+def map_tree(smap: dict, k: float, dx: float = 0, dy: float = 0, skip: frozenset = frozenset(), rects=()) -> Node:
     """Element tree of a structure map in image px (CSS px * k, minus the compensated page shift).
 
-    Nodes in skip (masked) and their subtrees are left out.
+    Nodes in skip (masked ids), nodes whose box lies inside a masked rect (x0, y0, x1, y1), and their subtrees are left out.
     """
     root = Node(0, 0, 0, 0)
     by_id = {}
@@ -375,6 +375,10 @@ def map_tree(smap: dict, k: float, dx: float = 0, dy: float = 0, skip: frozenset
             continue
         # ponytail: a node whose parent is absent from the map (zero-size wrapper) hangs off the root
         x, y, w, h = n["bbox"]
+        if any(x * k - dx >= r[0] - 1 and y * k - dy >= r[1] - 1 and (x + w) * k - dx <= r[2] + 1
+               and (y + h) * k - dy <= r[3] + 1 for r in rects):  # 1 px: mask rects are rounded
+            by_id[n["id"]] = None
+            continue
         node = Node(x * k - dx, y * k - dy, w * k, h * k, id=n["id"], selector=n.get("selector", n["id"]),
                     text=n.get("text"), style=_norm_style(n.get("style") or {}))
         parent.children.append(node)
@@ -392,18 +396,54 @@ def _iou(a: Node, b: Node) -> float:
     return inter / (a.w * a.h + b.w * b.h - inter) if inter else 0.0
 
 
+def _codes(vals: list, table: dict) -> np.ndarray:
+    """Integer code per value, equal values (as ==) sharing a code; unhashable ones go by repr."""
+    out = []
+    for v in vals:
+        try:
+            out.append(table.setdefault(v, len(table)))
+        except TypeError:
+            out.append(table.setdefault(("repr", repr(v)), len(table)))
+    return np.array(out)
+
+
+def _map_cost(ra: list[Node], ta: list[Node]) -> np.ndarray:
+    """Dense pairing cost, ra x ta: 1 - IoU, text and size mismatch, and the share of differing style props."""
+    A, B = (np.array([[n.x, n.y, n.w, n.h] for n in ns], np.float64) for ns in (ra, ta))
+    a, b = A[:, None], B[None]
+    iw = np.minimum(a[..., 0] + a[..., 2], b[..., 0] + b[..., 2]) - np.maximum(a[..., 0], b[..., 0])
+    ih = np.minimum(a[..., 1] + a[..., 3], b[..., 1] + b[..., 3]) - np.maximum(a[..., 1], b[..., 1])
+    inter = np.maximum(iw, 0) * np.maximum(ih, 0)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        iou = np.where(inter > 0, inter / (a[..., 2] * a[..., 3] + b[..., 2] * b[..., 3] - inter), 0.0)
+        cost = ((1 - iou) + abs(a[..., 2] - b[..., 2]) / np.maximum(a[..., 2], b[..., 2])
+                + abs(a[..., 3] - b[..., 3]) / np.maximum(a[..., 3], b[..., 3]))
+    text = {}
+    tc = _codes([n.text for n in ra + ta], text)
+    cost = cost + 0.5 * (tc[:len(ra), None] != tc[None, len(ra):])
+    keys = sorted({p for n in ra + ta for p in n.style})
+    if keys:
+        diff = np.zeros(cost.shape)
+        union = np.zeros(cost.shape)
+        for p in keys:
+            c = _codes([n.style.get(p) for n in ra + ta], {})
+            pres = np.array([p in n.style for n in ra + ta])
+            diff += c[:len(ra), None] != c[None, len(ra):]
+            union += pres[:len(ra), None] | pres[None, len(ra):]
+        cost = cost + 0.5 * np.divide(diff, union, out=np.zeros(cost.shape), where=union > 0)
+    return cost
+
+
 def pair_maps(rt: Node, tt: Node) -> dict[int, Node]:
     """Exact id match first (DOM vs DOM), then Hungarian on the rest (e.g. Figma names vs selectors)."""
+    # ponytail: dense len(ra) x len(ta) matrices; ~600 nodes per map take ms, tens of thousands need candidate pruning
     rn, tn = list(_walk(rt)), list(_walk(tt))
     tid = {n.id: n for n in tn}
     match = {id(n): tid[n.id] for n in rn if n.id in tid}
     used = {id(t) for t in match.values()}
     ra, ta = [n for n in rn if id(n) not in match], [n for n in tn if id(n) not in used]
     if ra and ta:
-        cost = np.array([[(1 - _iou(a, b)) + 0.5 * (a.text != b.text)
-                          + abs(a.w - b.w) / max(a.w, b.w) + abs(a.h - b.h) / max(a.h, b.h)
-                          + 0.5 * np.mean([a.style.get(p) != b.style.get(p) for p in a.style.keys() | b.style.keys()] or [0])
-                          for b in ta] for a in ra])
+        cost = _map_cost(ra, ta)
         # ponytail: same fixed 1.0 "same element" cutoff as the pixel pairing; tune on real Figma maps
         match |= {id(ra[i]): ta[j] for i, j in zip(*linear_sum_assignment(cost)) if cost[i, j] < 1.0}
     return match
@@ -462,13 +502,13 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
             deltas = [d for d in deltas if d not in ds]
             deltas.append({"type": "align", "id": pid, "selector": p.selector, "text": p.text, "bbox": _box(p),
                            "shot_bbox": _box(tp) if tp else None, "axis": axis, "children": [d["id"] for d in ds],
-                           "source": "map"})
+                           "confidence": "high", "source": "map"})
     matched = {id(n) for n in match.values()}
     # reported once, at the highest unmatched shot node
     for p in [tt, *_walk(tt)]:
         if p is tt or id(p) in matched:
             deltas += [{"type": "extra", "id": n.id, "selector": n.selector, "text": n.text, "bbox": _box(n),
-                        "shot_bbox": _box(n), "source": "map"}
+                        "shot_bbox": _box(n), "confidence": "high", "source": "map"}
                        for n in p.children if id(n) not in matched and n.w * n.h >= MIN_AREA]
     # sizes that something else explains: anything under a parent whose layout style changed; a box stretched
     # to the height of a row sibling that changed (grid/flex/table row); a box that gained or lost a child

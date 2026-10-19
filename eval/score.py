@@ -1,7 +1,7 @@
 """Score a diff CLI against the frozen eval corpus (Contract v1). The CLI runs only as a subprocess.
 
 Run: uv run python -m eval.score --label NAME [--mode pixels|maps|both] [--split train|heldout|all] [--gate]
-     [--cmd "pixel-perfect diff {design} {shot}"] [--legacy]
+     [--jobs N] [--cmd "pixel-perfect diff {design} {shot}"] [--legacy]
 
 Matching (Contract v1): a delta that carries a selector must name the mutated element (or its parent for
 gap/padding/margin); a delta without one matches by bbox IoU >= 0.3 with the element (or parent) in design or shot.
@@ -18,6 +18,7 @@ import statistics
 import subprocess
 import sys
 import time
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,6 +29,7 @@ LEGACY_CMD = "pixel-perfect {design} {shot}"
 MAP_FLAGS = "--design-map {design_map} --shot-map {shot_map}"
 IOU_MIN = 0.3
 SPACING = {"gap", "padding", "margin"}
+RUNTIME_EXTRA = 5  # non-long pairs timed in the sequential runtime pass
 LONG_PAGE = 4000  # px: the runtime gate applies to pages at least this tall
 TIMING = re.compile(rb'"timing_ms"\s*:\s*\{[^{}]*\}')
 ARGPARSE = re.compile(r"usage:|unrecognized arguments|invalid choice|the following arguments are required")
@@ -105,34 +107,60 @@ def pairs(split: str) -> list[Path]:
     return [p for p in out if split == "all" or json.loads((p / "truth.json").read_text())["split"] == split]
 
 
-def score_mode(template: str, mode: str, split: str, timeout: float) -> dict:
+def score_pair(args: tuple) -> dict:
+    """Quality record of one pair (2 CLI runs for determinism); picklable so a process pool can run it."""
+    template, d, timeout = args
+    truth = json.loads((d / "truth.json").read_text())
+    rel = lambda p: str((d / p).resolve().relative_to(ROOT))  # noqa: E731
+    paths = {"design": rel(truth["design"]), "shot": rel("shot.png"),
+             "design_map": rel(truth["design_map"]), "shot_map": rel("shot-map.json")}
+    cmd = [tok.format(**paths) for tok in shlex.split(template)]
+    a, b = run(cmd, timeout), run(cmd, timeout)
+    try:
+        out = json.loads(a["stdout"])
+    except ValueError:
+        out = None
+    if out is None and ARGPARSE.search(a["stderr"]):
+        return {"unsupported": a["stderr"].strip()[-500:]}
+    dmap = json.loads((d / truth["design_map"]).read_text())
+    rec = {"pair": truth["pair"], "page": truth["page"], "page_kind": truth["page_kind"], "split": truth["split"],
+           "kind": truth["kind"], "noise": truth["noise"], "shot_engine": truth["shot_engine"],
+           "elements": len(dmap["nodes"]), "page_height": png_height(d / truth["design"]),
+           "exit": a["exit"], "status": (out or {}).get("status"),
+           "error": None if out and out.get("status") != "fatal" else (out or {}).get("error") or a["stderr"][-300:] or "no JSON on stdout",
+           "deterministic": a["exit"] is not None and stable_sha(a["stdout"]) == stable_sha(b["stdout"]),
+           "stdout_sha256": stable_sha(a["stdout"]), "wall_s": [a["wall_s"], b["wall_s"]]}  # wall_s: pool-contended, not for gates
+    rec.update(judge(out or {}, truth, dmap))
+    rec["_cmd"] = cmd
+    return rec
+
+
+def runtime_pass(recs: list[dict], timeout: float) -> dict:
+    """Sequential timing, after the pool is done: every long-page pair plus the first RUNTIME_EXTRA other pairs (sorted)."""
+    long = [r for r in recs if r["page_height"] >= LONG_PAGE]
+    pick = long + [r for r in recs if r["page_height"] < LONG_PAGE][:RUNTIME_EXTRA]
+    before = os.getloadavg()[0]
+    for r in pick:
+        r["runtime_s"] = [run(r["_cmd"], timeout)["wall_s"] for _ in range(2)]
+    after = os.getloadavg()[0]
+    return {"pairs": [r["pair"] for r in pick], "loadavg": [round(before, 1), round(after, 1)],
+            "long_page_max_s": max((min(r["runtime_s"]) for r in long), default=None)}
+
+
+def score_mode(template: str, mode: str, split: str, timeout: float, jobs: int) -> dict:
     if mode == "maps":
         template += " " + MAP_FLAGS
+    work = [(template, d, timeout) for d in pairs(split)]
     recs = []
-    for d in pairs(split):
-        truth = json.loads((d / "truth.json").read_text())
-        rel = lambda p: str((d / p).resolve().relative_to(ROOT))  # noqa: E731
-        paths = {"design": rel(truth["design"]), "shot": rel("shot.png"),
-                 "design_map": rel(truth["design_map"]), "shot_map": rel("shot-map.json")}
-        cmd = [tok.format(**paths) for tok in shlex.split(template)]
-        a, b = run(cmd, timeout), run(cmd, timeout)
-        try:
-            out = json.loads(a["stdout"])
-        except ValueError:
-            out = None
-        if out is None and ARGPARSE.search(a["stderr"]):
-            return {"status": "UNSUPPORTED", "command": template, "reason": a["stderr"].strip()[-500:], "pairs": []}
-        dmap = json.loads((d / truth["design_map"]).read_text())
-        rec = {"pair": truth["pair"], "page": truth["page"], "page_kind": truth["page_kind"], "split": truth["split"],
-               "kind": truth["kind"], "noise": truth["noise"], "shot_engine": truth["shot_engine"],
-               "elements": len(dmap["nodes"]), "page_height": png_height(d / truth["design"]),
-               "exit": a["exit"], "status": (out or {}).get("status"),
-               "error": None if out and out.get("status") != "fatal" else (out or {}).get("error") or a["stderr"][-300:] or "no JSON on stdout",
-               "deterministic": a["exit"] is not None and stable_sha(a["stdout"]) == stable_sha(b["stdout"]),
-               "stdout_sha256": stable_sha(a["stdout"]), "wall_s": [a["wall_s"], b["wall_s"]]}
-        rec.update(judge(out or {}, truth, dmap))
-        recs.append(rec)
-    return {"status": "OK", "command": template, "pairs": recs}
+    with ProcessPoolExecutor(max_workers=max(1, jobs)) as ex:
+        for rec in ex.map(score_pair, work):  # input order: deterministic whatever the completion order
+            if "unsupported" in rec:
+                return {"status": "UNSUPPORTED", "command": template, "reason": rec["unsupported"], "pairs": []}
+            recs.append(rec)
+    rt = runtime_pass(recs, timeout)
+    for r in recs:
+        del r["_cmd"]
+    return {"status": "OK", "command": template, "pairs": recs, "runtime_pass": rt}
 
 
 def pct(xs: list[float], q: float) -> float | None:
@@ -159,10 +187,10 @@ def agg(recs: list[dict]) -> dict:
             "p95_runtime_s": pct([w for r in recs for w in r["wall_s"]], 0.95)}
 
 
-def gates(recs: list[dict], baseline_recall: float | None, is_baseline: bool) -> dict:
+def gates(recs: list[dict], baseline_recall: float | None, is_baseline: bool, loaded: bool = False) -> dict:
     held = agg([r for r in recs if r["split"] == "heldout"])
     alls = agg(recs)
-    long = [min(r["wall_s"]) for r in recs if r["page_height"] >= LONG_PAGE]  # min of 2 runs: damps machine load
+    long = [min(r["runtime_s"]) for r in recs if r["page_height"] >= LONG_PAGE and "runtime_s" in r]  # sequential pass, min of 2 runs
     rerender = [r for r in recs if r["noise"] == "rerender"]
 
     def g(cond, unknown=False):
@@ -182,7 +210,7 @@ def gates(recs: list[dict], baseline_recall: float | None, is_baseline: bool) ->
         "review_rate_noise<10%": g((alls["review_rate_noise"] or 0) < 0.10, alls["review_rate_noise"] is None),
         "rerender_confident_deltas==0": g(alls["rerender_confident_deltas"] == 0 and not any(r["error"] for r in rerender), not rerender),
         "determinism_every_pair": g(alls["determinism_failures"] == 0, not recs),
-        "runtime_long_page<5s": g(long and max(long) < 5.0, not long),
+        "runtime_long_page<5s": g(long and max(long) < 5.0, not long or loaded),
         "no_errors_or_fatal": g(alls["errors"] == 0, not recs),
     }
 
@@ -212,6 +240,7 @@ def main() -> None:
     ap.add_argument("--gate", action="store_true", help="exit 1 if any gate is FAIL or UNKNOWN")
     ap.add_argument("--cmd", help=f"command template, default '{DEFAULT_CMD}'")
     ap.add_argument("--legacy", action="store_true", help=f"use the pre-contract form '{LEGACY_CMD}'")
+    ap.add_argument("--jobs", type=int, default=(os.cpu_count() or 2) // 2, help="processes for quality scoring (default cpu_count//2)")
     ap.add_argument("--timeout", type=float, default=120.0, help="seconds per CLI call (default 120)")
     a = ap.parse_args()
     template = a.cmd or (LEGACY_CMD if a.legacy else DEFAULT_CMD)
@@ -223,9 +252,9 @@ def main() -> None:
           "(design = Chromium DPR2 downscaled; no real Figma pairs yet). Split: " + a.split, ""]
     failed = False
     for mode in (["pixels", "maps"] if a.mode == "both" else [a.mode]):
-        load = os.getloadavg()[0]
-        r = score_mode(template, mode, a.split, a.timeout)
-        r["loadavg"] = [round(load, 1), round(os.getloadavg()[0], 1)]  # runtime gate is only as good as an idle machine
+        r = score_mode(template, mode, a.split, a.timeout, a.jobs)
+        r["loadavg"] = r.get("runtime_pass", {}).get("loadavg", [round(os.getloadavg()[0], 1)] * 2)
+        loaded = max(r["loadavg"]) > (os.cpu_count() or 1)  # runtime gate is only as good as an idle machine
         md += [f"## Mode: {mode} ({r['status']})", "", f"Command: `{r['command']}`", ""]
         if r["status"] == "UNSUPPORTED":
             r["gates"] = {k: "UNKNOWN" for k in gates([], None, False)}
@@ -241,8 +270,8 @@ def main() -> None:
                                  for s, k in sorted({(x["split"], x["page_kind"]) for x in recs})}
             r["by_pair_kind"] = {f"{s}/{k}": agg([x for x in recs if x["split"] == s and (x["noise"] or x["kind"]) == k])
                                  for s, k in sorted({(x["split"], x["noise"] or x["kind"]) for x in recs})}
-            r["gates"] = gates(recs, brecall, a.label == "baseline")
-            r["long_page_max_runtime_s"] = max((min(x["wall_s"]) for x in recs if x["page_height"] >= LONG_PAGE), default=None)
+            r["gates"] = gates(recs, brecall, a.label == "baseline", loaded)
+            r["long_page_max_runtime_s"] = r["runtime_pass"]["long_page_max_s"]
             md += [table(list(r["groups"].items())), "", "### Per page kind", "", table(list(r["by_page_kind"].items())), "",
                    "### Per pair kind (mutation, rasterizer noise, rerender, dynamic-content)", "",
                    table(list(r["by_pair_kind"].items())), ""]

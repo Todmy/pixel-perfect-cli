@@ -11,7 +11,7 @@ import flip_evaluator
 import numpy as np
 from PIL import Image, ImageCms
 
-from pixel_perfect_cli.structure import explain
+from pixel_perfect_cli.structure import Node, _iou, _walk, explain, explain_maps, map_tree
 
 EXIT_PASS, EXIT_DELTAS, EXIT_REVIEW, EXIT_FATAL = 0, 1, 2, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
@@ -115,6 +115,28 @@ def regions(ref: np.ndarray, test: np.ndarray, tol: float, min_area: int, ref_la
     return sorted(out, key=lambda r: (-r["severity"], r["bbox"]))
 
 
+def annotate(deltas: list[dict], tree: Node, key: str) -> None:
+    """Give each pixel delta the selector, text and id of the map node that overlaps its box best."""
+    nodes = list(_walk(tree))
+    for d in deltas:
+        b = d.get(key) or d["bbox"]
+        box = Node(*b)
+        best = max(nodes, key=lambda n: (_iou(box, n), -n.w * n.h), default=None)  # tie: the innermost
+        if best is not None and _iou(box, best) > 0:
+            d |= {"id": best.id, "selector": best.selector, "text": best.text}
+
+
+def unexplained(regs: list[dict], found: list[dict], cover: list) -> list[dict]:
+    """Hot regions that no delta's design or shot box touches, and no moved or resized element accounts for."""
+    cover = [(d[k], None) for d in found for k in ("bbox", "shot_bbox") if d.get(k)] + cover
+
+    def inside(a, b):
+        return b[0] <= a[0] and b[1] <= a[1] and a[0] + a[2] <= b[0] + b[2] and a[1] + a[3] <= b[1] + b[3]
+
+    return [{"type": "unexplained", "bbox": r["bbox"], "severity": r["severity"]} for r in regs
+            if not any(_iou(Node(*r["bbox"]), Node(*o)) > 0 and not (i and inside(r["bbox"], i)) for o, i in cover)]
+
+
 def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_map: str | None = None,
          shot_map: str | None = None, crop: bool = False) -> dict:
     timing = Timing()
@@ -141,7 +163,8 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
     paint(test, rects)
     lap("load")
     dx, dy, conf = global_shift(ref, test)
-    shifted = conf >= SHIFT_CONF and max(abs(dx), abs(dy)) >= 0.5
+    # with both maps, element positions are known on each side: moves are explained by the tree, not undone
+    shifted = conf >= SHIFT_CONF and max(abs(dx), abs(dy)) >= 0.5 and not (dmap and smap)
     if shifted:  # undo whole-page translation so regions show only what moved relative to the layout
         m = np.float32([[1, 0, -round(dx)], [0, 1, -round(dy)]])
         test = cv2.warpAffine(test, m, test.shape[1::-1], borderMode=cv2.BORDER_REPLICATE)
@@ -151,10 +174,21 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
     lap("lab")
     regs = regions(ref, test, tol, min_area, ref_lab, test_lab)
     lap("regions")
-    found = explain(ref, test, ref_lab, test_lab, tol, timing) if regs else []
+    sx, sy = (round(dx), round(dy)) if shifted else (0, 0)
+    masked = frozenset(n["id"] for m in (dmap, smap) if m for n in m["nodes"] if n.get("masked"))
+    k = ref.shape[1] / native_w
+    rt = map_tree(dmap, dmap.get("dpr", 1), skip=masked) if dmap else None
+    tt = map_tree(smap, smap.get("dpr", 1) * k, sx, sy, masked) if smap else None
+    if rt and tt:
+        found, cover = explain_maps(ref, test, ref_lab, test_lab, tol, rt, tt)
+    else:
+        found, cover = explain(ref, test, ref_lab, test_lab, tol, timing) if regs else ([], [])
+        if rt or tt:
+            annotate(found, rt or tt, "bbox" if rt else "shot_bbox")
+    found += unexplained(regs, found, cover)
     lap("explain")
-    deltas = [d for d in found if d.get("confidence") != "low"]
-    review = [d for d in found if d.get("confidence") == "low"]
+    deltas = [d for d in found if d.get("confidence") != "low" and d["type"] != "unexplained"]
+    review = [d for d in found if d.get("confidence") == "low" or d["type"] == "unexplained"]
     return {
         "status": "deltas" if deltas or shifted else "review" if review else "pass",
         "size": list(ref.shape[1::-1]),
@@ -172,8 +206,8 @@ def main() -> None:
     d = sub.add_parser("diff", help="compare a design image with a screenshot")
     d.add_argument("design")
     d.add_argument("shot")
-    d.add_argument("--design-map", help="structure map JSON of the design (masks only, for now)")
-    d.add_argument("--shot-map", help="structure map JSON of the screenshot (masks only, for now)")
+    d.add_argument("--design-map", help="structure map JSON of the design")
+    d.add_argument("--shot-map", help="structure map JSON of the screenshot")
     d.add_argument("--crop-to-design", action="store_true", help="scale shot to design width, crop/pad height, instead of exit 12")
     d.add_argument("--tol", type=float, default=2.0, help="color tolerance, Lab ΔE76; ~2.3 is just noticeable (default 2.0)")
     d.add_argument("--min-area", type=int, default=4, help="drop regions smaller than N px (default 4)")

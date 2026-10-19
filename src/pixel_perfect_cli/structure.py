@@ -1,9 +1,11 @@
-"""Stages 3-5: segment both images into an element tree (XY-cut), pair elements, explain deltas as causes.
+"""Stages 3-5: build an element tree per side (structure map, or XY-cut of the pixels), pair elements,
+explain deltas as causes.
 
 Pure translations are never reported per element: every move is decomposed into the gap/padding/align
 change of its parent, so one changed margin yields one delta instead of a cascade of shifted regions.
 """
 
+import hashlib
 import time
 from dataclasses import dataclass, field
 
@@ -21,6 +23,8 @@ SIZE_REL_TOL = 0.05  # text width differs up to ~4% between engines
 MIN_AREA = 50       # smaller leaves are antialiased corner fragments
 APPEARANCE_MIN = 0.005  # 1 - similarity below this is identical
 APPEARANCE_SURE = 0.05  # above this an appearance change is confident; between -> "review" (escalate to VLM)
+HOT_MIN = 4  # a node's pixels "differ" when at least this many differ by more than tol (aligned on its own bbox)
+COLOR_PROPS = ("color", "background-color")
 
 
 @dataclass
@@ -32,6 +36,9 @@ class Node:
     axis: str = ""  # "y" or "x": how children were cut apart
     children: list["Node"] = field(default_factory=list)
     id: str = ""
+    selector: str | None = None  # map nodes only
+    text: str | None = None
+    style: dict = field(default_factory=dict)
 
     @property
     def box(self):
@@ -115,14 +122,29 @@ def _walk(node: Node):
         yield from _walk(c)
 
 
-def _crop(img, n: Node, size=None):
-    c = img[n.y:n.y + n.h, n.x:n.x + n.w]
-    return cv2.resize(c, size, interpolation=cv2.INTER_AREA) if size else c
+def _crop(img, n: Node):
+    x, y, w, h = (round(v) for v in n.box)
+    return img[max(y, 0):y + h, max(x, 0):x + w]
+
+
+def _aligned(ref, test, a: Node, b: Node):
+    """Crops of a and b, b resized to a's shape, or None when a is off-image."""
+    ca, cb = _crop(ref, a), _crop(test, b)
+    if not ca.size or not cb.size:
+        return None
+    if ca.shape != cb.shape:
+        cb = cv2.resize(cb, ca.shape[1::-1], interpolation=cv2.INTER_AREA)
+    return ca, cb
 
 
 def _similarity(ref, test, a: Node, b: Node) -> float:
-    ca, cb = _crop(ref, a), _crop(test, b, (a.w, a.h) if (a.w, a.h) != (b.w, b.h) else None)
-    return 1.0 - float(np.abs(ca.astype(np.int16) - cb).mean()) / 255.0
+    c = _aligned(ref, test, a, b)
+    return 1.0 if c is None else 1.0 - float(np.abs(c[0].astype(np.int16) - c[1]).mean()) / 255.0
+
+
+def _hot(ref_lab, test_lab, a: Node, b: Node, tol: float) -> int:
+    c = _aligned(ref_lab, test_lab, a, b)
+    return 0 if c is None else int((np.linalg.norm(c[0] - c[1], axis=2) > tol).sum())
 
 
 def pair(ref, test, rt: Node, tt: Node) -> dict[int, Node]:
@@ -171,16 +193,31 @@ def _hex_lab(h: str) -> np.ndarray:
     return cv2.cvtColor(rgb, cv2.COLOR_RGB2Lab)[0, 0]
 
 
-def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None) -> list[dict]:
-    t0 = time.perf_counter()
-    rt, tt = segment(ref_lab, tol), segment(test_lab, tol)
-    t1 = time.perf_counter()
-    match = pair(ref, test, rt, tt)
-    if timing is not None:
-        timing["segment"] = round((t1 - t0) * 1000, 1)
-        timing["pair"] = round((time.perf_counter() - t1) * 1000, 1)
-    deltas: list[dict] = []
-    matched_test = {id(n) for n in match.values()}
+def _num(v):
+    v = round(float(v), 1)
+    return int(v) if v == int(v) else v
+
+
+def _box(n: Node) -> list:
+    return [_num(v) for v in n.box]
+
+
+def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, source: str):
+    """Walk the design tree against its matched shot nodes and report causes, not cascades.
+
+    look(c, t, resized) -> [(type, fields)] reports content changes of a matched node; ident(n) gives its stable id.
+    Returns (deltas, cover): cover holds (outer, inner) boxes of matched leaves and of matched nodes that moved or
+    resized; hot pixels there are judged or are consequences (inside outer, not wholly inside inner when set).
+    """
+    found: list[tuple[Node, dict]] = []
+    cover: list[tuple[list, list | None]] = []
+
+    def add(kind, c, t, **kw):
+        d = {"type": kind, "id": ident(c)}
+        if c.selector is not None:
+            d |= {"selector": c.selector, "text": c.text}
+        d |= {"bbox": _box(c), "shot_bbox": _box(t) if t is not None else None}
+        found.append((c, d | kw | {"source": source}))
 
     def walk(parent: Node, tparent: Node | None):
         kids = parent.children
@@ -190,24 +227,23 @@ def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None
                 if any(id(d) in match for d in _walk(c)):  # regrouped, not gone: look inside
                     walk(c, None)
                 elif c.w * c.h >= MIN_AREA:
-                    deltas.append({"type": "missing", "element": c.id, "bbox": c.box})
+                    add("missing", c, None)
                 continue
             if c.w * c.h < MIN_AREA:
                 continue
             dw, dh = t.w - c.w, t.h - c.h
-            if (abs(dw) >= PX_TOL and abs(dw) / c.w >= SIZE_REL_TOL) or (abs(dh) >= PX_TOL and abs(dh) / c.h >= SIZE_REL_TOL):
-                deltas.append({"type": "size", "element": c.id, "bbox": c.box,
-                               "expected": [c.w, c.h], "actual": [t.w, t.h]})
-            elif not c.children and (score := 1 - _similarity(ref, test, c, t)) >= APPEARANCE_MIN:
-                (e, es), (a, as_) = _hex(ref, c), _hex(test, t)
-                if (dw, dh) != (0, 0):  # glyph metrics differ: pixels aren't comparable, text needs OCR
-                    deltas.append({"type": "appearance", "element": c.id, "bbox": c.box, "score": round(score, 4),
-                                   "confidence": "low"})
-                elif min(es, as_) >= 0.5 and np.linalg.norm(_hex_lab(e) - _hex_lab(a)) >= 2:  # solid fill
-                    deltas.append({"type": "color", "element": c.id, "bbox": c.box, "expected": e, "actual": a})
-                else:
-                    deltas.append({"type": "appearance", "element": c.id, "bbox": c.box, "score": round(score, 4),
-                                   "confidence": "high" if score >= APPEARANCE_SURE else "low"})
+            x0, y0 = min(c.x, t.x), min(c.y, t.y)
+            outer = [x0, y0, max(c.x + c.w, t.x + t.w) - x0, max(c.y + c.h, t.y + t.h) - y0]
+            if max(abs(t.x - c.x), abs(t.y - c.y)) >= 1 or not c.children:  # moved, or a leaf look() judged
+                cover.append((outer, None))
+            elif max(abs(dw), abs(dh)) >= 1:  # same origin, grew or shrank: only the band between the edges
+                cover.append((outer, [c.x, c.y, min(c.w, t.w), min(c.h, t.h)]))
+            resized = bool((abs(dw) >= PX_TOL and abs(dw) / c.w >= SIZE_REL_TOL)
+                           or (abs(dh) >= PX_TOL and abs(dh) / c.h >= SIZE_REL_TOL))
+            if resized:
+                add("size", c, t, expected=[_num(c.w), _num(c.h)], actual=[_num(t.w), _num(t.h)])
+            for kind, kw in look(c, t, resized):
+                add(kind, c, t, **kw)
             # position relative to previous sibling (gap) or to parent (padding); cross-axis = align
             prev, tprev = (kids[i - 1], match.get(id(kids[i - 1]))) if i else (parent, tparent)
             if tprev is not None:
@@ -220,18 +256,137 @@ def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None
                 start = (lambda n, p: n.y - p.y) if ax == "y" else (lambda n, p: n.x - p.x)
                 anchored = i and abs(start(c, prev) - start(t, tprev)) < PX_TOL
                 if abs(e - a) >= PX_TOL and not anchored:
-                    deltas.append({"type": "gap" if i else "padding", "element": c.id, "after": prev.id or "root",
-                                   "axis": ax, "expected": e, "actual": a})
+                    add("gap" if i else "padding", c, t, after=ident(prev) if prev is not rt else "root",
+                        axis=ax, expected=_num(e), actual=_num(a))
                 e, a = cross(c, parent), cross(t, tparent) if tparent is not None else None
                 if a is not None and abs(e - a) >= PX_TOL:
-                    deltas.append({"type": "align", "element": c.id, "axis": "x" if ax == "y" else "y",
-                                   "expected": e, "actual": a})
+                    add("align", c, t, axis="x" if ax == "y" else "y", expected=_num(e), actual=_num(a))
             walk(c, t)
 
     walk(rt, tt)
-    # a container's size change is a consequence when something inside it already explains it
-    inner = [d["element"] for d in deltas if d["type"] != "size"]
-    deltas = [d for d in deltas if not (d["type"] == "size" and any(e.startswith(d["element"] + ".") for e in inner))]
-    deltas += [{"type": "extra", "element": n.id, "bbox": n.box}
+    # a container's size change is a consequence when a content change of its own or anything inside explains it
+    own = {id(n) for n, d in found if d["type"] in ("text", "color", "appearance")}
+    inner = {id(n) for n, d in found if d["type"] != "size"}
+    return [d for n, d in found if not (d["type"] == "size" and (
+        id(n) in own or any(id(x) in inner for x in _walk(n))))], cover
+
+
+def _stable_id(img, n: Node) -> str:
+    """Content-derived id: bbox quantized to 4 px + dominant color, so it survives tree renumbering."""
+    key = ",".join(str(round(v / 4)) for v in n.box) + _hex(img, n)[0]
+    return "p" + hashlib.sha1(key.encode()).hexdigest()[:8]
+
+
+def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None) -> list[dict]:
+    t0 = time.perf_counter()
+    rt, tt = segment(ref_lab, tol), segment(test_lab, tol)
+    t1 = time.perf_counter()
+    match = pair(ref, test, rt, tt)
+    if timing is not None:
+        timing["segment"] = round((t1 - t0) * 1000, 1)
+        timing["pair"] = round((time.perf_counter() - t1) * 1000, 1)
+    ids: dict[int, str] = {}
+
+    def ident(n: Node) -> str:  # design side is constant across fix iterations, so ids come from it
+        if id(n) not in ids:
+            ids[id(n)] = _stable_id(ref, n)
+        return ids[id(n)]
+
+    def look(c: Node, t: Node, resized: bool):
+        if resized or c.children or (score := 1 - _similarity(ref, test, c, t)) < APPEARANCE_MIN:
+            return []
+        (e, es), (a, as_) = _hex(ref, c), _hex(test, t)
+        if (t.w, t.h) != (c.w, c.h):  # glyph metrics differ: pixels aren't comparable, text needs OCR
+            return [("appearance", {"score": round(score, 4), "confidence": "low"})]
+        if min(es, as_) >= 0.5 and np.linalg.norm(_hex_lab(e) - _hex_lab(a)) >= 2:  # solid fill
+            return [("color", {"expected": e, "actual": a})]
+        return [("appearance", {"score": round(score, 4), "confidence": "high" if score >= APPEARANCE_SURE else "low"})]
+
+    deltas, cover = causes(ref, test, rt, tt, match, look, ident, "pixels")
+    matched_test = {id(n) for n in match.values()}
+    deltas += [{"type": "extra", "id": _stable_id(test, n), "bbox": n.box, "shot_bbox": n.box, "source": "pixels"}
                for n in _walk(tt) if id(n) not in matched_test and not n.children and n.w * n.h >= MIN_AREA]
-    return deltas
+    return deltas, cover
+
+
+def map_tree(smap: dict, k: float, dx: float = 0, dy: float = 0, skip: frozenset = frozenset()) -> Node:
+    """Element tree of a structure map in image px (CSS px * k, minus the compensated page shift).
+
+    Nodes in skip (masked) and their subtrees are left out.
+    """
+    root = Node(0, 0, 0, 0)
+    by_id = {}
+    for n in smap["nodes"]:  # parents precede children (DOM pre-order)
+        parent = root if n.get("parent") is None else by_id.get(n["parent"], root)
+        if n["id"] in skip or parent is None:
+            by_id[n["id"]] = None  # masked subtree
+            continue
+        # ponytail: a node whose parent is absent from the map (zero-size wrapper) hangs off the root
+        x, y, w, h = n["bbox"]
+        node = Node(x * k - dx, y * k - dy, w * k, h * k, id=n["id"], selector=n.get("selector", n["id"]),
+                    text=n.get("text"), style=n.get("style") or {})
+        parent.children.append(node)
+        by_id[n["id"]] = node
+    for n in [root, *_walk(root)]:  # a row: every child starts right of where the previous one ended
+        cs = n.children
+        n.axis = "x" if len(cs) > 1 and all(b.x >= a.x + a.w - 1 for a, b in zip(cs, cs[1:])) else "y"
+    return root
+
+
+def _iou(a: Node, b: Node) -> float:
+    iw = min(a.x + a.w, b.x + b.w) - max(a.x, b.x)
+    ih = min(a.y + a.h, b.y + b.h) - max(a.y, b.y)
+    inter = max(iw, 0) * max(ih, 0)
+    return inter / (a.w * a.h + b.w * b.h - inter) if inter else 0.0
+
+
+def pair_maps(rt: Node, tt: Node) -> dict[int, Node]:
+    """Exact id match first (DOM vs DOM), then Hungarian on the rest (e.g. Figma names vs selectors)."""
+    rn, tn = list(_walk(rt)), list(_walk(tt))
+    tid = {n.id: n for n in tn}
+    match = {id(n): tid[n.id] for n in rn if n.id in tid}
+    used = {id(t) for t in match.values()}
+    ra, ta = [n for n in rn if id(n) not in match], [n for n in tn if id(n) not in used]
+    if ra and ta:
+        cost = np.array([[(1 - _iou(a, b)) + 0.5 * (a.text != b.text)
+                          + abs(a.w - b.w) / max(a.w, b.w) + abs(a.h - b.h) / max(a.h, b.h)
+                          + 0.5 * np.mean([a.style.get(p) != b.style.get(p) for p in a.style.keys() | b.style.keys()] or [0])
+                          for b in ta] for a in ra])
+        # ponytail: same fixed 1.0 "same element" cutoff as the pixel pairing; tune on real Figma maps
+        match |= {id(ra[i]): ta[j] for i, j in zip(*linear_sum_assignment(cost)) if cost[i, j] < 1.0}
+    return match
+
+
+def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -> list[dict]:
+    match = pair_maps(rt, tt)
+
+    def look(c: Node, t: Node, resized: bool):
+        out = []
+        if c.text != t.text:
+            out.append(("text", {"expected": c.text, "actual": t.text, "confidence": "high"}))
+        style = {p: [c.style.get(p), t.style.get(p)] for p in sorted(c.style.keys() | t.style.keys())
+                 if c.style.get(p) != t.style.get(p)}
+        colors = {p: v for p, v in style.items() if p in COLOR_PROPS}
+        rest = {p: v for p, v in style.items() if p not in COLOR_PROPS}
+        if style and _hot(ref_lab, test_lab, c, t, tol) >= HOT_MIN:
+            if colors:
+                (e, a), = list(colors.values())[:1]
+                out.append(("color", {"expected": e, "actual": a, "style": colors, "confidence": "high"}))
+            if rest:
+                out.append(("appearance", {"style": rest, "confidence": "high"}))
+        elif not out and not style and not c.children and not resized \
+                and (score := 1 - _similarity(ref, test, c, t)) >= APPEARANCE_MIN:
+            # same text, same style, other pixels: glyph rasterization (engine, hinting), not a code change
+            sure = score >= APPEARANCE_SURE and not c.text
+            out.append(("appearance", {"score": round(score, 4), "confidence": "high" if sure else "low"}))
+        return out
+
+    deltas, cover = causes(ref, test, rt, tt, match, look, lambda n: n.id, "map")
+    matched = {id(n) for n in match.values()}
+    # reported once, at the highest unmatched shot node
+    for p in [tt, *_walk(tt)]:
+        if p is tt or id(p) in matched:
+            deltas += [{"type": "extra", "id": n.id, "selector": n.selector, "text": n.text, "bbox": _box(n),
+                        "shot_bbox": _box(n), "source": "map"}
+                       for n in p.children if id(n) not in matched and n.w * n.h >= MIN_AREA]
+    return deltas, cover

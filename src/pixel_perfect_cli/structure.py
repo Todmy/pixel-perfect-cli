@@ -341,12 +341,14 @@ def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None
             return []
         (e, es), (a, as_) = _hex(ref, c), _hex(test, t)
         if (t.w, t.h) != (c.w, c.h):  # glyph metrics differ: pixels aren't comparable, text needs OCR
-            return [("appearance", {"score": round(score, 4), "confidence": "low"})]
+            # same height, other width: the glyph advances of another engine, not a change worth a VLM call
+            return [] if abs(t.h - c.h) < PX_TOL else [("appearance", {"score": round(score, 4), "confidence": "low"})]
         if min(es, as_) >= 0.5 and np.linalg.norm(_hex_lab(e) - _hex_lab(a)) >= 2:  # solid fill
             return [("color", {"expected": e, "actual": a})]
         return [("appearance", {"score": round(score, 4), "confidence": "high" if score >= APPEARANCE_SURE else "low"})]
 
-    deltas, cover = causes(ref, test, rt, tt, match, look, ident, "pixels")
+    # an ink leaf (word, line, icon) that only got wider or narrower at the same height: glyph advances
+    deltas, cover = causes(ref, test, rt, tt, match, look, ident, "pixels", lambda c, t: not c.children)
     matched_test = {id(n) for n in match.values()}
     deltas += [{"type": "extra", "id": _stable_id(test, n), "bbox": n.box, "shot_bbox": n.box, "source": "pixels"}
                for n in _walk(tt) if id(n) not in matched_test and not n.children and n.w * n.h >= MIN_AREA]

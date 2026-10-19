@@ -1,0 +1,47 @@
+{
+ "page": "settings",
+ "split": "train",
+ "page_kind": "settings",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "settings/font-size",
+ "kind": "mutation",
+ "shot_engine": "firefox",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "font-size",
+   "selector": "body>div.layout>main.main>h1",
+   "css": ".main h1",
+   "property": "font-size",
+   "from": "26px",
+   "to": "32px",
+   "bbox": [
+    296,
+    104,
+    1096,
+    39
+   ],
+   "shot_bbox": [
+    296,
+    104,
+    1096,
+    48
+   ],
+   "parent": "body>div.layout>main.main",
+   "parent_bbox": [
+    248,
+    72,
+    1192,
+    760
+   ]
+  }
+ ]
+}

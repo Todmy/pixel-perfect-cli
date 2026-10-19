@@ -1,0 +1,23 @@
+{
+ "page": "dynamic",
+ "split": "heldout",
+ "page_kind": "dynamic",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [
+  "body>div.wrap>div.top:nth-of-type(1)>div:nth-of-type(1)>p.date",
+  "body>div.wrap>div.top:nth-of-type(1)>div.who:nth-of-type(2)>div.avatar",
+  "body>div.wrap>div.panels:nth-of-type(2)>div.box.live:nth-of-type(2)>div.big.counter"
+ ],
+ "pair": "dynamic/noise-firefox",
+ "kind": "noise",
+ "shot_engine": "firefox",
+ "noise": "rasterizer",
+ "mutations": []
+}

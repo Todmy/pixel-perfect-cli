@@ -1,0 +1,47 @@
+{
+ "page": "article",
+ "split": "heldout",
+ "page_kind": "article",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "article/gap",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>article.art>section.s2:nth-of-type(2)>blockquote",
+   "css": ".s2 blockquote",
+   "property": "margin-top",
+   "from": "32px",
+   "to": "64px",
+   "bbox": [
+    360,
+    2195.94,
+    720,
+    38
+   ],
+   "shot_bbox": [
+    360,
+    2227.94,
+    720,
+    38
+   ],
+   "parent": "body>article.art>section.s2:nth-of-type(2)",
+   "parent_bbox": [
+    360,
+    1487.66,
+    720,
+    746.28
+   ]
+  }
+ ]
+}

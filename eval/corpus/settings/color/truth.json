@@ -1,0 +1,47 @@
+{
+ "page": "settings",
+ "split": "train",
+ "page_kind": "settings",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "settings/color",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "color",
+   "selector": "body>div.layout>main.main>div.opt:nth-of-type(3)>div.tog.on:nth-of-type(2)",
+   "css": ".opt:nth-of-type(3) .tog",
+   "property": "background-color",
+   "from": "#3366FF",
+   "to": "#12B76A",
+   "bbox": [
+    972,
+    386,
+    44,
+    24
+   ],
+   "shot_bbox": [
+    972,
+    386,
+    44,
+    24
+   ],
+   "parent": "body>div.layout>main.main>div.opt:nth-of-type(3)",
+   "parent_bbox": [
+    296,
+    357.5,
+    720,
+    82
+   ]
+  }
+ ]
+}

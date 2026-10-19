@@ -1,0 +1,47 @@
+{
+ "page": "landing-m",
+ "split": "train",
+ "page_kind": "landing-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "landing-m/margin",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "margin",
+   "selector": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>h1",
+   "css": ".hero h1",
+   "property": "margin-bottom",
+   "from": "16px",
+   "to": "26px",
+   "bbox": [
+    20,
+    100,
+    350,
+    79.19
+   ],
+   "shot_bbox": [
+    20,
+    100,
+    350,
+    79.19
+   ],
+   "parent": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)",
+   "parent_bbox": [
+    20,
+    100,
+    350,
+    257.19
+   ]
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "page": "landing-m",
+ "split": "train",
+ "page_kind": "landing-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "landing-m/color",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "color",
+   "selector": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>div.actions>a.btn.primary.start:nth-of-type(1)",
+   "css": ".btn.start",
+   "property": "background-color",
+   "from": "#3366FF",
+   "to": "#2952CC",
+   "bbox": [
+    20,
+    312.69,
+    134.33,
+    44.5
+   ],
+   "shot_bbox": [
+    20,
+    312.69,
+    135.98,
+    44.5
+   ],
+   "parent": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>div.actions",
+   "parent_bbox": [
+    20,
+    312.69,
+    350,
+    44.5
+   ]
+  }
+ ]
+}

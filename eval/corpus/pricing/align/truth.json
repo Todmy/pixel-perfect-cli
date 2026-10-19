@@ -1,0 +1,47 @@
+{
+ "page": "pricing",
+ "split": "heldout",
+ "page_kind": "pricing",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "pricing/align",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "align",
+   "selector": "body>section.head:nth-of-type(1)",
+   "css": ".head",
+   "property": "text-align",
+   "from": "center",
+   "to": "left",
+   "bbox": [
+    0,
+    72,
+    1440,
+    209
+   ],
+   "shot_bbox": [
+    0,
+    72,
+    1440,
+    209
+   ],
+   "parent": "body",
+   "parent_bbox": [
+    0,
+    0,
+    1440,
+    762.5
+   ]
+  }
+ ]
+}

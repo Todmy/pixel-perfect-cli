@@ -1,0 +1,19 @@
+{
+ "page": "pricing",
+ "split": "heldout",
+ "page_kind": "pricing",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "pricing/noise-chromium",
+ "kind": "noise",
+ "shot_engine": "chromium",
+ "noise": "rasterizer",
+ "mutations": []
+}

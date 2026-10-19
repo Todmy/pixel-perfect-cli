@@ -1,0 +1,47 @@
+{
+ "page": "grid-m",
+ "split": "train",
+ "page_kind": "grid-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "grid-m/radius",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "radius",
+   "selector": "body>div.wrap>div.cards>div.card:nth-of-type(7)",
+   "css": ".card:nth-child(7)",
+   "property": "border-radius",
+   "from": "12px",
+   "to": "0px",
+   "bbox": [
+    20,
+    1779,
+    350,
+    254.5
+   ],
+   "shot_bbox": [
+    20,
+    1779,
+    350,
+    254.5
+   ],
+   "parent": "body>div.wrap>div.cards",
+   "parent_bbox": [
+    20,
+    156,
+    350,
+    2148
+   ]
+  }
+ ]
+}

@@ -1,0 +1,42 @@
+{
+ "page": "article",
+ "split": "heldout",
+ "page_kind": "article",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "article/removed",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "removed",
+   "selector": "body>article.art>section.s3:nth-of-type(3)>figure>figcaption",
+   "css": ".s3 figcaption",
+   "property": "display",
+   "from": "visible",
+   "to": "none",
+   "bbox": [
+    360,
+    3388.81,
+    720,
+    21
+   ],
+   "shot_bbox": null,
+   "parent": "body>article.art>section.s3:nth-of-type(3)>figure",
+   "parent_bbox": [
+    360,
+    3020.81,
+    720,
+    389
+   ]
+  }
+ ]
+}

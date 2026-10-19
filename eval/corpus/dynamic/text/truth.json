@@ -1,0 +1,51 @@
+{
+ "page": "dynamic",
+ "split": "heldout",
+ "page_kind": "dynamic",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [
+  "body>div.wrap>div.top:nth-of-type(1)>div:nth-of-type(1)>p.date",
+  "body>div.wrap>div.top:nth-of-type(1)>div.who:nth-of-type(2)>div.avatar",
+  "body>div.wrap>div.panels:nth-of-type(2)>div.box.live:nth-of-type(2)>div.big.counter"
+ ],
+ "pair": "dynamic/text",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "text",
+   "selector": "body>div.wrap>div.panels:nth-of-type(2)>div.box.activity:nth-of-type(1)>ul.feed>li:nth-of-type(2)>b",
+   "css": ".feed li:nth-child(2) b",
+   "property": "text",
+   "from": "Pricing page",
+   "to": "Pricing page v2",
+   "bbox": [
+    89,
+    336,
+    89.98,
+    22.5
+   ],
+   "shot_bbox": [
+    89,
+    336,
+    110.28,
+    22.5
+   ],
+   "parent": "body>div.wrap>div.panels:nth-of-type(2)>div.box.activity:nth-of-type(1)>ul.feed>li:nth-of-type(2)",
+   "parent_bbox": [
+    89,
+    324,
+    808.66,
+    47.5
+   ]
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "page": "landing",
+ "split": "train",
+ "page_kind": "landing",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "landing/text",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "text",
+   "selector": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>p.lead",
+   "css": ".hero .lead",
+   "property": "text",
+   "from": "Compare every screen to its design and get a short list of fixes your agent can act on.",
+   "to": "Compare every screen to its Figma frame and get fixes your agent can apply.",
+   "bbox": [
+    64,
+    354.84,
+    520,
+    57
+   ],
+   "shot_bbox": [
+    64,
+    324.05,
+    520,
+    57
+   ],
+   "parent": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)",
+   "parent_bbox": [
+    64,
+    215.66,
+    704,
+    272.69
+   ]
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "page": "form",
+ "split": "train",
+ "page_kind": "form",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "form/gap",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)",
+   "css": ".field.email",
+   "property": "gap",
+   "from": "6px",
+   "to": "14px",
+   "bbox": [
+    480,
+    322.5,
+    480,
+    71
+   ],
+   "shot_bbox": [
+    480,
+    322.5,
+    480,
+    79
+   ],
+   "parent": "body>div.wrap>form.panel",
+   "parent_bbox": [
+    480,
+    128,
+    480,
+    611
+   ]
+  }
+ ]
+}

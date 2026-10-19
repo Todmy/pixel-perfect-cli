@@ -1,0 +1,816 @@
+{
+ "version": 1,
+ "source": "dom",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "dpr": 1,
+ "nodes": [
+  {
+   "id": "body",
+   "selector": "body",
+   "tag": "body",
+   "parent": null,
+   "bbox": [
+    0,
+    0,
+    1440,
+    807
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav",
+   "selector": "body>header.nav",
+   "tag": "header",
+   "parent": "body",
+   "bbox": [
+    0,
+    0,
+    1440,
+    72
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px 64px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo",
+   "selector": "body>header.nav>div.logo",
+   "tag": "div",
+   "parent": "body>header.nav",
+   "bbox": [
+    64,
+    20.5,
+    131.25,
+    30
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "8px"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>svg",
+   "selector": "body>header.nav>div.logo>svg",
+   "tag": "svg",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    64,
+    23.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>span",
+   "selector": "body>header.nav>div.logo>span",
+   "tag": "span",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    96,
+    20.5,
+    99.25,
+    30
+   ],
+   "text": "Northwind",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links",
+   "selector": "body>header.nav>nav.links",
+   "tag": "nav",
+   "parent": "body>header.nav",
+   "bbox": [
+    612.81,
+    24.25,
+    261.03,
+    22.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "32px"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    612.81,
+    24.25,
+    53.08,
+    22.5
+   ],
+   "text": "Product",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    697.89,
+    24.25,
+    46.39,
+    22.5
+   ],
+   "text": "Pricing",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    776.28,
+    24.25,
+    34.73,
+    22.5
+   ],
+   "text": "Docs",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    843.02,
+    24.25,
+    30.83,
+    22.5
+   ],
+   "text": "Blog",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>a.btn.primary.signin",
+   "selector": "body>header.nav>a.btn.primary.signin",
+   "tag": "a",
+   "parent": "body>header.nav",
+   "bbox": [
+    1291.39,
+    14.25,
+    84.61,
+    42.5
+   ],
+   "text": "Sign in",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "#3366FF",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "8px",
+    "padding": "10px 18px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap",
+   "selector": "body>div.wrap",
+   "tag": "div",
+   "parent": "body",
+   "bbox": [
+    0,
+    72,
+    1440,
+    735
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "56px 24px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel",
+   "selector": "body>div.wrap>form.panel",
+   "tag": "form",
+   "parent": "body>div.wrap",
+   "bbox": [
+    480,
+    128,
+    480,
+    623
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>h1",
+   "selector": "body>div.wrap>form.panel>h1",
+   "tag": "h1",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    128,
+    480,
+    45
+   ],
+   "text": "Contact sales",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "30px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>p.sub",
+   "selector": "body>div.wrap>form.panel>p.sub",
+   "tag": "p",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    181,
+    480,
+    22.5
+   ],
+   "text": "We reply within one business day.",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "8px 0px 40px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.row:nth-of-type(1)",
+   "selector": "body>div.wrap>form.panel>div.row:nth-of-type(1)",
+   "tag": "div",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    243.5,
+    480,
+    91
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "16px"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)",
+   "selector": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)",
+   "tag": "div",
+   "parent": "body>div.wrap>form.panel>div.row:nth-of-type(1)",
+   "bbox": [
+    480,
+    243.5,
+    232,
+    71
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "6px"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)>label",
+   "selector": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)>label",
+   "tag": "label",
+   "parent": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)",
+   "bbox": [
+    480,
+    243.5,
+    232,
+    21
+   ],
+   "text": "First name",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "600",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)>input",
+   "selector": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)>input",
+   "tag": "input",
+   "parent": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(1)",
+   "bbox": [
+    480,
+    270.5,
+    232,
+    44
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "8px",
+    "padding": "0px 14px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)",
+   "selector": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)",
+   "tag": "div",
+   "parent": "body>div.wrap>form.panel>div.row:nth-of-type(1)",
+   "bbox": [
+    728,
+    243.5,
+    232,
+    71
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "6px"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)>label",
+   "selector": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)>label",
+   "tag": "label",
+   "parent": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)",
+   "bbox": [
+    728,
+    243.5,
+    232,
+    21
+   ],
+   "text": "Last name",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "600",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)>input",
+   "selector": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)>input",
+   "tag": "input",
+   "parent": "body>div.wrap>form.panel>div.row:nth-of-type(1)>div.field:nth-of-type(2)",
+   "bbox": [
+    728,
+    270.5,
+    232,
+    44
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "8px",
+    "padding": "0px 14px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)",
+   "selector": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)",
+   "tag": "div",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    334.5,
+    480,
+    71
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "6px"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)>label",
+   "selector": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)>label",
+   "tag": "label",
+   "parent": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)",
+   "bbox": [
+    480,
+    334.5,
+    480,
+    21
+   ],
+   "text": "Work email",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "600",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)>input",
+   "selector": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)>input",
+   "tag": "input",
+   "parent": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)",
+   "bbox": [
+    480,
+    361.5,
+    480,
+    44
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "8px",
+    "padding": "0px 14px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field:nth-of-type(3)",
+   "selector": "body>div.wrap>form.panel>div.field:nth-of-type(3)",
+   "tag": "div",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    425.5,
+    480,
+    71
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "6px"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field:nth-of-type(3)>label",
+   "selector": "body>div.wrap>form.panel>div.field:nth-of-type(3)>label",
+   "tag": "label",
+   "parent": "body>div.wrap>form.panel>div.field:nth-of-type(3)",
+   "bbox": [
+    480,
+    425.5,
+    480,
+    21
+   ],
+   "text": "Team size",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "600",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field:nth-of-type(3)>select",
+   "selector": "body>div.wrap>form.panel>div.field:nth-of-type(3)>select",
+   "tag": "select",
+   "parent": "body>div.wrap>form.panel>div.field:nth-of-type(3)",
+   "bbox": [
+    480,
+    452.5,
+    480,
+    44
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "8px",
+    "padding": "0px 14px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)",
+   "selector": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)",
+   "tag": "div",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    516.5,
+    480,
+    123
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 20px",
+    "gap": "6px"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)>label",
+   "selector": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)>label",
+   "tag": "label",
+   "parent": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)",
+   "bbox": [
+    480,
+    516.5,
+    480,
+    21
+   ],
+   "text": "Message",
+   "style": {
+    "color": "#344054",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "600",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)>textarea",
+   "selector": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)>textarea",
+   "tag": "textarea",
+   "parent": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)",
+   "bbox": [
+    480,
+    543.5,
+    480,
+    96
+   ],
+   "text": "We need visual regression for 40 screens.",
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "8px",
+    "padding": "10px 14px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.check:nth-of-type(5)",
+   "selector": "body>div.wrap>form.panel>div.check:nth-of-type(5)",
+   "tag": "div",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    659.5,
+    480,
+    21
+   ],
+   "text": null,
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px 0px 24px",
+    "gap": "10px"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.check:nth-of-type(5)>span.box:nth-of-type(1)",
+   "selector": "body>div.wrap>form.panel>div.check:nth-of-type(5)>span.box:nth-of-type(1)",
+   "tag": "span",
+   "parent": "body>div.wrap>form.panel>div.check:nth-of-type(5)",
+   "bbox": [
+    480,
+    661,
+    18,
+    18
+   ],
+   "text": null,
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "4px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>div.check:nth-of-type(5)>span:nth-of-type(2)",
+   "selector": "body>div.wrap>form.panel>div.check:nth-of-type(5)>span:nth-of-type(2)",
+   "tag": "span",
+   "parent": "body>div.wrap>form.panel>div.check:nth-of-type(5)",
+   "bbox": [
+    508,
+    659.5,
+    172.44,
+    21
+   ],
+   "text": "I agree to the privacy policy",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  },
+  {
+   "id": "body>div.wrap>form.panel>a.btn.primary.submit",
+   "selector": "body>div.wrap>form.panel>a.btn.primary.submit",
+   "tag": "a",
+   "parent": "body>div.wrap>form.panel",
+   "bbox": [
+    480,
+    704.5,
+    480,
+    46.5
+   ],
+   "text": "Send message",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "#3366FF",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "8px",
+    "padding": "12px",
+    "margin": "0px",
+    "gap": "normal"
+   }
+  }
+ ]
+}

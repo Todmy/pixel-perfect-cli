@@ -1,0 +1,47 @@
+{
+ "page": "borderless",
+ "split": "train",
+ "page_kind": "borderless",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "borderless/font-size",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "font-size",
+   "selector": "body>section.testimonial:nth-of-type(3)>p.quote:nth-of-type(1)",
+   "css": ".quote",
+   "property": "font-size",
+   "from": "24px",
+   "to": "28px",
+   "bbox": [
+    160,
+    574,
+    760,
+    33.59
+   ],
+   "shot_bbox": [
+    160,
+    574,
+    760,
+    39.19
+   ],
+   "parent": "body>section.testimonial:nth-of-type(3)",
+   "parent_bbox": [
+    0,
+    518,
+    1440,
+    184.09
+   ]
+  }
+ ]
+}

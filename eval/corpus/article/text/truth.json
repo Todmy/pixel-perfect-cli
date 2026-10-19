@@ -1,0 +1,47 @@
+{
+ "page": "article",
+ "split": "heldout",
+ "page_kind": "article",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "article/text",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "text",
+   "selector": "body>article.art>section.s1:nth-of-type(1)>h2",
+   "css": ".s1 h2",
+   "property": "text",
+   "from": "Part 1: Component and review",
+   "to": "Part 1: A different heading",
+   "bbox": [
+    360,
+    281.19,
+    720,
+    39
+   ],
+   "shot_bbox": [
+    360,
+    281.19,
+    720,
+    39
+   ],
+   "parent": "body>article.art>section.s1:nth-of-type(1)",
+   "parent_bbox": [
+    360,
+    281.19,
+    720,
+    1158.47
+   ]
+  }
+ ]
+}

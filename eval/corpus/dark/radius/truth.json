@@ -1,0 +1,47 @@
+{
+ "page": "dark",
+ "split": "heldout",
+ "page_kind": "dark",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "dark/radius",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "radius",
+   "selector": "body>div.wrap>div.chart:nth-of-type(2)",
+   "css": ".chart",
+   "property": "border-radius",
+   "from": "12px",
+   "to": "0px",
+   "bbox": [
+    64,
+    408,
+    1312,
+    300
+   ],
+   "shot_bbox": [
+    64,
+    408,
+    1312,
+    300
+   ],
+   "parent": "body>div.wrap",
+   "parent_bbox": [
+    0,
+    72,
+    1440,
+    684
+   ]
+  }
+ ]
+}

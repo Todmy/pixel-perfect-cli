@@ -1,0 +1,47 @@
+{
+ "page": "pricing-m",
+ "split": "heldout",
+ "page_kind": "pricing-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "pricing-m/radius",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "radius",
+   "selector": "body>section.plans:nth-of-type(2)>div.plan:nth-of-type(3)",
+   "css": ".plan:nth-child(3)",
+   "property": "border-radius",
+   "from": "16px",
+   "to": "4px",
+   "bbox": [
+    20,
+    976,
+    350,
+    347.5
+   ],
+   "shot_bbox": [
+    20,
+    976,
+    350,
+    347.5
+   ],
+   "parent": "body>section.plans:nth-of-type(2)",
+   "parent_bbox": [
+    0,
+    211,
+    390,
+    1160.5
+   ]
+  }
+ ]
+}

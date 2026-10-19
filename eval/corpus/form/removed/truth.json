@@ -1,0 +1,42 @@
+{
+ "page": "form",
+ "split": "train",
+ "page_kind": "form",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "form/removed",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "removed",
+   "selector": "body>div.wrap>form.panel>div.check:nth-of-type(5)",
+   "css": ".check",
+   "property": "display",
+   "from": "visible",
+   "to": "none",
+   "bbox": [
+    480,
+    647.5,
+    480,
+    21
+   ],
+   "shot_bbox": null,
+   "parent": "body>div.wrap>form.panel",
+   "parent_bbox": [
+    480,
+    128,
+    480,
+    611
+   ]
+  }
+ ]
+}

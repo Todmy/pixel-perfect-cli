@@ -1,0 +1,47 @@
+{
+ "page": "form-m",
+ "split": "train",
+ "page_kind": "form-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "form-m/radius",
+ "kind": "mutation",
+ "shot_engine": "firefox",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "radius",
+   "selector": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)>textarea",
+   "css": ".field.msg textarea",
+   "property": "border-radius",
+   "from": "8px",
+   "to": "0px",
+   "bbox": [
+    24,
+    519.5,
+    342,
+    96
+   ],
+   "shot_bbox": [
+    24,
+    519.5,
+    342,
+    96
+   ],
+   "parent": "body>div.wrap>form.panel>div.field.msg:nth-of-type(4)",
+   "parent_bbox": [
+    24,
+    492.5,
+    342,
+    123
+   ]
+  }
+ ]
+}

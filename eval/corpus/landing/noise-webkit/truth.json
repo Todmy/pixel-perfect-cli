@@ -1,0 +1,19 @@
+{
+ "page": "landing",
+ "split": "train",
+ "page_kind": "landing",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "landing/noise-webkit",
+ "kind": "noise",
+ "shot_engine": "webkit",
+ "noise": "rasterizer",
+ "mutations": []
+}

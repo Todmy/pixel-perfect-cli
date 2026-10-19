@@ -1,0 +1,47 @@
+{
+ "page": "grid",
+ "split": "train",
+ "page_kind": "grid",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "grid/gap",
+ "kind": "mutation",
+ "shot_engine": "firefox",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>div.wrap>div.cards",
+   "css": ".cards",
+   "property": "gap",
+   "from": "24px",
+   "to": "36px",
+   "bbox": [
+    64,
+    184,
+    1312,
+    533
+   ],
+   "shot_bbox": [
+    64,
+    184,
+    1312,
+    545
+   ],
+   "parent": "body>div.wrap",
+   "parent_bbox": [
+    0,
+    72,
+    1440,
+    685
+   ]
+  }
+ ]
+}

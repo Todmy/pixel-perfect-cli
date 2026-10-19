@@ -1,0 +1,47 @@
+{
+ "page": "form-m",
+ "split": "train",
+ "page_kind": "form-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "form-m/padding",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "padding",
+   "selector": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)>input",
+   "css": ".field.email input",
+   "property": "padding",
+   "from": "0px 14px",
+   "to": "0 28px",
+   "bbox": [
+    24,
+    337.5,
+    342,
+    44
+   ],
+   "shot_bbox": [
+    24,
+    337.5,
+    342,
+    44
+   ],
+   "parent": "body>div.wrap>form.panel>div.field.email:nth-of-type(2)",
+   "parent_bbox": [
+    24,
+    310.5,
+    342,
+    71
+   ]
+  }
+ ]
+}

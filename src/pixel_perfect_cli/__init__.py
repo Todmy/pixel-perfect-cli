@@ -10,6 +10,8 @@ import flip_evaluator
 import numpy as np
 from PIL import Image, ImageCms
 
+from pixel_perfect_cli.structure import explain
+
 EXIT_PASS, EXIT_DELTAS, EXIT_FATAL = 0, 1, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
 SRGB = ImageCms.createProfile("sRGB")
@@ -79,10 +81,12 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
         m = np.float32([[1, 0, -round(dx)], [0, 1, -round(dy)]])
         test = cv2.warpAffine(test, m, test.shape[1::-1], borderMode=cv2.BORDER_REPLICATE)
     regs = regions(ref, test, tol, min_area)
+    deltas = explain(ref, test, lab(ref), lab(test), tol) if regs else []
     return {
         "status": "deltas" if regs or shifted else "pass",
         "size": list(ref.shape[1::-1]),
         "global": {"dx": dx, "dy": dy, "confidence": conf, "compensated": shifted},
+        "deltas": deltas,
         "regions": regs,
     }
 

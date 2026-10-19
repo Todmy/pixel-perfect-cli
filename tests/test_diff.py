@@ -61,3 +61,28 @@ def test_web_whole_page_shift_is_compensated():
     d = web("shift")
     assert d["global"]["compensated"] and d["global"]["dx"] == 6.0
     assert d["status"] == "deltas" and d["regions"] == []
+
+
+def kinds(variant):
+    return [(d["type"], d.get("expected"), d.get("actual")) for d in web(variant)["deltas"]]
+
+
+def test_web_gap_cascade_collapses_to_one_cause():
+    assert kinds("gap") == [("gap", 14, 20)]
+
+
+def test_web_color_reports_hex():
+    assert kinds("color") == [("color", "#3366FF", "#3360F0")]
+
+
+def test_web_font_size_reports_heading_size():
+    assert ("size", [175, 19], [192, 21]) in kinds("font_size")
+
+
+def test_web_missing_button():
+    d = web("missing")["deltas"]
+    assert [x["bbox"] for x in d if x["type"] == "missing"] == [[166, 137, 75, 43]]
+
+
+def test_web_text_change_is_one_appearance_delta():
+    assert [t for t, _, _ in kinds("text")] == ["appearance"]

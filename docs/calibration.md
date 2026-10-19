@@ -50,4 +50,4 @@ Found by tallying delta types per pair (not guessed):
 | pixels (baseline) | 6 | 12.063 | 0.143 | 0.4661 | 0 |
 | pixels (T7) | 3 | 8.952 | 0.143 | 0.1912 | 0 |
 
-Maps review rate on held-out noise is 10.8% (train 2.2%): 86 of the 116 items come from two pairs, `pricing/noise-chromium` and `pricing-m/noise-chromium` (43 each). Not inspected, so held-out stays unseen. It needs a new train-side case of that shape before anyone fixes it.
+Maps review rate on held-out noise is 10.8% (train 2.2%): 86 of the 108 items come from two pairs, `pricing/noise-chromium` and `pricing-m/noise-chromium` (43 each). Not inspected, so held-out stays unseen. It needs a new train-side case of that shape before anyone fixes it.

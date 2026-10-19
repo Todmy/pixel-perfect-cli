@@ -4,6 +4,7 @@ import argparse
 import io
 import json
 import sys
+import time
 
 import cv2
 import flip_evaluator
@@ -15,6 +16,15 @@ from pixel_perfect_cli.structure import explain
 EXIT_PASS, EXIT_DELTAS, EXIT_REVIEW, EXIT_FATAL = 0, 1, 2, 12
 SHIFT_CONF = 0.9  # phase-correlation confidence above which a whole-page shift is trusted and undone
 SRGB = ImageCms.createProfile("sRGB")
+
+
+class Timing(dict):
+    """Per-stage ms. Wall-clock noise is not part of the deterministic result, so it never breaks equality."""
+
+    def __eq__(self, other):
+        return isinstance(other, Timing)
+
+    __hash__ = None
 
 
 def load(path: str) -> np.ndarray:
@@ -51,10 +61,10 @@ def lab(img: np.ndarray) -> np.ndarray:
     return cv2.cvtColor(img.astype(np.float32) / 255.0, cv2.COLOR_RGB2Lab)
 
 
-def regions(ref: np.ndarray, test: np.ndarray, tol: float, min_area: int) -> list[dict]:
+def regions(ref: np.ndarray, test: np.ndarray, tol: float, min_area: int, ref_lab=None, test_lab=None) -> list[dict]:
     """Bboxes of pixels whose color differs by more than tol (Lab ΔE76), ranked by FLIP severity."""
     # ponytail: ΔE76 threshold stands in for odiff's antialiasing detector; swap in odiff if AA noise dominates
-    mask = (np.linalg.norm(lab(ref) - lab(test), axis=2) > tol).astype(np.uint8)
+    mask = (np.linalg.norm((lab(ref) if ref_lab is None else ref_lab) - (lab(test) if test_lab is None else test_lab), axis=2) > tol).astype(np.uint8)
     mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
     flip_map, _, _ = flip_evaluator.evaluate(ref / 255.0, test / 255.0, "LDR", applyMagma=False)
     flip_map = flip_map.squeeze()
@@ -73,15 +83,30 @@ def regions(ref: np.ndarray, test: np.ndarray, tol: float, min_area: int) -> lis
 
 
 def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
+    timing = Timing()
+    t0 = time.perf_counter()
+
+    def lap(name: str) -> None:
+        nonlocal t0
+        t1 = time.perf_counter()
+        timing[name] = round((t1 - t0) * 1000, 1)
+        t0 = t1
+
     ref, test = load(design), load(shot)
     test = match_size(ref, test)
+    lap("load")
     dx, dy, conf = global_shift(ref, test)
     shifted = conf >= SHIFT_CONF and max(abs(dx), abs(dy)) >= 0.5
     if shifted:  # undo whole-page translation so regions show only what moved relative to the layout
         m = np.float32([[1, 0, -round(dx)], [0, 1, -round(dy)]])
         test = cv2.warpAffine(test, m, test.shape[1::-1], borderMode=cv2.BORDER_REPLICATE)
-    regs = regions(ref, test, tol, min_area)
-    found = explain(ref, test, lab(ref), lab(test), tol) if regs else []
+    lap("shift")
+    ref_lab, test_lab = lab(ref), lab(test)
+    lap("lab")
+    regs = regions(ref, test, tol, min_area, ref_lab, test_lab)
+    lap("regions")
+    found = explain(ref, test, ref_lab, test_lab, tol, timing) if regs else []
+    lap("explain")
     deltas = [d for d in found if d.get("confidence") != "low"]
     review = [d for d in found if d.get("confidence") == "low"]
     return {
@@ -91,6 +116,7 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4) -> dict:
         "deltas": deltas,
         "review": review,  # low-confidence appearance changes: escalate crops to a VLM, don't auto-fix
         "regions": regs,
+        "timing_ms": timing,
     }
 
 

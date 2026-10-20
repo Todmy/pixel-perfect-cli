@@ -357,9 +357,28 @@ def explain(ref, test, ref_lab, test_lab, tol: float, timing: dict | None = None
     return deltas, cover
 
 
+COLOR = re.compile(r"rgba?\(([^)]*)\)|#([0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3,4})\b")
+
+
+def _hex_color(m: re.Match) -> str:
+    """One color, canonical: #RRGGBB, #RRGGBBAA when alpha < 1, transparent when alpha is 0."""
+    if m[1] is not None:
+        if "%" in m[1] or not re.fullmatch(r"[\d.\s,/-]+", m[1]):
+            return m[0]  # percent or relative syntax: computed styles never emit it, leave it alone
+        p = [float(x) for x in re.split(r"[\s,/]+", m[1].strip()) if x]
+        rgb, a = p[:3], p[3] if len(p) > 3 else 1.0
+    else:
+        h = m[2] if len(m[2]) > 4 else "".join(c * 2 for c in m[2])
+        rgb, a = [int(h[i:i + 2], 16) for i in (0, 2, 4)], int(h[6:] or "FF", 16) / 255
+    if a == 0:
+        return "transparent"
+    return "#" + "".join(f"{int(v + 0.5):02X}" for v in rgb) + (f"{int(a * 255 + 0.5):02X}" if a < 1 else "")
+
+
 def _norm_style(style: dict) -> dict:
-    """Engine-neutral computed values: WebKit drops font-name quotes, float32 px prints as 33.599998."""
-    return {p: NUM.sub(lambda m: f"{float(m[0]):.2f}".rstrip("0").rstrip("."), str(v).replace('"', "").replace("'", ""))
+    """Engine-neutral computed values: WebKit drops font-name quotes, float32 px prints as 33.599998, colors as hex."""
+    return {p: NUM.sub(lambda m: f"{float(m[0]):.2f}".rstrip("0").rstrip("."),
+                       COLOR.sub(_hex_color, str(v).replace('"', "").replace("'", "")))
             for p, v in style.items()}
 
 

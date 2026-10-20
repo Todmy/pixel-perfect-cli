@@ -1,0 +1,42 @@
+{
+ "page": "membership",
+ "split": "train",
+ "page_kind": "membership",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "membership/removed",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "removed",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>h3>span.tag",
+   "css": ".card.dark .tag",
+   "property": "display",
+   "from": "visible",
+   "to": "none",
+   "bbox": [
+    616.22,
+    436.81,
+    72.48,
+    22
+   ],
+   "shot_bbox": null,
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>h3",
+   "parent_bbox": [
+    563,
+    429.5,
+    314,
+    33
+   ]
+  }
+ ]
+}

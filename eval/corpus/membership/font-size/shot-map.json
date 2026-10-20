@@ -1,0 +1,2099 @@
+{
+ "version": 1,
+ "source": "dom",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "dpr": 1,
+ "nodes": [
+  {
+   "id": "body",
+   "selector": "body",
+   "tag": "body",
+   "parent": null,
+   "bbox": [
+    0,
+    0,
+    1440,
+    995
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav",
+   "selector": "body>header.nav",
+   "tag": "header",
+   "parent": "body",
+   "bbox": [
+    0,
+    0,
+    1440,
+    72
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px 64px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828 #101828 #EAECF0",
+    "border-width": "0px 0px 1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo",
+   "selector": "body>header.nav>div.logo",
+   "tag": "div",
+   "parent": "body>header.nav",
+   "bbox": [
+    64,
+    20.5,
+    115.25,
+    30
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "8px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>svg",
+   "selector": "body>header.nav>div.logo>svg",
+   "tag": "svg",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    64,
+    23.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>div.logo>span",
+   "selector": "body>header.nav>div.logo>span",
+   "tag": "span",
+   "parent": "body>header.nav>div.logo",
+   "bbox": [
+    96,
+    20.5,
+    83.25,
+    30
+   ],
+   "text": "Guildhall",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "20px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "30px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links",
+   "selector": "body>header.nav>nav.links",
+   "tag": "nav",
+   "parent": "body>header.nav",
+   "bbox": [
+    604.81,
+    24.25,
+    261.03,
+    22.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "32px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(1)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    604.81,
+    24.25,
+    53.08,
+    22.5
+   ],
+   "text": "Product",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(2)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    689.89,
+    24.25,
+    46.39,
+    22.5
+   ],
+   "text": "Pricing",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(3)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    768.28,
+    24.25,
+    34.73,
+    22.5
+   ],
+   "text": "Docs",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "selector": "body>header.nav>nav.links>a:nth-of-type(4)",
+   "tag": "a",
+   "parent": "body>header.nav>nav.links",
+   "bbox": [
+    835.02,
+    24.25,
+    30.83,
+    22.5
+   ],
+   "text": "Blog",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>header.nav>a.btn.primary.signin",
+   "selector": "body>header.nav>a.btn.primary.signin",
+   "tag": "a",
+   "parent": "body>header.nav",
+   "bbox": [
+    1291.39,
+    14.25,
+    84.61,
+    42.5
+   ],
+   "text": "Sign in",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "#3366FF",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "8px",
+    "padding": "10px 18px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.top:nth-of-type(1)",
+   "selector": "body>section.top:nth-of-type(1)",
+   "tag": "section",
+   "parent": "body",
+   "bbox": [
+    0,
+    72,
+    1440,
+    272.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#F0FDF9",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "72px 64px 48px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.top:nth-of-type(1)>span.eyebrow",
+   "selector": "body>section.top:nth-of-type(1)>span.eyebrow",
+   "tag": "span",
+   "parent": "body>section.top:nth-of-type(1)",
+   "bbox": [
+    669.25,
+    144,
+    101.48,
+    27.5
+   ],
+   "text": "Membership",
+   "style": {
+    "color": "#107569",
+    "background-color": "#CCFBEF",
+    "font-size": "13px",
+    "font-weight": "600",
+    "border-radius": "999px",
+    "padding": "4px 12px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#107569",
+    "border-width": "0px",
+    "line-height": "19.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.top:nth-of-type(1)>h1",
+   "selector": "body>section.top:nth-of-type(1)>h1",
+   "tag": "h1",
+   "parent": "body>section.top:nth-of-type(1)",
+   "bbox": [
+    64,
+    187.5,
+    1312,
+    72
+   ],
+   "text": "Learn with the guild",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "48px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "16px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "72px",
+    "letter-spacing": "-1px"
+   }
+  },
+  {
+   "id": "body>section.top:nth-of-type(1)>p",
+   "selector": "body>section.top:nth-of-type(1)>p",
+   "tag": "p",
+   "parent": "body>section.top:nth-of-type(1)",
+   "bbox": [
+    64,
+    269.5,
+    1312,
+    27
+   ],
+   "text": "One membership, every workshop and recording.",
+   "style": {
+    "color": "#475467",
+    "background-color": "transparent",
+    "font-size": "18px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "10px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#475467",
+    "border-width": "0px",
+    "line-height": "27px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)",
+   "tag": "section",
+   "parent": "body",
+   "bbox": [
+    0,
+    344.5,
+    1440,
+    565.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "48px 64px",
+    "margin": "0px",
+    "gap": "32px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)",
+   "bbox": [
+    118,
+    392.5,
+    380,
+    469.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "20px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#D0D5DD",
+    "border-width": "1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.band:nth-of-type(1)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.band:nth-of-type(1)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)",
+   "bbox": [
+    119,
+    393.5,
+    378,
+    8
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#15B79E",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)",
+   "bbox": [
+    119,
+    401.5,
+    378,
+    437.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "28px 32px 32px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>h3",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>h3",
+   "tag": "h3",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)",
+   "bbox": [
+    151,
+    429.5,
+    314,
+    33
+   ],
+   "text": "Basic",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "22px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "33px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>div.amount",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>div.amount",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)",
+   "bbox": [
+    151,
+    482.5,
+    314,
+    78
+   ],
+   "text": "$9",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "52px",
+    "font-weight": "800",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "20px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "78px",
+    "letter-spacing": "-1px"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>p.per",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>p.per",
+   "tag": "p",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)",
+   "bbox": [
+    151,
+    560.5,
+    314,
+    21
+   ],
+   "text": "per member / month, billed yearly",
+   "style": {
+    "color": "#667085",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "21px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul",
+   "tag": "ul",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)",
+   "bbox": [
+    151,
+    605.5,
+    314,
+    129
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "20px 0px 0px",
+    "margin": "24px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#EAECF0 #101828 #101828",
+    "border-width": "1px 0px 0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    151,
+    626.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "bbox": [
+    151,
+    632.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "bbox": [
+    187,
+    633.25,
+    96.42,
+    22.5
+   ],
+   "text": "Members area",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    151,
+    662.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "bbox": [
+    151,
+    668.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "bbox": [
+    187,
+    669.25,
+    124.19,
+    22.5
+   ],
+   "text": "Monthly workshop",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    151,
+    698.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "bbox": [
+    151,
+    704.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "bbox": [
+    187,
+    705.25,
+    76.41,
+    22.5
+   ],
+   "text": "Recordings",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>a.btn.ghost",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>a.btn.ghost",
+   "tag": "a",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)",
+   "bbox": [
+    151,
+    758.5,
+    314,
+    48.5
+   ],
+   "text": "Join Basic",
+   "style": {
+    "color": "#3366FF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "999px",
+    "padding": "12px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#3366FF",
+    "border-width": "1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)",
+   "bbox": [
+    530,
+    392.5,
+    380,
+    469.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "#101828",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "20px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.band:nth-of-type(1)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.band:nth-of-type(1)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)",
+   "bbox": [
+    531,
+    393.5,
+    378,
+    8
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "#FDB022",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)",
+   "bbox": [
+    531,
+    401.5,
+    378,
+    459.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "28px 32px 32px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>h3",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>h3",
+   "tag": "h3",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)",
+   "bbox": [
+    563,
+    429.5,
+    314,
+    33
+   ],
+   "text": "Plus",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "22px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "33px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>h3>span.tag",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>h3>span.tag",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>h3",
+   "bbox": [
+    616.22,
+    436.81,
+    72.48,
+    22
+   ],
+   "text": "Save 20%",
+   "style": {
+    "color": "#B54708",
+    "background-color": "#FEF0C7",
+    "font-size": "12px",
+    "font-weight": "700",
+    "border-radius": "6px",
+    "padding": "2px 8px",
+    "margin": "0px 0px 0px 8px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#B54708",
+    "border-width": "0px",
+    "line-height": "18px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>div.amount",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>div.amount",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)",
+   "bbox": [
+    563,
+    482.5,
+    314,
+    66
+   ],
+   "text": "$19",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "44px",
+    "font-weight": "800",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "20px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "66px",
+    "letter-spacing": "-1px"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>p.per",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>p.per",
+   "tag": "p",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)",
+   "bbox": [
+    563,
+    548.5,
+    314,
+    21
+   ],
+   "text": "per member / month, billed yearly",
+   "style": {
+    "color": "#98A2B3",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#98A2B3",
+    "border-width": "0px",
+    "line-height": "21px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul",
+   "tag": "ul",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)",
+   "bbox": [
+    563,
+    593.5,
+    314,
+    165
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "20px 0px 0px",
+    "margin": "24px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#344054",
+    "border-width": "1px 0px 0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    563,
+    614.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "bbox": [
+    563,
+    620.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "bbox": [
+    599,
+    621.25,
+    127.8,
+    22.5
+   ],
+   "text": "Everything in Basic",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    563,
+    650.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "bbox": [
+    563,
+    656.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "bbox": [
+    599,
+    657.25,
+    130.59,
+    22.5
+   ],
+   "text": "Weekly office hours",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    563,
+    686.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "bbox": [
+    563,
+    692.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "bbox": [
+    599,
+    693.25,
+    103.08,
+    22.5
+   ],
+   "text": "Private channel",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    563,
+    722.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)",
+   "bbox": [
+    563,
+    728.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>ul>li:nth-of-type(4)",
+   "bbox": [
+    599,
+    729.25,
+    68.36,
+    22.5
+   ],
+   "text": "Templates",
+   "style": {
+    "color": "#FFFFFF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#FFFFFF",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>a.btn",
+   "selector": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)>a.btn",
+   "tag": "a",
+   "parent": "body>section.cards:nth-of-type(2)>div.card.dark:nth-of-type(2)>div.inner:nth-of-type(2)",
+   "bbox": [
+    563,
+    782.5,
+    314,
+    46.5
+   ],
+   "text": "Join Plus",
+   "style": {
+    "color": "#101828",
+    "background-color": "#FDB022",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "999px",
+    "padding": "12px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)",
+   "bbox": [
+    942,
+    392.5,
+    380,
+    469.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#FFFFFF",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "20px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#D0D5DD",
+    "border-width": "1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.band:nth-of-type(1)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.band:nth-of-type(1)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)",
+   "bbox": [
+    943,
+    393.5,
+    378,
+    8
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "#15B79E",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)",
+   "bbox": [
+    943,
+    401.5,
+    378,
+    437.5
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "28px 32px 32px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>h3",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>h3",
+   "tag": "h3",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "bbox": [
+    975,
+    429.5,
+    314,
+    33
+   ],
+   "text": "Studio",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "22px",
+    "font-weight": "700",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "33px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>div.amount",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>div.amount",
+   "tag": "div",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "bbox": [
+    975,
+    482.5,
+    314,
+    78
+   ],
+   "text": "$49",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "52px",
+    "font-weight": "800",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "20px 0px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "78px",
+    "letter-spacing": "-1px"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>p.per",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>p.per",
+   "tag": "p",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "bbox": [
+    975,
+    560.5,
+    314,
+    21
+   ],
+   "text": "per member / month, billed yearly",
+   "style": {
+    "color": "#667085",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "21px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul",
+   "tag": "ul",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "bbox": [
+    975,
+    605.5,
+    314,
+    129
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "20px 0px 0px",
+    "margin": "24px 0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#EAECF0 #101828 #101828",
+    "border-width": "1px 0px 0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    975,
+    626.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "bbox": [
+    975,
+    632.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(1)",
+   "bbox": [
+    1011,
+    633.25,
+    89.75,
+    22.5
+   ],
+   "text": "Up to 5 seats",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    975,
+    662.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "bbox": [
+    975,
+    668.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(2)",
+   "bbox": [
+    1011,
+    669.25,
+    116.44,
+    22.5
+   ],
+   "text": "Team onboarding",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "tag": "li",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul",
+   "bbox": [
+    975,
+    698.5,
+    314,
+    36
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "6px 0px",
+    "margin": "0px",
+    "gap": "12px",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>svg",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>svg",
+   "tag": "svg",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "bbox": [
+    975,
+    704.5,
+    24,
+    24
+   ],
+   "text": null,
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>span",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)>span",
+   "tag": "span",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>ul>li:nth-of-type(3)",
+   "bbox": [
+    1011,
+    705.25,
+    91.13,
+    22.5
+   ],
+   "text": "Invoice billing",
+   "style": {
+    "color": "#101828",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#101828",
+    "border-width": "0px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>a.btn.ghost",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>a.btn.ghost",
+   "tag": "a",
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "bbox": [
+    975,
+    758.5,
+    314,
+    48.5
+   ],
+   "text": "Join Studio",
+   "style": {
+    "color": "#3366FF",
+    "background-color": "transparent",
+    "font-size": "15px",
+    "font-weight": "600",
+    "border-radius": "999px",
+    "padding": "12px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#3366FF",
+    "border-width": "1px",
+    "line-height": "22.5px",
+    "letter-spacing": "normal"
+   }
+  },
+  {
+   "id": "body>p.note",
+   "selector": "body>p.note",
+   "tag": "p",
+   "parent": "body",
+   "bbox": [
+    0,
+    910,
+    1440,
+    85
+   ],
+   "text": "30-day money-back guarantee. Cancel anytime.",
+   "style": {
+    "color": "#667085",
+    "background-color": "transparent",
+    "font-size": "14px",
+    "font-weight": "400",
+    "border-radius": "0px",
+    "padding": "0px 64px 64px",
+    "margin": "0px",
+    "gap": "normal",
+    "font-family": "-apple-system, \"Helvetica Neue\", Arial, sans-serif",
+    "box-shadow": "none",
+    "border-color": "#667085",
+    "border-width": "0px",
+    "line-height": "21px",
+    "letter-spacing": "normal"
+   }
+  }
+ ]
+}

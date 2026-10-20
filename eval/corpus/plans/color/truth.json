@@ -1,0 +1,47 @@
+{
+ "page": "plans",
+ "split": "train",
+ "page_kind": "plans",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "plans/color",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "color",
+   "selector": "body>section.tiers:nth-of-type(2)>div.tier.hot:nth-of-type(2)>a.btn",
+   "css": ".tier.hot .btn",
+   "property": "background-color",
+   "from": "#7F56D9",
+   "to": "#12B76A",
+   "bbox": [
+    421,
+    580.5,
+    265,
+    44.5
+   ],
+   "shot_bbox": [
+    421,
+    580.5,
+    265,
+    44.5
+   ],
+   "parent": "body>section.tiers:nth-of-type(2)>div.tier.hot:nth-of-type(2)",
+   "parent_bbox": [
+    397,
+    253.5,
+    313,
+    399.5
+   ]
+  }
+ ]
+}

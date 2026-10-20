@@ -93,6 +93,64 @@ def pricing() -> str:
                 f'<section class="plans">{body}</section>')
 
 
+def plans() -> str:
+    """Train sibling of pricing: four tinted cards, badge, billing switch, check-icon feature lists."""
+    css = """.intro{display:flex;justify-content:space-between;align-items:flex-end;padding:56px 64px 32px}
+.intro h1{font-size:40px;letter-spacing:-.5px}.intro p{color:#667085;margin-top:8px;font-size:17px}
+.billing{display:flex;gap:4px;padding:4px;background:#F2F4F7;border-radius:10px}.billing a{padding:8px 16px;border-radius:8px;font-weight:600;color:#475467}
+.billing a.on{background:#fff;color:#101828;box-shadow:0 1px 3px rgba(16,24,40,.12)}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:0 64px 72px}
+.tier{position:relative;display:flex;flex-direction:column;background:#F9FAFB;border-radius:12px;padding:28px 24px}
+.tier.hot{background:#F4EBFF;outline:1px solid #D6BBFB}
+.tier .badge{position:absolute;top:16px;right:16px;background:#7F56D9;color:#fff;font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px}
+.tier h2{font-size:16px;font-weight:600;color:#53389E}.tier .cost{font-size:40px;font-weight:700;margin-top:16px}
+.tier .cost em{font-style:normal;font-size:14px;color:#667085;font-weight:500}.tier .blurb{font-size:14px;color:#475467;margin-top:4px}
+.tier ul{list-style:none;flex:1;display:flex;flex-direction:column;gap:10px;margin:20px 0 28px}.tier li{display:flex;gap:8px;align-items:center;font-size:14px;color:#344054}
+.tier .btn{text-align:center;background:#fff;border:1px solid #D0D5DD}.tier.hot .btn{background:#7F56D9;color:#fff;border-color:#7F56D9}
+@media (max-width:600px){.intro{flex-direction:column;align-items:flex-start;gap:16px;padding:32px 20px 20px}.intro h1{font-size:30px}
+.tiers{grid-template-columns:1fr;gap:14px;padding:0 20px 40px}}"""
+    tiers = [("Hobby", "€0", "For side projects", ["1 site", "Weekly snapshots", "Forum help"], ""),
+             ("Studio", "€12", "For small teams", ["10 sites", "Daily snapshots", "Review links", "Slack app"], " hot"),
+             ("Agency", "€39", "For client work", ["50 sites", "Hourly snapshots", "White label"], ""),
+             ("Enterprise", "Custom", "For regulated orgs", ["Unlimited sites", "SAML", "Data residency"], "")]
+    body = "".join(f'<div class="tier{c}">' + ('<span class="badge">Most popular</span>' if c else "")
+                   + f'<h2>{n}</h2><div class="cost">{p}' + ("<em> / user / mo</em>" if p[0] == "€" else "") + "</div>"
+                   + f'<p class="blurb">{b}</p><ul>' + "".join(f"<li>{ICON.format(c='#9E77ED')}<span>{f}</span></li>" for f in fs)
+                   + f'</ul><a class="btn">{"Contact us" if p == "Custom" else "Get " + n}</a></div>' for n, p, b, fs, c in tiers)
+    return page(css, nav("Lumenframe") + '<section class="intro"><div><h1>Plans for every studio</h1><p>Pay per seat. Switch or cancel any time.</p></div>'
+                '<div class="billing"><a class="on">Monthly</a><a>Yearly</a></div></section>' + f'<section class="tiers">{body}</section>')
+
+
+def membership() -> str:
+    """Train sibling of pricing: tinted header with eyebrow badge, banded cards, one dark featured card, tag, pill buttons."""
+    css = """.top{text-align:center;padding:72px 64px 48px;background:#F0FDF9}
+.top .eyebrow{display:inline-block;background:#CCFBEF;color:#107569;font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px}
+.top h1{font-size:48px;letter-spacing:-1px;margin-top:16px}.top p{color:#475467;margin-top:10px;font-size:18px}
+.cards{display:flex;justify-content:center;gap:32px;padding:48px 64px}
+.card{width:380px;border:1px solid #D0D5DD;border-radius:20px;overflow:hidden;background:#fff}
+.card .band{height:8px;background:#15B79E}.card .inner{padding:28px 32px 32px}
+.card.dark{background:#101828;color:#fff;border-color:#101828}.card.dark .band{background:#FDB022}
+.card h3{font-size:22px}.card .tag{display:inline-block;margin-left:8px;font-size:12px;background:#FEF0C7;color:#B54708;padding:2px 8px;border-radius:6px;vertical-align:middle}
+.card .amount{font-size:52px;font-weight:800;letter-spacing:-1px;margin-top:20px}.card .per{color:#667085;font-size:14px}.card.dark .per{color:#98A2B3}
+.card ul{list-style:none;margin:24px 0;padding-top:20px;border-top:1px solid #EAECF0}.card.dark ul{border-color:#344054}
+.card li{display:flex;gap:12px;align-items:center;padding:6px 0}
+.card .btn{display:block;text-align:center;border-radius:999px;padding:12px}.card.dark .btn{background:#FDB022;color:#101828}
+.note{text-align:center;color:#667085;font-size:14px;padding:0 64px 64px}
+@media (max-width:600px){.top{padding:40px 20px 28px}.top h1{font-size:34px}.cards{flex-direction:column;gap:20px;padding:24px 20px}
+.card{width:100%}.card .inner{padding:24px}.note{padding:0 20px 40px}}"""
+    cards = [("Basic", "$9", ["Members area", "Monthly workshop", "Recordings"], "", "#15B79E"),
+             ("Plus", "$19", ["Everything in Basic", "Weekly office hours", "Private channel", "Templates"], " dark", "#FDB022"),
+             ("Studio", "$49", ["Up to 5 seats", "Team onboarding", "Invoice billing"], "", "#15B79E")]
+    body = "".join(f'<div class="card{c}"><div class="band"></div><div class="inner"><h3>{n}'
+                   + ('<span class="tag">Save 20%</span>' if c else "") + f'</h3><div class="amount">{p}</div>'
+                   + '<p class="per">per member / month, billed yearly</p><ul>'
+                   + "".join(f"<li>{ICON.format(c=ic)}<span>{f}</span></li>" for f in fs)
+                   + f'</ul><a class="btn{"" if c else " ghost"}">Join {n}</a></div></div>' for n, p, fs, c, ic in cards)
+    return page(css, nav("Guildhall") + '<section class="top"><span class="eyebrow">Membership</span><h1>Learn with the guild</h1>'
+                '<p>One membership, every workshop and recording.</p></section>'
+                f'<section class="cards">{body}</section><p class="note">30-day money-back guarantee. Cancel anytime.</p>')
+
+
 def table() -> str:
     rng = random.Random(SEED)
     css = """.wrap{padding:32px 64px}.wrap h1{font-size:28px}.bar{display:flex;gap:12px;align-items:center;margin:16px 0 20px}
@@ -236,6 +294,9 @@ PAGES = {
     "pricing": (pricing, 1440, 900, "heldout"), "pricing-m": (pricing, 390, 844, "heldout"),
     "dark": (dark, 1440, 900, "heldout"), "article": (article, 1440, 900, "heldout"),
     "dynamic": (dynamic, 1440, 900, "heldout"),
+    # v1.3, appended last: build draws shot engines from one seeded RNG in this order, so earlier pages keep theirs.
+    "plans": (plans, 1440, 900, "train"), "plans-m": (plans, 390, 844, "train"),
+    "membership": (membership, 1440, 900, "train"), "membership-m": (membership, 390, 844, "train"),
 }
 
 # template name -> [(type, selector, property, to)]. Selector must hit exactly one element (build asserts it).
@@ -292,5 +353,22 @@ MUTATIONS = {
     "dynamic": [("gap", ".panels", "gap", "48px"), ("padding", ".box.live", "padding", "40px"),
                 ("color", ".box.live .big", "color", "#3366FF"), ("text", ".feed li:nth-child(2) b", "text", "Pricing page v2"),
                 ("removed", ".feed li:nth-child(4)", None, None), ("align", ".box.live", "text-align", "center")],
+    "plans": [("gap", ".tier.hot ul", "gap", "18px"), ("padding", ".tier.hot", "padding", "36px 24px"),
+              ("margin", ".intro p", "margin-top", "20px"), ("color", ".tier.hot .btn", "background-color", "#12B76A"),
+              ("font-size", ".tier.hot .cost", "font-size", "34px"), ("radius", ".tier:nth-child(1)", "border-radius", "0px"),
+              ("text", ".tier:nth-child(3) .cost", "text", "€45"), ("removed", ".tier.hot .badge", None, None),
+              ("added", ".tier:nth-child(4) ul", None, "<li class='new'><span>On-prem option</span></li>"),
+              ("align", ".intro", "align-items", "center")],
+    "membership": [("gap", ".cards", "gap", "48px"), ("padding", ".card.dark .inner", "padding", "40px"),
+                   ("margin", ".top p", "margin-top", "24px"), ("color", ".card.dark .btn", "background-color", "#F04438"),
+                   ("font-size", ".card.dark .amount", "font-size", "44px"), ("radius", ".card:nth-child(1)", "border-radius", "4px"),
+                   ("text", ".card:nth-child(3) .amount", "text", "$59"), ("removed", ".card.dark .tag", None, None),
+                   ("added", ".card:nth-child(1) ul", None, "<li class='new'><span>Email support</span></li>"),
+                   ("align", ".note", "text-align", "left")],
 }
 MOBILE_MUTATIONS = 6  # mobile variants use the first N of their template's catalog
+
+# replay pairs: page -> (A, B), two catalog entries by type. shot_0 has A+B, shot_1 only B (A fixed), shot_2 neither.
+# A moves B's box (layout change above it) so a position-derived id would renumber; never `added` (A must exist when fixed).
+REPLAY = {"landing": ("margin", "color"), "grid": ("gap", "color"), "settings": ("margin", "text"),
+          "pricing": ("margin", "color"), "dark": ("margin", "text"), "article": ("font-size", "color")}

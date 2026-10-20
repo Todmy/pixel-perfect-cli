@@ -44,7 +44,7 @@ Delta: `{"type", "id", "selector", "text", "bbox", "shot_bbox", "expected", "act
 
 ## Eval ground truth (`eval/`)
 
-Each pair has `truth.json`: `{"page", "split": "train|heldout", "kind": "mutation|noise|dynamic", "mutations": [{"type", "selector", "property", "from", "to"}]}`. A noise pair has `mutations: []`. The scorer matches reported deltas to mutations by selector, or by bbox overlap with the mutated element (or its parent for gap/padding) when the run had no map.
+Each pair has `truth.json`: `{"page", "split": "train|heldout", "kind": "mutation|noise|dynamic", "mutations": [{"type", "selector", "property", "from", "to"}]}`. A noise pair has `mutations: []`. A replay pair (v1.3, `kind: replay`) is one step `replay_step` 0/1/2 of a page: mutations A+B, then B with A in `fixed`, then none with both in `fixed`. The scorer matches reported deltas to mutations by selector, or by bbox overlap with the mutated element (or its parent for gap/padding) when the run had no map.
 
 ## Gates (premortem checklist)
 
@@ -55,3 +55,4 @@ Each pair has `truth.json`: `{"page", "split": "train|heldout", "kind": "mutatio
 | review rate on noise pairs | < 10% of elements, 0 confident deltas on same-engine re-render |
 | determinism | identical stdout hash on 2 runs, every pair |
 | runtime, 1440x4000 page | < 5 s |
+| replay stability (v1.3) | B's delta `id`s identical on steps 0 and 1, no confident delta naming a fixed mutation on step 1, no confident delta on step 2 |

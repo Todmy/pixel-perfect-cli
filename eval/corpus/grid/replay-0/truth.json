@@ -1,0 +1,78 @@
+{
+ "page": "grid",
+ "split": "train",
+ "page_kind": "grid",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "grid/replay-0",
+ "kind": "replay",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>div.wrap>div.cards",
+   "css": ".cards",
+   "property": "gap",
+   "from": "24px",
+   "to": "36px",
+   "bbox": [
+    64,
+    184,
+    1312,
+    533
+   ],
+   "shot_bbox": [
+    64,
+    184,
+    1312,
+    545
+   ],
+   "parent": "body>div.wrap",
+   "parent_bbox": [
+    0,
+    72,
+    1440,
+    685
+   ],
+   "replay_role": "A"
+  },
+  {
+   "type": "color",
+   "selector": "body>div.wrap>div.cards>div.card:nth-of-type(5)>div.body:nth-of-type(2)>h3",
+   "css": ".card:nth-child(5) h3",
+   "property": "color",
+   "from": "#101828",
+   "to": "#3366FF",
+   "bbox": [
+    81,
+    619.5,
+    276,
+    24
+   ],
+   "shot_bbox": [
+    81,
+    631.5,
+    267,
+    24
+   ],
+   "parent": "body>div.wrap>div.cards>div.card:nth-of-type(5)>div.body:nth-of-type(2)",
+   "parent_bbox": [
+    65,
+    603.5,
+    308,
+    112.5
+   ],
+   "replay_role": "B"
+  }
+ ],
+ "replay_step": 0,
+ "fixed": []
+}

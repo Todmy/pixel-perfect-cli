@@ -1,0 +1,47 @@
+{
+ "page": "membership",
+ "split": "train",
+ "page_kind": "membership",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "membership/radius",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "radius",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)",
+   "css": ".card:nth-child(1)",
+   "property": "border-radius",
+   "from": "20px",
+   "to": "4px",
+   "bbox": [
+    118,
+    392.5,
+    380,
+    481.5
+   ],
+   "shot_bbox": [
+    118,
+    392.5,
+    380,
+    481.5
+   ],
+   "parent": "body>section.cards:nth-of-type(2)",
+   "parent_bbox": [
+    0,
+    344.5,
+    1440,
+    577.5
+   ]
+  }
+ ]
+}

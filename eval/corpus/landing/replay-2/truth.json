@@ -1,0 +1,78 @@
+{
+ "page": "landing",
+ "split": "train",
+ "page_kind": "landing",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "landing/replay-2",
+ "kind": "replay",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [],
+ "replay_step": 2,
+ "fixed": [
+  {
+   "type": "margin",
+   "selector": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>h1",
+   "css": ".hero h1",
+   "property": "margin-bottom",
+   "from": "16px",
+   "to": "26px",
+   "bbox": [
+    64,
+    215.66,
+    704,
+    123.19
+   ],
+   "shot_bbox": [
+    64,
+    215.66,
+    704,
+    123.19
+   ],
+   "parent": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)",
+   "parent_bbox": [
+    64,
+    215.66,
+    704,
+    272.69
+   ],
+   "replay_role": "A"
+  },
+  {
+   "type": "color",
+   "selector": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>div.actions>a.btn.primary.start:nth-of-type(1)",
+   "css": ".btn.start",
+   "property": "background-color",
+   "from": "#3366FF",
+   "to": "#2952CC",
+   "bbox": [
+    64,
+    443.84,
+    134.33,
+    44.5
+   ],
+   "shot_bbox": [
+    64,
+    443.84,
+    134.33,
+    44.5
+   ],
+   "parent": "body>section.hero:nth-of-type(1)>div.copy:nth-of-type(1)>div.actions",
+   "parent_bbox": [
+    64,
+    443.84,
+    704,
+    44.5
+   ],
+   "replay_role": "B"
+  }
+ ]
+}

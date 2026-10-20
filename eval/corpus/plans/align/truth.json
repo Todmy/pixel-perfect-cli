@@ -1,0 +1,47 @@
+{
+ "page": "plans",
+ "split": "train",
+ "page_kind": "plans",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "plans/align",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "align",
+   "selector": "body>section.intro:nth-of-type(1)",
+   "css": ".intro",
+   "property": "align-items",
+   "from": "flex-end",
+   "to": "center",
+   "bbox": [
+    0,
+    72,
+    1440,
+    181.5
+   ],
+   "shot_bbox": [
+    0,
+    72,
+    1440,
+    181.5
+   ],
+   "parent": "body",
+   "parent_bbox": [
+    0,
+    0,
+    1440,
+    725
+   ]
+  }
+ ]
+}

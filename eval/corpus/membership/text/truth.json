@@ -1,0 +1,47 @@
+{
+ "page": "membership",
+ "split": "train",
+ "page_kind": "membership",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "membership/text",
+ "kind": "mutation",
+ "shot_engine": "webkit",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "text",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)>div.amount",
+   "css": ".card:nth-child(3) .amount",
+   "property": "text",
+   "from": "$49",
+   "to": "$59",
+   "bbox": [
+    975,
+    482.5,
+    314,
+    78
+   ],
+   "shot_bbox": [
+    975,
+    482.5,
+    314,
+    78
+   ],
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(3)>div.inner:nth-of-type(2)",
+   "parent_bbox": [
+    943,
+    401.5,
+    378,
+    437.5
+   ]
+  }
+ ]
+}

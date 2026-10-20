@@ -1,0 +1,19 @@
+{
+ "page": "plans-m",
+ "split": "train",
+ "page_kind": "plans-mobile",
+ "viewport": [
+  390,
+  844
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "design.png",
+ "design_map": "design-map.json",
+ "dynamic": [],
+ "pair": "plans-m/rerender",
+ "kind": "noise",
+ "shot_engine": "chromium",
+ "noise": "rerender",
+ "mutations": []
+}

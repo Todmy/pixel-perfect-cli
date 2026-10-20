@@ -34,13 +34,14 @@ Exit codes: `0` pass, `1` deltas, `2` review only, `12` fatal. stdout is one JSO
 {"status": "pass|deltas|review|fatal", "global": {...}, "deltas": [Delta], "review": [Delta], "regions": [...], "timing_ms": {...}}
 ```
 
-Delta: `{"type", "id", "selector", "text", "bbox", "shot_bbox", "expected", "actual", "axis", "after", "confidence", "source"}`
+Delta: `{"type", "id", "selector", "text", "bbox", "shot_bbox", "expected", "actual", "axis", "after", "confidence", "source", "fix"}`
 
 - `type` in `gap | padding | align | size | color | text | appearance | missing | extra`.
 - `id`: stable across iterations for the same element. From a map: the map `id`. Pixels only: content-derived, not a tree position.
 - `selector` / `text`: present whenever a map covers the element, so an agent can find the code.
 - `source`: `map` or `pixels`. `confidence`: `high` goes to `deltas`, `low` goes to `review`.
 - Same inputs give byte-identical stdout, except the `timing_ms` object (wall-clock); scorers strip `timing_ms` before hashing. (v1.1)
+- `fix`: `{"selector", "property", "value"}` or `null`. Set only for `source: map`: the one CSS property whose design and shot values differ and that explains the delta (gap: the element's leading margin, the previous sibling's trailing margin or the parent's `gap`; padding: leading margin or the parent's `padding-<side>`; style changes: the differing property, shorthands split per side, `font-size` over the `line-height` that follows it), with `value` from the design map. `null` when none or several differ, for text, extra, text-align and pixels-only deltas. (v1.2)
 
 ## Eval ground truth (`eval/`)
 

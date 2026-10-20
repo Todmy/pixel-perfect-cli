@@ -1,0 +1,47 @@
+{
+ "page": "membership",
+ "split": "train",
+ "page_kind": "membership",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "membership/gap",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "gap",
+   "selector": "body>section.cards:nth-of-type(2)",
+   "css": ".cards",
+   "property": "gap",
+   "from": "32px",
+   "to": "48px",
+   "bbox": [
+    0,
+    344.5,
+    1440,
+    577.5
+   ],
+   "shot_bbox": [
+    0,
+    344.5,
+    1440,
+    577.5
+   ],
+   "parent": "body",
+   "parent_bbox": [
+    0,
+    0,
+    1440,
+    1007
+   ]
+  }
+ ]
+}

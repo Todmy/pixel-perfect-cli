@@ -1,0 +1,42 @@
+{
+ "page": "plans",
+ "split": "train",
+ "page_kind": "plans",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "plans/added",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>section.tiers:nth-of-type(2)>div.tier:nth-of-type(4)>ul>li.new:nth-of-type(4)",
+   "css": ".tier:nth-child(4) ul > .new",
+   "property": null,
+   "from": null,
+   "to": "<li class='new'><span>On-prem option</span></li>",
+   "bbox": null,
+   "shot_bbox": [
+    1087,
+    528.5,
+    265,
+    21
+   ],
+   "parent": "body>section.tiers:nth-of-type(2)>div.tier:nth-of-type(4)>ul",
+   "parent_bbox": [
+    1087,
+    426.5,
+    265,
+    126
+   ]
+  }
+ ]
+}

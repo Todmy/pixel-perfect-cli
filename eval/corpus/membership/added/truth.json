@@ -1,0 +1,42 @@
+{
+ "page": "membership",
+ "split": "train",
+ "page_kind": "membership",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "membership/added",
+ "kind": "mutation",
+ "shot_engine": "firefox",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "added",
+   "selector": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul>li.new:nth-of-type(4)",
+   "css": ".card:nth-child(1) ul > .new",
+   "property": null,
+   "from": null,
+   "to": "<li class='new'><span>Email support</span></li>",
+   "bbox": null,
+   "shot_bbox": [
+    151,
+    734.5,
+    314,
+    34.5
+   ],
+   "parent": "body>section.cards:nth-of-type(2)>div.card:nth-of-type(1)>div.inner:nth-of-type(2)>ul",
+   "parent_bbox": [
+    151,
+    605.5,
+    314,
+    163.5
+   ]
+  }
+ ]
+}

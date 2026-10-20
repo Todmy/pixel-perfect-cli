@@ -1,0 +1,47 @@
+{
+ "page": "plans",
+ "split": "train",
+ "page_kind": "plans",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "plans/padding",
+ "kind": "mutation",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "padding",
+   "selector": "body>section.tiers:nth-of-type(2)>div.tier.hot:nth-of-type(2)",
+   "css": ".tier.hot",
+   "property": "padding",
+   "from": "28px 24px",
+   "to": "36px 24px",
+   "bbox": [
+    397,
+    253.5,
+    313,
+    399.5
+   ],
+   "shot_bbox": [
+    397,
+    253.5,
+    313,
+    415.5
+   ],
+   "parent": "body>section.tiers:nth-of-type(2)",
+   "parent_bbox": [
+    0,
+    253.5,
+    1440,
+    471.5
+   ]
+  }
+ ]
+}

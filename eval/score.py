@@ -6,6 +6,8 @@ Run: uv run python -m eval.score --label NAME [--mode pixels|maps|both] [--split
 Matching (Contract v1): a delta that carries a selector must name the mutated element (or its parent for
 gap/padding/margin); a delta without one matches by bbox IoU >= 0.3 with the element (or parent) in design or shot.
 Deltas on dynamic-content elements are counted apart, not as false. Errors and fatals never count as passes.
+Replay (v1.3): per page, the ids of the confident deltas naming B must be identical on shot_0 (A+B) and shot_1 (B),
+shot_1 must have no confident delta naming the fixed A, and shot_2 (both fixed) must have no confident delta.
 """
 
 import argparse
@@ -82,6 +84,14 @@ def judge(out: dict, truth: dict, dmap: dict) -> dict:
             "dup_deltas": dup, "dynamic_deltas": dyn, "review_items": len(out.get("review") or [])}
 
 
+def replay(out: dict, truth: dict) -> dict:
+    """Ids of the confident deltas naming each planted mutation, and the count naming an already fixed one."""
+    ds = out.get("deltas") or []
+    ids = {m["replay_role"]: sorted((d.get("id") for d in ds if hits(d, *targets(m))), key=str) for m in truth["mutations"]}
+    return {"replay_step": truth["replay_step"], "replay_ids": ids,
+            "ghost_deltas": sum(any(hits(d, *targets(m)) for m in truth["fixed"]) for d in ds)}
+
+
 def stable_sha(stdout: bytes) -> str:
     """sha256 of stdout with the wall-clock `timing_ms` object blanked (Contract v1.1); every other byte counts."""
     return hashlib.sha256(TIMING.sub(b'"timing_ms": {}', stdout)).hexdigest()
@@ -131,6 +141,8 @@ def score_pair(args: tuple) -> dict:
            "deterministic": a["exit"] is not None and stable_sha(a["stdout"]) == stable_sha(b["stdout"]),
            "stdout_sha256": stable_sha(a["stdout"]), "wall_s": [a["wall_s"], b["wall_s"]]}  # wall_s: pool-contended, not for gates
     rec.update(judge(out or {}, truth, dmap))
+    if truth["kind"] == "replay":
+        rec.update(replay(out or {}, truth))
     rec["_cmd"] = cmd
     return rec
 
@@ -187,11 +199,26 @@ def agg(recs: list[dict]) -> dict:
             "p95_runtime_s": pct([w for r in recs for w in r["wall_s"]], 0.95)}
 
 
+def replay_groups(recs: list[dict]) -> dict:
+    """page -> checks over its replay-0/1/2 records; a step with an error fails every check it feeds."""
+    out = {}
+    for page in sorted({r["page"] for r in recs if r["kind"] == "replay"}):
+        s = {r["replay_step"]: r for r in recs if r["kind"] == "replay" and r["page"] == page}
+        b0, b1 = s[0]["replay_ids"].get("B", []), s[1]["replay_ids"].get("B", [])
+        out[page] = {"stable_ids": bool(b0) and None not in b0 and b0 == b1 and not s[0]["error"] and not s[1]["error"],
+                     "no_ghost": not s[1]["error"] and s[1]["ghost_deltas"] == 0,
+                     "converged": not s[2]["error"] and s[2]["status"] in ("pass", "review")
+                     and s[2]["false_deltas"] + s[2]["dynamic_deltas"] == 0,
+                     "b_ids": [b0, b1]}
+    return out
+
+
 def gates(recs: list[dict], baseline_recall: float | None, is_baseline: bool, loaded: bool = False) -> dict:
     held = agg([r for r in recs if r["split"] == "heldout"])
     alls = agg(recs)
     long = [min(r["runtime_s"]) for r in recs if r["page_height"] >= LONG_PAGE and "runtime_s" in r]  # sequential pass, min of 2 runs
     rerender = [r for r in recs if r["noise"] == "rerender"]
+    rg = replay_groups(recs).values()
 
     def g(cond, unknown=False):
         return "UNKNOWN" if unknown else "PASS" if cond else "FAIL"
@@ -212,6 +239,7 @@ def gates(recs: list[dict], baseline_recall: float | None, is_baseline: bool, lo
         "determinism_every_pair": g(alls["determinism_failures"] == 0, not recs),
         "runtime_long_page<5s": g(long and max(long) < 5.0, not long or loaded),
         "no_errors_or_fatal": g(alls["errors"] == 0, not recs),
+        "replay_stable_ids": g(all(x["stable_ids"] and x["no_ghost"] and x["converged"] for x in rg), not rg),
     }
 
 
@@ -271,10 +299,14 @@ def main() -> None:
             r["by_pair_kind"] = {f"{s}/{k}": agg([x for x in recs if x["split"] == s and (x["noise"] or x["kind"]) == k])
                                  for s, k in sorted({(x["split"], x["noise"] or x["kind"]) for x in recs})}
             r["gates"] = gates(recs, brecall, a.label == "baseline", loaded)
+            r["replay"] = replay_groups(recs)
             r["long_page_max_runtime_s"] = r["runtime_pass"]["long_page_max_s"]
             md += [table(list(r["groups"].items())), "", "### Per page kind", "", table(list(r["by_page_kind"].items())), "",
-                   "### Per pair kind (mutation, rasterizer noise, rerender, dynamic-content)", "",
-                   table(list(r["by_pair_kind"].items())), ""]
+                   "### Per pair kind (mutation, rasterizer noise, rerender, dynamic-content, replay)", "",
+                   table(list(r["by_pair_kind"].items())), "", "### Replay", "",
+                   "| page | stable_ids | no_ghost | converged | B ids shot_0 | B ids shot_1 |", "|---|---|---|---|---|---|"]
+            md += [f"| {p} | {x['stable_ids']} | {x['no_ghost']} | {x['converged']} | {x['b_ids'][0]} | {x['b_ids'][1]} |"
+                   for p, x in r["replay"].items()] + [""]
             errs = [x for x in recs if x["error"]][:10]
             if errs:
                 md += ["### First errors", ""] + [f"- `{x['pair']}`: {str(x['error'])[:200]!r}" for x in errs] + [""]

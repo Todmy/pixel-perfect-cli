@@ -1,0 +1,78 @@
+{
+ "page": "settings",
+ "split": "train",
+ "page_kind": "settings",
+ "viewport": [
+  1440,
+  900
+ ],
+ "synthetic": true,
+ "note": "SYNTHETIC PROXY: design is a Chromium DPR2 render downscaled 1x, not a Figma export",
+ "design": "../design.png",
+ "design_map": "../design-map.json",
+ "dynamic": [],
+ "pair": "settings/replay-0",
+ "kind": "replay",
+ "shot_engine": "chromium",
+ "noise": null,
+ "mutations": [
+  {
+   "type": "margin",
+   "selector": "body>div.layout>main.main>p.sub",
+   "css": ".main .sub",
+   "property": "margin-bottom",
+   "from": "24px",
+   "to": "48px",
+   "bbox": [
+    296,
+    147,
+    1096,
+    22.5
+   ],
+   "shot_bbox": [
+    296,
+    147,
+    1096,
+    22.5
+   ],
+   "parent": "body>div.layout>main.main",
+   "parent_bbox": [
+    248,
+    72,
+    1192,
+    760
+   ],
+   "replay_role": "A"
+  },
+  {
+   "type": "text",
+   "selector": "body>div.layout>main.main>div.opt:nth-of-type(2)>div:nth-of-type(1)>b",
+   "css": ".opt:nth-of-type(2) b",
+   "property": "text",
+   "from": "Slack alerts",
+   "to": "Microsoft Teams alerts",
+   "bbox": [
+    296,
+    293.5,
+    191.63,
+    22.5
+   ],
+   "shot_bbox": [
+    296,
+    317.5,
+    191.63,
+    22.5
+   ],
+   "parent": "body>div.layout>main.main>div.opt:nth-of-type(2)>div:nth-of-type(1)",
+   "parent_bbox": [
+    296,
+    293.5,
+    191.63,
+    45
+   ],
+   "replay_role": "B"
+  }
+ ],
+ "replay_step": 0,
+ "fixed": []
+}

@@ -64,7 +64,7 @@ def test_font_family_is_a_confident_style_appearance():
 def test_shadow_is_a_confident_style_appearance():
     [d] = causes("shadow")
     assert (d["type"], d["selector"], d["confidence"]) == ("appearance", CARD, "high")
-    assert d["style"] == {"box-shadow": ["none", "rgba(16, 24, 40, 0.25) 0px 8px 24px 0px"]}
+    assert d["style"] == {"box-shadow": ["none", "#10182840 0px 8px 24px 0px"]}
 
 
 def test_parent_padding_explains_shifted_children():

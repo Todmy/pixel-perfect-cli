@@ -27,6 +27,7 @@ Exit codes: `0` pass, `1` deltas, `2` review only, `12` fatal. stdout is one JSO
 - `bbox` is in CSS pixels of the page, top-left of the captured image is (0, 0). `diff` scales by `dpr` itself.
 - Only rendered, visible nodes with non-zero size. `id` is a deterministic CSS path; it must be identical for the same DOM across runs.
 - `source` is `dom` today; a Figma node tree adapter will write `figma` with Figma node names as `id`.
+- Colors may be written in any form (`#rgb`, `#RRGGBB`, `rgb()`, `rgba()`); `diff` rewrites every color inside every style value (color, background-color, border-color, box-shadow, ...) of both maps to one canonical form before pairing: uppercase `#RRGGBB`, `#RRGGBBAA` when alpha < 1, `transparent` when alpha is 0; keywords such as `none` stay as is. Delta `expected` / `actual`, `style` and `fix.value` carry that form. (v1.3)
 
 ## Deltas (`diff` output)
 

@@ -262,7 +262,9 @@ def causes(ref, test, rt: Node, tt: Node, match: dict[int, Node], look, ident, s
             dw, dh = t.w - c.w, t.h - c.h
             x0, y0 = min(c.x, t.x), min(c.y, t.y)
             outer = [x0, y0, max(c.x + c.w, t.x + t.w) - x0, max(c.y + c.h, t.y + t.h) - y0]
-            if max(abs(t.x - c.x), abs(t.y - c.y)) >= 1 or not c.children:  # moved, or a leaf look() judged
+            # moved, or a leaf look() judged, or a box with text of its own (`€39<em>/mo</em>`): look() compared
+            # that text and style, so its glyph pixels are judged like a leaf's
+            if max(abs(t.x - c.x), abs(t.y - c.y)) >= 1 or not c.children or c.text:
                 cover.append((outer, None))
             elif max(abs(dw), abs(dh)) >= 1:  # same origin, grew or shrank: only the band between the edges
                 cover.append((outer, [c.x, c.y, min(c.w, t.w), min(c.h, t.h)]))

@@ -186,3 +186,11 @@ def test_noise_has_no_fix(variant):
 
 def test_pixel_deltas_have_a_null_fix():
     assert [d["fix"] for d in web("color")["deltas"]] == [None]
+
+
+def test_border_color_shorthand_splits_per_side():
+    import pixel_perfect_cli.structure as s
+    st = lambda c: {"border-color": f"rgb(16, 24, 40) rgb(16, 24, 40) rgb(16, 24, 40) {c}"}  # noqa: E731
+    a, b = s.Node(0, 0, 10, 10, id="q", selector="q", style=st("#3366FF")), s.Node(0, 0, 10, 10, id="q", style=st("#101828"))
+    fix = s._fix({"type": "appearance", "id": "q"}, {"q": a}, {}, {id(a): b})
+    assert fix == {"selector": "q", "property": "border-left-color", "value": "#3366FF"}

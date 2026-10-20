@@ -535,13 +535,16 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
 
 SIDES = ("top", "right", "bottom", "left")
 LEAD = {"y": ("top", "bottom"), "x": ("left", "right")}  # (start, end) side along an axis
+SPLIT = {"padding": "padding-{}", "margin": "margin-{}", "border-color": "border-{}-color"}  # shorthand -> longhand
+LONG = {f.format(s): (p, s) for p, f in SPLIT.items() for s in SIDES}
+TOKEN = re.compile(r"[^\s(]+(?:\([^)]*\))?")  # one value; rgb(1, 2, 3) stays whole
 
 
 def _side(style: dict, prop: str, side: str) -> str | None:
-    """One side of a 1-4 value shorthand (padding, margin), or its longhand when the map carries one."""
-    if f"{prop}-{side}" in style:
-        return style[f"{prop}-{side}"]
-    parts = str(style.get(prop, "")).split()
+    """One side of a 1-4 value shorthand (padding, margin, border-color), or its longhand when the map carries one."""
+    if (long := SPLIT[prop].format(side)) in style:
+        return style[long]
+    parts = TOKEN.findall(str(style.get(prop, "")))
     if not 1 <= len(parts) <= 4:
         return None
     return (parts * 4 if len(parts) == 1 else parts * 2 if len(parts) == 2 else parts + parts[1:2])[SIDES.index(side)]
@@ -559,8 +562,7 @@ def _fix(d: dict, nodes: dict, parent: dict, match: dict) -> dict | None:
         return {"selector": n.selector, "property": "display", "value": n.style["display"]} if "display" in n.style else None
 
     def get(m: Node, prop: str) -> str | None:
-        prop, _, side = prop.rpartition("-") if prop.split("-")[-1] in SIDES else (prop, "", "")
-        return _side(m.style, prop, side) if side else m.style.get(prop)
+        return _side(m.style, *LONG[prop]) if prop in LONG else m.style.get(prop)
 
     if d["type"] in ("gap", "padding", "align"):
         start, end = LEAD[d["axis"]]  # gap/padding: the stacking axis; align: the axis it moved along
@@ -574,8 +576,8 @@ def _fix(d: dict, nodes: dict, parent: dict, match: dict) -> dict | None:
         t = match.get(id(n))
         cands = []
         for prop in sorted(n.style.keys() | (t.style.keys() if t else set())):
-            if prop in ("padding", "margin"):
-                sides = [f"{prop}-{s}" for s in SIDES]
+            if prop in SPLIT:
+                sides = [SPLIT[prop].format(s) for s in SIDES]
                 diff = [s for s in sides if t is None or get(n, s) != get(t, s)]
                 cands += [(n, prop)] if len(diff) == 4 else [(n, s) for s in diff]
             else:

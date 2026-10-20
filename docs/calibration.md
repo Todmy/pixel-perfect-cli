@@ -51,3 +51,20 @@ Found by tallying delta types per pair (not guessed):
 | pixels (T7) | 3 | 8.952 | 0.143 | 0.1912 | 0 |
 
 Maps review rate on held-out noise is 10.8% (train 2.2%): 86 of the 108 items come from two pairs, `pricing/noise-chromium` and `pricing-m/noise-chromium` (43 each). Not inspected, so held-out stays unseen. It needs a new train-side case of that shape before anyone fixes it.
+
+# T20: maps review noise on pricing-shaped pages (2026-10-20, train only)
+
+Corpus: oracle v1.3. Command: `uv run python -m eval.score --mode maps --split train --jobs 8 --label t20-*`. Per-page column is maps review_rate_noise (review items / elements over the page's 3 rasterizer noise pairs).
+
+## What the noise was
+
+Tallied review items per element on the noise pairs (not guessed): plans/noise-chromium had 36 review items, 32 of them `unexplained` pixel regions on the three `div.cost` boxes (`€0`, `€12`, `€39`), one per glyph fragment. `div.cost` holds its own text and an `<em>` child (`€12<em> / user / mo</em>`). `causes()` covered only leaves and moved boxes, so the glyph pixels of a box with its own text and a child were never judged and fell through to `unexplained`, although `look()` had already compared that text and style.
+
+Fix: a matched box with its own text is covered like a leaf. A changed text or style still reports through `look()`.
+
+| iter | change | plans | plans-m | membership | membership-m | landing | settings | overall | median / mean false | recall | replay_stable_ids / determinism / errors |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | baseline (de3068c) | 0.1395 | 0.1481 | 0.0694 | 0.0746 | 0.0756 | 0.0778 | 0.053 | 0 / 0.444 | 1.0 | PASS / PASS / 0 |
+| 1 | cover boxes with their own text | 0.0407 | 0.0432 | 0.0590 | 0.0634 | 0.0756 | 0.0778 | 0.0319 | 0 / 0.444 | 1.0 | PASS / PASS / 0 |
+
+Remaining items on plans and membership: antialiased rounded corners of tinted or dark cards (`div.tier.hot`, `div.card.dark`), 2-6 per pair. Not changed: every page is under 0.08 and a corner rule would need its own train evidence.

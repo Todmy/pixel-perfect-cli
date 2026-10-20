@@ -72,7 +72,13 @@ def capture(target: str, out: str, *, map_path: str | None = None, width: int = 
 
     masks = masks or []
     with sync_playwright() as pw:
-        b = getattr(pw, browser).launch()
+        try:
+            b = getattr(pw, browser).launch()
+        except Exception as e:
+            if "Executable doesn't exist" not in str(e):
+                raise
+            import sys
+            raise RuntimeError(f"{browser} not installed; run: {sys.executable} -m playwright install {browser}") from None
         try:
             page = b.new_context(viewport={"width": width, "height": height}, device_scale_factor=dpr,
                                  reduced_motion="reduce").new_page()

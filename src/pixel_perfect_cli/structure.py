@@ -528,4 +528,65 @@ def explain_maps(ref, test, ref_lab, test_lab, tol: float, rt: Node, tt: Node) -
     # a sibling that appeared or went away moves the rest of its row or column
     gone = {d["id"].rpartition(">")[0] for d in deltas if d["type"] in ("missing", "extra")}
     deltas = [d for d in deltas if not (d["type"] in ("padding", "gap", "align") and d["id"].rpartition(">")[0] in gone)]
+    for d in deltas:
+        d["fix"] = _fix(d, nodes, parent, match)
     return deltas, cover
+
+
+SIDES = ("top", "right", "bottom", "left")
+LEAD = {"y": ("top", "bottom"), "x": ("left", "right")}  # (start, end) side along an axis
+SPLIT = {"padding": "padding-{}", "margin": "margin-{}", "border-color": "border-{}-color"}  # shorthand -> longhand
+LONG = {f.format(s): (p, s) for p, f in SPLIT.items() for s in SIDES}
+TOKEN = re.compile(r"[^\s(]+(?:\([^)]*\))?")  # one value; rgb(1, 2, 3) stays whole
+
+
+def _side(style: dict, prop: str, side: str) -> str | None:
+    """One side of a 1-4 value shorthand (padding, margin, border-color), or its longhand when the map carries one."""
+    if (long := SPLIT[prop].format(side)) in style:
+        return style[long]
+    parts = TOKEN.findall(str(style.get(prop, "")))
+    if not 1 <= len(parts) <= 4:
+        return None
+    return (parts * 4 if len(parts) == 1 else parts * 2 if len(parts) == 2 else parts + parts[1:2])[SIDES.index(side)]
+
+
+def _fix(d: dict, nodes: dict, parent: dict, match: dict) -> dict | None:
+    """The one CSS property (with its design value) that explains a map delta, or None when it is not one.
+
+    Candidates are (node, property); only those whose design and shot values differ count, exactly one must remain.
+    """
+    n = nodes.get(d["id"])
+    if n is None or d["type"] in ("text", "extra") or "ink" in d or "children" in d:
+        return None  # content, an added element, text-align or align-items: not in the map
+    if d["type"] == "missing":
+        return {"selector": n.selector, "property": "display", "value": n.style["display"]} if "display" in n.style else None
+
+    def get(m: Node, prop: str) -> str | None:
+        return _side(m.style, *LONG[prop]) if prop in LONG else m.style.get(prop)
+
+    if d["type"] in ("gap", "padding", "align"):
+        start, end = LEAD[d["axis"]]  # gap/padding: the stacking axis; align: the axis it moved along
+        p = parent.get(n.id)
+        if d["type"] == "gap":
+            prev = nodes.get(d["after"])
+            cands = [(n, f"margin-{start}"), (prev, f"margin-{end}"), (p, "gap")]
+        else:
+            cands = [(n, f"margin-{start}"), (p, f"padding-{start}")]
+    else:  # color, appearance, size: the node's own differing style, shorthands split per side
+        t = match.get(id(n))
+        cands = []
+        for prop in sorted(n.style.keys() | (t.style.keys() if t else set())):
+            if prop in SPLIT:
+                sides = [SPLIT[prop].format(s) for s in SIDES]
+                diff = [s for s in sides if t is None or get(n, s) != get(t, s)]
+                cands += [(n, prop)] if len(diff) == 4 else [(n, s) for s in diff]
+            else:
+                cands.append((n, prop))
+        if any(prop == "font-size" for _, prop in cands):  # line-height follows a unitless multiplier
+            cands = [c for c in cands if c[1] != "line-height"]
+    hits = [(m, prop) for m, prop in cands if m is not None and m.selector is not None
+            and (o := match.get(id(m))) is not None and get(m, prop) != get(o, prop)]
+    if len(hits) != 1:
+        return None
+    m, prop = hits[0]
+    return {"selector": m.selector, "property": prop, "value": get(m, prop)}

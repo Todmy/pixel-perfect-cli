@@ -220,6 +220,8 @@ def diff(design: str, shot: str, tol: float = 2.0, min_area: int = 4, *, design_
                       | {"bbox": [0, 0, w, hh["design"]], "shot_bbox": [0, 0, w, hh["shot"]],
                          "expected": [w, hh["design"]], "actual": [w, hh["shot"]], "confidence": "high", "source": "pixels"})
     review = [d for d in found if d.get("confidence") == "low" or d["type"] == "unexplained"]
+    for d in deltas + review:
+        d.setdefault("fix", None)  # only map deltas know a CSS property
     return {
         "status": "deltas" if deltas or shifted else "review" if review else "pass",
         "size": list(ref.shape[1::-1]),

@@ -158,3 +158,39 @@ def test_pair_maps_pairs_differently_named_ids_fast():
     match = s.pair_maps(rt, tt)
     assert time.time() - t < 0.5
     assert all(match[id(a)].id == "dom" + a.id[5:] for a in rt.children)
+
+
+# CSS fix hints (T16, contract v1.2)
+
+GHOST = CARD + ">div.row>span.btn.ghost:nth-of-type(2)"
+
+
+@pytest.mark.parametrize("variant, fixes", [
+    ("gap", [{"selector": CARD + ">p", "property": "margin-top", "value": "8px"}]),
+    ("color", [{"selector": BTN, "property": "background-color", "value": "#3366FF"}]),
+    ("font_size", [{"selector": CARD + ">h2", "property": "font-size", "value": "20px"}]),
+    ("radius", [{"selector": s, "property": "border-radius", "value": "8px"} for s in (BTN, GHOST)]),
+    ("shift", [{"selector": "body", "property": "padding-left", "value": "32px"}]),
+    ("missing", [None]),  # the map carries no display: not knowable
+    ("text", [None]),  # content, not CSS
+])
+def test_map_deltas_carry_the_css_fix(variant, fixes):
+    assert [d["fix"] for d in causes(variant)] == fixes
+
+
+@pytest.mark.parametrize("variant", ["rerender", "noise_webkit", "noise_firefox", "noise_chromium2x"])
+def test_noise_has_no_fix(variant):
+    r = mapped(variant)
+    assert [d for d in r["deltas"] + r["review"] if d.get("fix")] == []
+
+
+def test_pixel_deltas_have_a_null_fix():
+    assert [d["fix"] for d in web("color")["deltas"]] == [None]
+
+
+def test_border_color_shorthand_splits_per_side():
+    import pixel_perfect_cli.structure as s
+    st = lambda c: {"border-color": f"rgb(16, 24, 40) rgb(16, 24, 40) rgb(16, 24, 40) {c}"}  # noqa: E731
+    a, b = s.Node(0, 0, 10, 10, id="q", selector="q", style=st("#3366FF")), s.Node(0, 0, 10, 10, id="q", style=st("#101828"))
+    fix = s._fix({"type": "appearance", "id": "q"}, {"q": a}, {}, {id(a): b})
+    assert fix == {"selector": "q", "property": "border-left-color", "value": "#3366FF"}
